@@ -6,8 +6,32 @@ use App\Http\Controllers\SiteController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\InstructorController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
-Route::get('/', [SiteController::class, 'home'])->name('home');
+Route::get('lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'fr'])) {
+        Session::put('locale', $locale);
+        App::setLocale($locale);
+    }
+    return redirect()->back();
+});
+
+Route::group(
+    ['prefix' => LaravelLocalization::setLocale()],
+    function () {
+
+        // Route::get('/', function () {
+        //     return view('welcome');
+        // });
+
+    Route::get('/', [SiteController::class, 'home'])->name('home');
+
+    }
+);
+
+// Route::get('/', [SiteController::class, 'home'])->name('home');
 Route::get('/contact', [SiteController::class, 'contact'])->name('contact');
 Route::get('/contact/success', [SiteController::class, 'contact_success'])->name('contact_success');
 Route::post('/contact', [SiteController::class, 'store_contact'])->name('contacts.store');
@@ -47,14 +71,24 @@ Route::get('/instructors/reviews', [InstructorController::class, 'reviews'])->na
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 Route::get('/admin/reviews', [AdminController::class, 'reviews'])->name('admin.reviews');
 Route::get('/admin/cours', [AdminController::class, 'cours'])->name('admin.cours');
+Route::get('/admin/cours/create', [AdminController::class, 'cours_create'])->name('admin.cours_create');
 Route::get('/admin/cours_categorie', [AdminController::class, 'cours_categorie'])->name('admin.cours_categorie');
 Route::get('/admin/details_cours', [AdminController::class, 'details_cours'])->name('admin.details_cours');
 Route::get('/admin/articles', [AdminController::class, 'articles'])->name('admin.articles');
+Route::get('/admin/articles/create', [AdminController::class, 'articles_create'])->name('admin.articles_create');
 Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.settings');
 Route::get('/admin/instructors', [AdminController::class, 'instructors'])->name('admin.instructors');
 Route::get('/admin/instructors/request', [AdminController::class, 'instructors_request'])->name('admin.instructors_request');
+Route::get('/admin/instructors/details', [AdminController::class, 'instructors_details'])->name('admin.instructors_details');
 Route::get('/admin/students', [AdminController::class, 'students'])->name('admin.students');
 Route::get('/admin/contacts', [AdminController::class, 'contacts'])->name('admin.contacts');
+
+// Route::get('lang/{locale}', function ($locale) {
+//     if (in_array($locale, ['en', 'fr'])) {
+//         session(['locale' => $locale]);
+//     }
+//     return redirect()->back();
+// });
 
 // Route::get('/', function () {
 //     return view('welcome');

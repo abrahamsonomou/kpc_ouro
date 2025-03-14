@@ -7,7 +7,7 @@
       <div class="row y-gap-50 justify-between items-center">
         <div class="col-lg-6">
           <div class="no-page__img">
-            <img src="assets/img/404/1.svg" alt="image">
+            <img src="{{ asset('assets/img/404/1.svg') }}" alt="image">
           </div>
         </div>
 

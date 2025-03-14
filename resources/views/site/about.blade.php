@@ -31,7 +31,7 @@
             <div data-anim="slide-up delay-1">
 
               <h1 class="page-header__title">About Us</h1>
-
+              <h2>{{ __('messages.welcome') }}</h2>
             </div>
 
             <div data-anim="slide-up delay-2">

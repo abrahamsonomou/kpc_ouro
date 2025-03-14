@@ -60,14 +60,27 @@
                 </div>
 
                 <div class="d-flex items-center text-dark-1 text-13 sm:d-none">
-                  English <i class="icon-chevron-down text-9 ml-10"></i>
-                </div>
+                  {{-- <span class="mr-2">{{ __('messages.language') }}:</span> --}}
+                  <a href="{{ url('lang/en') }}" class="text-primary mx-2 {{ app()->getLocale() == 'en' ? 'font-weight-bold' : '' }}">
+                      English
+                  </a> | 
+                  <a href="{{ url('lang/fr') }}" class="text-primary mx-2 {{ app()->getLocale() == 'fr' ? 'font-weight-bold' : '' }}">
+                      Français
+                  </a>
+                  {{-- <i class="icon-chevron-down text-9 ml-10"></i> --}}
+              </div>
+              
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      <?php
+      dump(App::getLocale());
+
+      ?>
+      
       <div class="header__container py-10">
         <div class="row justify-between items-center">
 
@@ -79,35 +92,6 @@
                   <img src="{{ asset('assets/img/general/logo-dark.svg') }}" alt="logo">
                 </a>
               </div>
-
-
-              <div class="header__explore text-dark-1 ml-50 xl:ml-30 xl:d-none">
-                <a href="#" class="d-flex items-center" data-el-toggle=".js-explore-toggle">
-                  <i class="icon icon-explore mr-15"></i>
-                  Explore
-                </a>
-
-                <div class="explore-content py-25 rounded-8 bg-white toggle-element js-explore-toggle">
-
-                  <div class="explore__item">
-                    <a href="#" class="d-flex items-center justify-between text-dark-1">
-                      Architecture<div class="icon-chevron-right text-11"></div>
-                    </a>
-                    <div class="explore__subnav rounded-8">
-                      <a class="text-dark-1" href="courses-single-2.html">Interior Design</a>
-                    </div>
-                  </div>
-
-                  <div class="explore__item">
-                    <a href="#" class="text-dark-1">Computer Programming</a>
-                  </div>
-
-                  <div class="explore__item">
-                    <a href="courses-single-2.html" class="text-purple-1 underline">View All Courses</a>
-                  </div>
-                </div>
-              </div>
-
 
               <div class="header-menu js-mobile-menu-toggle ">
                 <div class="header-menu__content">
@@ -340,30 +324,10 @@
       <footer class="footer -type-5  bg-dark-2">
         <div class="container">
           <div class="py-30 border-top-light-15">
-            <div class="row justify-between items-center y-gap-20">
+            <div class="row justify-center items-center y-gap-20">
               <div class="col-auto">
                 <div class="d-flex items-center h-100 text-white">
-                  © 2022 Educrat. All Right Reserved.
-                </div>
-              </div>
-
-              <div class="col-auto">
-                <div class="d-flex x-gap-20 y-gap-20 items-center flex-wrap">
-                  <div>
-                    <div class="d-flex x-gap-15 text-white">
-                      <a href="{{ route('events') }}">Evenements</a>
-                      <a href="{{ route('instructors') }}">Consultants</a>
-                      {{-- <a href="terms.html">Cookie Notice</a>
-                      <a href="terms.html">Security</a> --}}
-                      <a href="terms.html">Terms of Use</a>
-                    </div>
-                  </div>
-
-                  <div>
-                    <a href="#" class="button px-30 h-50 -dark-6 rounded-200 text-white">
-                      <i class="icon-worldwide text-20 mr-15"></i><span class="text-15">English</span>
-                    </a>
-                  </div>
+                  © 2025 KPC OURO. All Right Reserved.
                 </div>
               </div>
             </div>

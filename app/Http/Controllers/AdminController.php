@@ -23,6 +23,11 @@ class AdminController extends Controller
         return view('admin.cours');
     }
 
+    public function cours_create()
+    {
+        return view('admin.cours_create');
+    }
+    
     public function cours_categorie()
     {
         return view('admin.cours_categorie');
@@ -38,6 +43,12 @@ class AdminController extends Controller
         return view('admin.articles');
     }
 
+    public function articles_create()
+    {
+        return view('admin.articles_create');
+    }
+
+    
     public function settings()
     {
         return view('admin.settings');
@@ -51,6 +62,11 @@ class AdminController extends Controller
     public function instructors_request()
     {
         return view('admin.instructors_request');
+    }
+
+    public function instructors_details()
+    {
+        return view('admin.instructors_details');
     }
 
     public function students()

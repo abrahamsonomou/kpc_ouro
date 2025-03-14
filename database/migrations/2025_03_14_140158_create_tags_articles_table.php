@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contacts', function (Blueprint $table) {
+        Schema::create('tags_articles', function (Blueprint $table) {
             $table->id();
-            $table->string('nom')->nullable();
-            $table->string('email');
-            $table->string('sujet')->nullable();
-            $table->text('message');
+            $table->foreignId('tag_id')->constrained()->onDelete('cascade');
+            $table->foreignId('article_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('tags_articles');
     }
 };
