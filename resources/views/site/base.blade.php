@@ -76,11 +76,6 @@
         </div>
       </div>
 
-      <?php
-      dump(App::getLocale());
-
-      ?>
-      
       <div class="header__container py-10">
         <div class="row justify-between items-center">
 

@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('bureaus', function (Blueprint $table) {
             $table->id();
-            $table->string('ville');
-            $table->string('adresse');
+            $table->string('ville')->nullable();
+            $table->string('adresse')->nullable();
             $table->string('telephone');
             $table->string('email');
-            $table->boolean('active')->default(true);
+            $table->tinyInteger('active')->default(1);
             $table->timestamps();
         });
     }

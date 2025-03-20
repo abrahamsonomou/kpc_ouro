@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->string('code')->nullable();
+            $table->string('code')->unique();
             $table->string('nom');
-            $table->boolean('is_article')->default(false);
-            $table->boolean('is_cours')->default(false);
-            $table->boolean('active')->default(true);
+            $table->tinyInteger('is_article')->default(1);
+            $table->tinyInteger('is_cours')->default(1);
+            $table->tinyInteger('active')->default(1);
             $table->timestamps();
         });
     }

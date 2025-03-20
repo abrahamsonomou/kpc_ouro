@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
+use App\Models\Bureau;
 
 class SiteController extends Controller
 {
@@ -15,7 +16,8 @@ class SiteController extends Controller
 
     public function contact()
     {
-        return view('site.contact');
+        $bureaux = Bureau::all();
+        return view('site.contact', compact('bureaux'));
     }
 
      /**

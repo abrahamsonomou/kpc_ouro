@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('niveaux', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->boolean('active')->default(true);
+            $table->tinyInteger('active')->default(1);
             $table->timestamps();
         });
     }

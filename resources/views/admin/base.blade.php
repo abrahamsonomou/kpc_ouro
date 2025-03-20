@@ -101,7 +101,7 @@
 				
 				<li class="nav-item"><a href="{{ route('admin.dashboard') }}" class="nav-link @yield('isActive1')"><i class="bi bi-house fa-fw me-2"></i>Dashboard</a></li>
 				
-				<li class="nav-item"> <a class="nav-link @yield('isActive2')" href="{{ route('admin.cours') }}"><i class="bi bi-basket fa-fw me-2"></i>Courses</a></li>
+				<li class="nav-item"> <a class="nav-link @yield('isActive2')" href="{{ route('admin.cours.list') }}"><i class="bi bi-basket fa-fw me-2"></i>Courses</a></li>
 
 				<li class="nav-item"> <a class="nav-link @yield('isActive3')" href="{{ route('admin.students') }}"><i class="fas fa-user-graduate fa-fw me-2"></i>Students</a></li>
 
@@ -121,11 +121,28 @@
 				
 				<li class="nav-item"> <a class="nav-link @yield('isActive7')" href="{{ route('admin.reviews') }}"><i class="far fa-comment-dots fa-fw me-2"></i>Reviews</a></li>
 
-				<li class="nav-item"> <a class="nav-link @yield('isActive8')" href="{{ route('admin.articles') }}"><i class="far fa-chart-bar fa-fw me-2"></i>Articles</a></li>
+				<li class="nav-item"> <a class="nav-link @yield('isActive8')" href="{{ route('admin.articles.list') }}"><i class="far fa-chart-bar fa-fw me-2"></i>Articles</a></li>
 
 				<li class="nav-item"> <a class="nav-link @yield('isActive9')" href="{{ route('admin.settings') }}"><i class="fas fa-user-cog fa-fw me-2"></i>Admin Settings</a></li>
 
 				<li class="nav-item"> <a class="nav-link @yield('isActive10')" href="{{ route('admin.contacts') }}"><i class="far fa-clipboard fa-fw me-2"></i>Contacts</a></li>
+
+				<li class="nav-item">
+					<a class="nav-link @yield('isActive11')" data-bs-toggle="collapse" href="#collapseparametres" role="button" aria-expanded="false" aria-controls="collapseparametres">
+						<i class="fas fa-user-tie fa-fw me-2"></i>Parametres
+					</a>
+					<ul class="nav collapse flex-column" id="collapseparametres" data-bs-parent="#navbar-sidebar">
+						<li class="nav-item"> <a class="nav-link @yield('isActive12')" href="{{ route('admin.pays.list') }}">Pays</a></li>
+						<li class="nav-item"> <a class="nav-link @yield('isActive13')" href="{{ route('admin.villes.list') }}">Villes</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive14')" href="{{ route('admin.devises.list') }}">Devises</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive15')" href="{{ route('admin.niveaux.list') }}">Niveaux</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.users.list') }}">Utilisateurs</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.categories.list') }}">Categories</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.tags.list') }}">Tags</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.langues.list') }}">langues</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.bureaux.list') }}">Bureaux</a></li>
+					</ul>
+				</li>
 
 			</ul>
 

@@ -1,0 +1,577 @@
+Guide de développement de devnetsec_academy
+
+1. Outils
+	- XAMP
+	- Vscode
+
+2. Technologies
+	- HTML5
+	- CSS3
+	- PHP8
+	- Laraval
+
+
+3. Préparation de l'environnement
+	- Prérequis :
+		- PHP 8.x ou supérieur.
+		- Serveur web (NGINX ou Apache).
+		- Base de données (MySQL/PostgreSQL).
+		- Composer installé.
+		- Node.js et npm pour gérer les dépendances front-end.
+	- Installation de Laravel :
+		composer create-project laravel/laravel devnetsec_academy
+		cd devnetsec_academy
+		php artisan serve
+		
+	- Configuration du fichier .env :
+		- Définissez les informations de la base de données.
+		- Activez les options de sécurité comme APP_ENV=production et APP_DEBUG=false pour le déploiement.
+
+4. Models et migrations
+	Mise à jour du model User
+		personnalisez le fichier app/Models/User.php
+		
+		<?php
+
+		namespace App\Models;
+
+		// use Illuminate\Contracts\Auth\MustVerifyEmail;
+		use Illuminate\Database\Eloquent\Factories\HasFactory;
+		use Illuminate\Foundation\Auth\User as Authenticatable;
+		use Illuminate\Notifications\Notifiable;
+		use Laravel\Sanctum\HasApiTokens;
+
+		class User extends Authenticatable
+		{
+			use HasApiTokens, HasFactory, Notifiable;
+
+			/**
+			 * The attributes that are mass assignable.
+			 *
+			 * @var array<int, string>
+			 */
+
+			protected $fillable = [
+				'name', 'email', 'mobile', 'avatar', 'role', 'password', 'is_admin', 'is_active',
+				'date_exp_passe', 'premiere_connexion', 'modifier_password', 'status'
+			];
+
+			/**
+			 * The attributes that should be hidden for serialization.
+			 *
+			 * @var array<int, string>
+			 */
+			protected $hidden = [
+				'password',
+				'remember_token',
+			];
+
+			/**
+			 * The attributes that should be cast.
+			 *
+			 * @var array<string, string>
+			 */
+			protected $casts = [
+				'email_verified_at' => 'datetime',
+				'is_active' => 'boolean',
+				'is_admin' => 'boolean',
+				'premiere_connexion' => 'boolean',
+				'modifier_password' => 'boolean',
+			];
+		}
+
+	Mise a jour de database\migrations\2014_10_12_000000_create_users_table.php
+		<?php
+
+		use Illuminate\Database\Migrations\Migration;
+		use Illuminate\Database\Schema\Blueprint;
+		use Illuminate\Support\Facades\Schema;
+
+		return new class extends Migration
+		{
+			/**
+			 * Run the migrations.
+			 *
+			 * @return void
+			 */
+			public function up()
+			{
+				Schema::create('users', function (Blueprint $table) {
+					$table->id();
+					$table->string('name');
+					$table->string('email')->unique();
+					$table->string('mobile')->nullable();
+					$table->string('avatar')->nullable();
+					$table->string('role')->nullable();
+					$table->boolean('is_admin')->default(false);
+					$table->boolean('is_active')->default(true);
+					$table->date('date_exp_passe')->nullable();
+					$table->boolean('premiere_connexion')->default(true);
+					$table->boolean('modifier_password')->default(false);
+					$table->string('status')->nullable();
+					$table->timestamp('email_verified_at')->nullable();
+					$table->string('password');
+					$table->rememberToken();
+					$table->timestamps();
+				});
+			}
+
+			/**
+			 * Reverse the migrations.
+			 *
+			 * @return void
+			 */
+			public function down()
+			{
+				Schema::dropIfExists('users');
+			}
+		};
+
+	Ajoutez des données initiales (seeder) : Créez un seeder pour remplir la table des utilisateurs avec des rôles de base :
+		php artisan make:seeder UserSeeder
+		
+		Dans database\seeders\UserSeeder.php
+		
+		<?php
+
+		namespace Database\Seeders;
+
+		use Illuminate\Database\Seeder;
+		use App\Models\User;
+
+		class UserSeeder extends Seeder
+		{
+			public function run()
+			{
+				User::create([
+					'name' => 'Admin',
+					'email' => 'admin@devnetsec.com',
+					'password' => bcrypt('password'),
+					'role' => 'admin',
+					'is_active' => true,
+				]);
+			}
+		}
+
+	- Exécutez la migration :
+		php artisan migrate
+
+	- Exécutez le seeder
+		php artisan db:seed --class=UserSeeder
+
+5. Les contrôleurs
+	Exécutez la commande suivante pour créer un contrôleur dans le répertoire Web :
+	
+		php artisan make:controller Web/WAuthController
+	
+	app\Http\Controllers\Web\WAuthController.php
+	
+	<?php
+
+	namespace App\Http\Controllers\Web;
+
+	use App\Http\Controllers\Controller;
+	use Illuminate\Http\Request;
+	use Illuminate\Support\Facades\Auth;
+
+	$TEMPLATE_VERSION = "v1";
+
+	class WAuthController extends Controller
+	{
+		/**
+		 * Affiche le formulaire de connexion.
+		 *
+		 * @return \Illuminate\View\View
+		 */
+		public function showLoginForm()
+		{
+			return view($TEMPLATE_VERSION.'auth.login'); // Assurez-vous que la vue auth/login existe
+		}
+
+		/**
+		 * Gère la tentative de connexion.
+		 *
+		 * @param  \Illuminate\Http\Request  $request
+		 * @return \Illuminate\Http\RedirectResponse
+		 */
+		public function login(Request $request)
+		{
+			// Validation des données de connexion
+			$credentials = $request->validate([
+				'email' => ['required', 'email'],
+				'password' => ['required'],
+			]);
+
+			// Tentative de connexion
+			if (Auth::attempt($credentials)) {
+				// Redirection après connexion réussie
+				$request->session()->regenerate();
+				return redirect()->intended('/'); // Remplacez "/dashboard" par votre route après connexion
+			}
+
+			// Retour en cas d'échec
+			return back()->withErrors([
+				'email' => 'Les informations d’identification ne correspondent pas.',
+			])->onlyInput('email');
+		}
+
+		/**
+		 * Gère la déconnexion de l'utilisateur.
+		 *
+		 * @param  \Illuminate\Http\Request  $request
+		 * @return \Illuminate\Http\RedirectResponse
+		 */
+		public function logout(Request $request)
+		{
+			Auth::logout();
+
+			$request->session()->invalidate();
+			$request->session()->regenerateToken();
+
+			return redirect('/'); // Remplacez "/" par votre route après déconnexion
+		}
+
+	}
+
+	Créer la vue de connexion
+	Dans resources/views/v1/auth, créez un fichier nommé login.blade.php :
+
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Connexion</title>
+	</head>
+	<body>
+		<h1>Connexion</h1>
+		<form action="{{ route('auth.login') }}" method="POST">
+			@csrf
+			<div>
+				<label for="email">Email :</label>
+				<input type="email" id="email" name="email" value="{{ old('email') }}" required>
+			</div>
+			<div>
+				<label for="password">Mot de passe :</label>
+				<input type="password" id="password" name="password" required>
+			</div>
+			@if ($errors->any())
+				<div>
+					<p style="color: red;">{{ $errors->first() }}</p>
+				</div>
+			@endif
+			<button type="submit">Se connecter</button>
+		</form>
+	</body>
+	</html>
+
+	Configurer les routes
+	Ajoutez les routes dans le fichier routes/web.php 
+	
+	use App\Http\Controllers\Web\WAuthController;
+
+	Route::get('/login', [WAuthController::class, 'showLoginForm'])->name('auth.login.form');
+	Route::post('/login', [WAuthController::class, 'login'])->name('login');
+	Route::get('/logout', [WAuthController::class, 'logout'])->name('auth.logout');
+
+	Sécuriser les routes avec un middleware
+	Vous pouvez sécuriser vos routes en utilisant le middleware auth :
+		Route::middleware(['auth'])->group(function () {
+			Route::get('/dashboard', function () {
+				return view('v1.dashboard');
+			})->name('dashboard');
+		});
+
+	- Middleware personnalisé 
+		pour restreindre l'accès en fonction des rôles tels qu'Admin, Student, et Instructor, etc
+		
+		- Créer le middleware
+			Créez un middleware personnalisé avec la commande suivante :
+			
+			php artisan make:middleware RoleMiddleware
+			
+			Cela génère un fichier dans app/Http/Middleware/RoleMiddleware.php.
+			
+		- Ajouter la logique au middleware
+			Modifiez le fichier RoleMiddleware.php comme suit :
+			
+			<?php
+
+			namespace App\Http\Middleware;
+
+			use Closure;
+			use Illuminate\Http\Request;
+			use Illuminate\Support\Facades\Auth;
+
+			class RoleMiddleware
+			{
+				/**
+				 * Gère la vérification des rôles.
+				 *
+				 * @param  \Illuminate\Http\Request  $request
+				 * @param  \Closure  $next
+				 * @param  mixed  ...$roles  Rôles autorisés
+				 * @return mixed
+				 */
+				public function handle(Request $request, Closure $next, ...$roles)
+				{
+					// Vérifier si l'utilisateur est authentifié
+					if (!Auth::check()) {
+						return redirect('/login'); // Redirige si non connecté
+					}
+
+					// Vérifier si le rôle de l'utilisateur est dans la liste des rôles autorisés
+					if (!in_array(Auth::user()->role, $roles)) {
+						abort(403, 'Accès refusé'); // Retourne une erreur 403 si non autorisé
+					}
+
+					return $next($request); // Passe au traitement suivant si autorisé
+				}
+			}
+
+		- Enregistrer le middleware
+			Dans le fichier app/Http/Kernel.php, enregistrez le middleware dans la section 
+			
+			$routeMiddleware :
+			protected $routeMiddleware = [
+				// Autres middlewares...
+				'role' => \App\Http\Middleware\RoleMiddleware::class,
+			];
+
+
+		- Utiliser le middleware dans les routes
+			Utilisez le middleware role dans vos routes pour restreindre l'accès en fonction des rôles.
+			Exemple dans routes/web.php :
+			
+			php artisan make:controller Web/WAdminController
+			php artisan make:controller LMS/WLMSStudentController
+			php artisan make:controller LMS/WLMSInstructorController
+			
+			use App\Http\Controllers\Web\WAdminController;
+			use App\Http\Controllers\LMS\WLMSStudentController;
+			use App\Http\Controllers\LMS\WLMSInstructorController;
+
+			Route::middleware(['role:admin'])->group(function () {
+				Route::get('/admin/dashboard', [WAdminController::class, 'index'])->name('admin.dashboard');
+			});
+
+			Route::middleware(['role:student'])->group(function () {
+				Route::get('/student/dashboard', [WLMSStudentController::class, 'index'])->name('students.dashboard');
+			});
+
+			Route::middleware(['role:instructor'])->group(function () {
+				Route::get('/instructor/dashboard', [WLMSInstructorController::class, 'index'])->name('instructors.dashboard');
+			});
+
+			// Middleware pour plusieurs rôles
+			// Route::middleware(['role:admin,instructor'])->group(function () {
+			//     Route::get('/shared/dashboard', function () {
+			//         return view('shared.dashboard');
+			//     });
+			// });
+
+		- Ajouter des rôles lors de l'enregistrement
+			Assurez-vous que le rôle est défini lors de la création d'un utilisateur. Vous pouvez le faire dans votre contrôleur d'enregistrement ou dans un seeder.
+			Exemple avec un seeder :
+			
+			<?php
+
+			namespace Database\Seeders;
+
+			use Illuminate\Database\Seeder;
+			use App\Models\User;
+
+			class UserSeeder extends Seeder
+			{
+				public function run()
+				{
+					User::create([
+						'name' => 'Admin',
+						'email' => 'admin@devnetsec.com',
+						'password' => bcrypt('password'),
+						'role' => 'admin',
+						'is_active' => true,
+					]);
+
+					User::create([
+						'name' => 'Admin User',
+						'email' => 'admin@example.com',
+						'password' => bcrypt('password'),
+						'role' => 'admin',
+					]);
+					
+					User::create([
+						'name' => 'Student User',
+						'email' => 'student@example.com',
+						'password' => bcrypt('password'),
+						'role' => 'student',
+					]);
+					
+					User::create([
+						'name' => 'Instructor User',
+						'email' => 'instructor@example.com',
+						'password' => bcrypt('password'),
+						'role' => 'instructor',
+					]);
+					
+				}
+			}
+
+	Personnaliser la page d'erreur dans Laravel 
+		Créer les Pages d'Erreur Personnalisées
+		Laravel utilise les vues situées dans le répertoire resources/views/errors/ pour les pages d'erreur. Par défaut, Laravel inclut des vues pour les erreurs 403, 404, 419, 429, 500, et 503, mais vous pouvez créer des vues pour d'autres codes d'erreur si nécessaire.
+		
+		Créer un Répertoire d'Erreurs
+			Si le répertoire errors n'existe pas encore, créez-le dans resources/views/ :
+			mkdir resources/views/errors
+			
+			Gérer les Autres Pages d'Erreur
+			Vous pouvez créer des fichiers pour d'autres erreurs courantes, telles que :
+				- 403.blade.php pour l'erreur Forbidden (403)
+				- 404.blade.php pour l'erreur NOT FOUND (403)
+				- 419.blade.php pour l'erreur Page Expired (419)
+				- 429.blade.php pour l'erreur Too Many Requests (429)
+				- 500.blade.php pour l'erreur Server Error (500)
+				- 503.blade.php pour l'erreur Service Unavailable (503)
+			
+				/views/errors/403.blade.php 
+				
+				<!DOCTYPE html>
+				<html lang="en">
+				<head>
+					<meta charset="UTF-8">
+					<meta name="viewport" content="width=device-width, initial-scale=1.0">
+					<title>Accès Refusé</title>
+				</head>
+				<body>
+					<h1>403 - Accès Refusé</h1>
+					<p>Vous n'avez pas l'autorisation d'accéder à cette page.</p>
+				</body>
+				</html>
+
+
+		
+- Deploiement
+	- Git
+		sudo apt update
+		sudo apt install git
+
+	- Installer MYSQL
+		- Mettre à jour la liste des paquets
+			sudo apt update
+
+	- Installer le serveur MySQL
+		sudo apt install mysql-server -y
+
+	- Sécuriser l'installation de MySQL
+		Une fois MySQL installé, il est recommandé de sécuriser l'installation en exécutant le script suivant :
+			sudo mysql_secure_installation
+
+		Ce script vous demandera de :
+			- Définir un mot de passe pour l'utilisateur root.
+			- Supprimer les utilisateurs anonymes.
+			- Désactiver les connexions root à distance.
+			- Supprimer la base de données de test.
+
+	- Vérifier l'état du service MySQL
+		Pour s'assurer que MySQL est bien en cours d'exécution, vous pouvez utiliser la commande suivante :
+			sudo systemctl status mysql
+
+	- Se connecter à MySQL
+		Pour vous connecter à MySQL en tant que root, exécutez :
+			sudo mysql -u root -p
+
+		Cela vous permettra de vous connecter à MySQL avec le mot de passe root que vous avez défini.
+		
+	- Configurer MySQL pour démarrer automatiquement au démarrage (optionnel)
+		sudo systemctl enable mysql
+
+	- Modifier le mot de passe de l'utilisateur root
+		Se connecter à MySQL en tant que root
+			sudo mysql
+
+	- Changer le mot de passe pour l'utilisateur root
+		Une fois dans la console MySQL, exécutez la commande suivante pour définir un mot de passe pour l'utilisateur root :
+			ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'dbp@ssw0rd';
+
+	- Appliquer les modifications
+		Ensuite, appliquez les modifications avec :
+			FLUSH PRIVILEGES;
+
+	- Quitter MySQL
+		EXIT;
+
+	- Se reconnecter avec le mot de passe root
+		Désormais, pour vous connecter en tant que root, utilisez la commande suivante :
+			mysql -u root -p
+
+	- Install php
+		- Mettez à jour le dépôt du gestionnaire de paquets APT à l’aide de cette commande :
+			sudo apt update && sudo apt upgrade -y
+
+		- Installer le serveur web. Dans ce tutoriel, nous utiliserons Apache : 
+			sudo apt install -y apache2
+
+		- Exécutez cette commande pour configurer PHP et ses extensions :
+			sudo apt install -y php php-cli php-fpm php-mysql php-xml php-mbstring
+
+		- Installez Composer pour gérer les dépendances de Laravel en utilisant cette commande :
+			sudo apt install -y composer
+	
+	- Clonner le projet
+		cd /var/www/html
+		sudo git clone https://github.com/sonomousekou/devnetsec_academy.git devnetsec_academy
+	
+	- Installation des dependances du project
+		cd devnetsec_academy
+		sudo composer install
+
+		ou
+
+		composer install --ignore-platform-reqs
+
+	- Configurer le fichier .env
+		sudo cp .env.example .env
+		sudo nano .env
+
+	- Déployer l’application
+		sudo nano /etc/apache2/sites-available/devnetsec_academy.conf
+
+		<VirtualHost *:80>
+		   ServerName 10.10.20.4
+		ServerAdmin webmaster@devnetsec_pro.com
+		   DocumentRoot /var/www/html/devnetsec_academy/public
+		   <Directory /var/www/html/devnetsec_academy/public>
+			  AllowOverride All
+		   </Directory>
+		   ErrorLog ${APACHE_LOG_DIR}/error.log
+		   CustomLog ${APACHE_LOG_DIR}/access.log combined
+		</VirtualHost>
+
+
+	- Exécuter l’application
+		- Pour démarrer votre application Laravel, rendez le dossier du projet exécutable en modifiant les permissions et la propriété :
+
+		sudo chown -R www-data /var/www/html/devnetsec_academy
+		sudo chmod -R 755 /var/www/html/devnetsec_academy/storage
+
+		- Exécutez PHP Artisan pour générer la clé d’application et initier la migration de la base de données. Voici les commandes :
+		
+		sudo php artisan key:generate
+		sudo php artisan migrate
+
+		- Désactivez le fichier de configuration par défaut de l’hôte virtuel dans Apache à l’aide de la commande suivante :
+
+		sudo a2dissite 000-default.conf
+		
+		- Activez le nouvel hôte virtuel et le module de réécriture à l’aide de ces commandes :
+
+		sudo a2ensite devnetsec_academy.conf
+		sudo a2enmod rewrite
+		
+		- Redémarrez Apache à l’aide de la commande systemctl :
+			sudo systemctl restart apache2
+
+
+php artisan db:seed
+

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('code_iso')->unique();
             $table->string('symbole')->nullable();
             $table->string('nom');
-            $table->string('nom_court');
-            $table->boolean('active')->default(true);
+            $table->string('nom_court')->nullable();
+            $table->tinyInteger('active')->default(1);
             $table->timestamps();
         });
     }

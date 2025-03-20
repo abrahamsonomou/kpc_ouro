@@ -15,8 +15,18 @@ return new class extends Migration
     {
         Schema::create('parametres', function (Blueprint $table) {
             $table->id();
-            $table->string('telephone');
-            $table->string('email');
+            $table->string('telephone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('copyright')->nullable();
+            $table->string('description')->nullable();
+            $table->string('site_name')->nullable();
+            $table->string('email2')->nullable();
+            $table->string('logo')->nullable();
+            $table->string('favicon')->nullable();
+            $table->string('default_avatar_user')->nullable();
+            $table->string('default_avatar_student')->nullable();
+            $table->string('default_avatar_instructor')->nullable();
+            
             $table->string('twitter_link')->nullable();
             $table->string('facebook_link')->nullable();
             $table->string('instagram_link')->nullable();

@@ -15,9 +15,7 @@ active
     </div>
 
     <div class="row g-4">
-        <!-- Left side START -->
-        <div class="col-xl-3">
-            <!-- Tab START -->
+        {{-- <div class="col-xl-3">
             <ul class="nav nav-pills nav-tabs-bg-dark flex-column">
                 <li class="nav-item"> <a class="nav-link active" data-bs-toggle="tab" href="#tab-1"><i class="fas fa-globe fa-fw me-2"></i>Website Settings</a> </li>
                 <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#tab-2"><i class="fas fa-cog fa-fw me-2"></i>General Settings</a> </li>
@@ -26,72 +24,115 @@ active
                 <li class="nav-item"> <a class="nav-link" data-bs-toggle="tab" href="#tab-5"><i class="fas fa-sliders-h fa-fw me-2"></i>Social Settings</a> </li>
                 <li class="nav-item"> <a class="nav-link mb-0" data-bs-toggle="tab" href="#tab-6"><i class="fas fa-envelope-open-text fa-fw me-2"></i>Email Settings</a> </li>
             </ul>
-            <!-- Tab END -->
-        </div>
-        <!-- Left side END -->
+        </div> --}}
 
-        <!-- Right side START -->
-        <div class="col-xl-9">
+        <div class="col-xl-12">
 
-            <!-- Tab Content START -->
             <div class="tab-content">
 
-                <!-- Personal Information content START -->
                 <div class="tab-pane show active" id="tab-1">
                     <div class="card shadow">
 
-                        <!-- Card header -->
-                        <div class="card-header border-bottom">
+                        {{-- <div class="card-header border-bottom">
                             <h5 class="card-header-title">Website Settings</h5>
-                        </div>
+                        </div> --}}
 
-                        <!-- Card body START -->
                         <div class="card-body">
-                            <form class="row g-4 align-items-center">
-    
+                                <form class="row g-4 align-items-center" action="{{ route('admin.settings', $parametre->id) }}) }}" method="POST">
+                                    @csrf
+                                    {{-- @method('PUT') --}}
                                 <!-- Input item -->
                                 <div class="col-lg-4">
                                     <label class="form-label">Site Name</label>
-                                    <input type="text" class="form-control" placeholder="Site Name">
+                                    <input type="text" class="form-control" name="site_name" value="{{ old('site_name', $parametre->site_name) }}">
                                     <div class="form-text">Enter Website Name. It Display in Website and Email.</div>
                                 </div>
 
                                 <!-- Input item -->
                                 <div class="col-lg-4">
                                     <label class="form-label">Site Copyrights</label>
-                                    <input type="text" class="form-control" placeholder="Site Copyrights">
+                                    <input type="text" name="copyright" class="form-control" value="{{ old('copyright', $parametre->copyright) }}">
                                     <div class="form-text">Using for Contact and Send Email</div>
                                 </div>
 
                                 <!-- Input item -->
                                 <div class="col-lg-4">
                                     <label class="form-label">Site Email</label>
-                                    <input type="email" class="form-control" placeholder="Site Email">
+                                    <input type="email" name="email" class="form-control" value="{{ old('email', $parametre->email) }}">
                                     <div class="form-text">For Copyrights Text</div>
                                 </div>
     
-                                <!-- Textarea item -->
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <label class="form-label">Site Description</label>
-                                    <textarea class="form-control" rows="3"></textarea>
+                                    <textarea class="form-control" name="description" rows="3"></textarea>
                                     <div class="form-text">For write brief description of your organization, or a Website.</div> 
+                                </div> --}}
+
+                                <div class="col-lg-6">
+                                    <label class="form-label">Logo</label>
+                                    <input type="file" name="logo" class="form-control">
                                 </div>
 
-                                <!-- Input item -->
+                                <div class="col-lg-6">
+                                    <label class="form-label">Favicon</label>
+                                    <input type="file" name="favicon" class="form-control">
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label class="form-label">default_avatar_user</label>
+                                    <input type="file" name="default_avatar_user" class="form-control">
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label class="form-label">default_avatar_student</label>
+                                    <input type="file" name="default_avatar_student" class="form-control">
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <label class="form-label">default_avatar_instructor</label>
+                                    <input type="file" name="default_avatar_instructor" class="form-control">
+                                </div>
+
                                 <div class="col-lg-6">
                                     <label class="form-label">Contact Phone</label>
-                                    <input type="text" class="form-control" placeholder="Contact Phone">
+                                    <input type="text" name="telephone" class="form-control" value="{{ old('telephone', $parametre->telephone) }}">
                                     <div class="form-text">Using for Contact and Support</div>
                                 </div>
 
-                                <!-- Input item -->
                                 <div class="col-lg-6">
                                     <label class="form-label">Support Email</label>
-                                    <input type="email" class="form-control" placeholder="Support Email">
+                                    <input type="email" name="email2" class="form-control" value="{{ old('email2', $parametre->email2) }}">
                                     <div class="form-text">For Support Email</div>
                                 </div>
 
-                                <!-- Radio items -->
+                                    <!-- Input item -->
+                                    <div class="col-sm-6">
+                                        <label class="form-label">facebook_link</label>
+                                        <input class="form-control" name="facebook_link" type="text" value="{{ old('facebook_link', $parametre->facebook_link) }}">
+                                    </div>
+    
+                                    <!-- Input item -->
+                                    <div class="col-sm-6">
+                                        <label class="form-label">YouTube Link</label>
+                                        <input class="form-control" name="youtube_link" type="text" value="{{ old('youtube_link', $parametre->youtube_link) }}">
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <label class="form-label">linkedln_link</label>
+                                        <input class="form-control" name="linkedln_link" type="text" value="{{ old('linkedln_link', $parametre->linkedln_link) }}">
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <label class="form-label">instagram_link</label>
+                                        <input class="form-control" name="instagram_link" type="text" value="{{ old('instagram_link', $parametre->instagram_link) }}">
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <label class="form-label">twitter_link</label>
+                                        <input class="form-control" name="twitter_link" type="text" value="{{ old('twitter_link', $parametre->twitter_link) }}">
+                                    </div>
+
+                                {{-- <!-- Radio items -->
                                 <div class="col-lg-6">
                                     <label class="form-label">Allow Registration</label>
                                     <div class="d-sm-flex">
@@ -117,18 +158,17 @@ active
                                             </label>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
-                                <!-- Textarea item -->
+                                {{-- <!-- Textarea item -->
                                 <div class="col-12">
                                     <label class="form-label">Contact Address</label>
                                     <textarea class="form-control" rows="3"></textarea>
                                     <div class="form-text">Enter support Address</div> 
-                                </div>
+                                </div> --}}
     
-                                <!-- Save button -->
                                 <div class="d-sm-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary mb-0">Update</button>
+                                    <button type="submit" class="btn btn-primary mb-0">Save Parameters</button>
                                 </div>
                             </form>
                         </div>
@@ -138,8 +178,7 @@ active
                 </div>
                 <!-- Personal Information content END -->
 
-                <!-- General Settings content START -->
-                <div class="tab-pane" id="tab-2">
+                {{-- <div class="tab-pane" id="tab-2">
 
                     <div class="card shadow">
 
@@ -150,7 +189,7 @@ active
 
                         <!-- Card body START -->
                         <div class="card-body">
-                            <form class="row g-4">
+                            <div class="row g-4">
 
                                 <!-- Input item -->
                                 <div class="col-12">
@@ -205,16 +244,14 @@ active
                                 <div class="d-sm-flex justify-content-end">
                                     <button type="button" class="btn btn-primary mb-0">Update</button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                         <!-- Card body END -->
 
                     </div>
-                </div>
-                <!-- General Settings content END -->
+                </div> --}}
 
-                <!-- Notification setting content START -->
-                <div class="tab-pane" id="tab-3">
+                {{-- <div class="tab-pane" id="tab-3">
                     <!-- Notification START -->
                     <div class="card shadow">
                         <!-- Card header -->
@@ -279,11 +316,9 @@ active
                         </div>
                     </div>
                     <!-- Notification START -->
-                </div>
-                <!-- Notification setting content END -->
+                </div> --}}
 
-                <!-- Account setting content START -->
-                <div class="tab-pane" id="tab-4">
+                {{-- <div class="tab-pane" id="tab-4">
                     <!-- Activity logs -->
                     <div class="bg-light rounded-3 p-4 mb-3">
                         <div class="d-md-flex justify-content-between align-items-center">
@@ -435,11 +470,9 @@ active
                         <!-- Card body END -->
                     </div>
                     <!-- Active Logs END -->
-                </div>
-                <!-- Account setting content END -->
+                </div> --}}
 
-                <!-- Social Settings content START -->
-                <div class="tab-pane" id="tab-5">
+                {{-- <div class="tab-pane" id="tab-5">
                     <div class="card shadow">
                         <!-- Card header -->
                         <div class="card-header border-bottom d-sm-flex justify-content-between align-items-center">
@@ -484,10 +517,8 @@ active
                         </div>
                         <!-- Card body END -->
                     </div>
-                </div>
-                <!-- Social Settings content END -->
+                </div> --}}
 
-                <!-- Email Settings content START -->
                 <div class="tab-pane" id="tab-6">
                     <div class="card shadow">
 
@@ -696,7 +727,6 @@ active
                         <!-- Card body END -->
                     </div>
                 </div>
-                <!-- Email Settings content END -->
 
             </div>
             <!-- Tab Content END -->

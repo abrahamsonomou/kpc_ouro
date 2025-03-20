@@ -1,0 +1,216 @@
+@extends('admin.base')
+@section('title', 'Course')
+@section('isActive2')
+    active
+@endsection
+@section('content')
+
+    <div class="page-content-wrapper border">
+
+        <!-- Title -->
+        <div class="row">
+            <div class="col-12 mb-3">
+                <h1 class="h3 mb-2 mb-sm-0">Gestion des cours</h1>
+            </div>
+        </div>
+
+
+        <div class="row g-4 ">
+
+            <div class="card shadow">
+                <div class="card-body">
+                    <form class="row g-4 align-items-center" action="{{ route('admin.cours.store') }}" method="POST"
+                        enctype="multipart/form-data">
+                        @csrf
+                        <div class="col-lg-12">
+                            <label for="titre">Title *</label>
+                            <input type="text" name="titre" id="titre" class="form-control" required>
+                        </div>
+
+                        <!-- Textarea item -->
+                        <div class="col-6">
+                            <label for="description">Description</label>
+                            <textarea name="description" id="description" class="form-control" rows="5"></textarea>
+                        </div>
+
+                        <div class="col-6">
+                            <label for="short_description">Short Description</label>
+                            <textarea name="short_description" id="short_description" class="form-control" rows="5"></textarea>
+                        </div>
+
+
+                        <div class="col-lg-6">
+                            <label class="form-label">Select Categorie *</label>
+                            <select name="categorie_id" id="categorie_id"
+                                class="form-select js-choice z-index-9 border-0 bg-light" aria-label=".form-select-sm" required>
+                                <option value="">Select Categorie</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->nom }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <label class="form-label">Select Instructor *</label>
+                            <select name="user_id" id="user_id"  class="form-select js-choice z-index-9 border-0 bg-light" aria-label=".form-select-sm" required>
+                                <option value="">Select Instructor</option>
+                                @foreach ($instructors as $instructor)
+                                    <option value="{{ $instructor->id }}">{{ $instructor->name }} ({{ $instructor->email }})
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <label class="form-label">Prix *</label>
+                            <input type="number" name="prix" class="form-control">
+                        </div>
+            
+                        <div class="col-lg-3">
+                            <label class="form-label">Prix promo*</label>
+                            <input type="number" name="prix_promo" class="form-control">
+                        </div>
+
+                        <div class="col-lg-3">
+                            <label class="form-label">Select Currency *</label>
+                            <select name="devise_id" id="devise_id"  class="form-select js-choice z-index-9 border-0 bg-light" aria-label=".form-select-sm" required>
+                                <option value="">Select Currency</option>
+                                @foreach ($devises as $devise)
+                                    <option value="{{ $devise->id }}">{{ $devise->nom }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label">Duree *</label>
+                            <input type="text" name="duree" placeholder="exemple: 2h30" class="form-control">
+                          </div>
+            
+                          <div class="col-md-2">
+                            <label class="form-label">Nb leçons *</label>
+                            <input type="number" name="nombre_lesson" placeholder="" class="form-control">
+                          </div>
+            
+                          <div class="col-md-2">
+                            <label class="form-label">Certificate *</label>
+                            <select name="certificat" id="" class="form-select js-choice z-index-9 border-0 bg-light">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                          </div>
+            
+                          <div class="col-lg-2">
+                            <label class="form-label">Nb Quizz *</label>
+                            <input type="number" name="nombre_quizz" placeholder="" class="form-control">
+                          </div>
+
+                        <div class="col-lg-6">
+                            <label class="form-label">Select Language *</label>
+                            <select name="langue_id" id="langue_id" class="form-select js-choice z-index-9 border-0 bg-light" aria-label=".form-select-sm" required>
+                                <option value="">Select Language</option>
+                                @foreach ($langues as $langue)
+                                    <option value="{{ $langue->id }}">{{ $langue->nom }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <label class="form-label">Select Level *</label>
+                            <select name="niveau_id" id="niveau_id"  class="form-select js-choice z-index-9 border-0 bg-light" aria-label=".form-select-sm" required>
+                                <option value="">Select Level</option>
+                                @foreach($niveaux as $niveau)
+                                <option value="{{ $niveau->id }}">{{ $niveau->nom }}</option>
+                            @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <label for="image">Course Image</label>
+                            <input type="file" name="image" id="image" class="form-control">
+                        </div>
+
+                        <div class="col-lg-6">
+                            <label for="url_video">Video URL</label>
+                            <input type="url" name="url_video" id="url_video" class="form-control">
+                        </div>
+
+                        <div class="col-md-2">
+                            <label class="form-label">Active *</label>
+                            <select name="active" id="" class="form-select js-choice z-index-9 border-0 bg-light">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                          </div>
+
+                        <div class="col-lg-4">
+                            <label class="form-label">Statut du cours</label>
+                            <div class="d-sm-flex">
+                                <!-- Radio -->
+                                <div class="form-check radio-bg-light me-4">
+                                    <input class="form-check-input" type="radio" name="etat"
+                                        id="nouveau" value="0" checked>
+                                    <label class="form-check-label" for="nouveau">
+                                        Nouveau
+                                    </label>
+                                </div>
+                                <!-- Radio -->
+                                <div class="form-check radio-bg-light me-4">
+                                    <input class="form-check-input" type="radio" name="etat"
+                                        id="approuver" value="1">
+                                    <label class="form-check-label" for="approuver">
+                                        Approuver
+                                    </label>
+                                </div>
+                                <!-- Radio -->
+                                <div class="form-check radio-bg-light">
+                                    <input class="form-check-input" type="radio" name="etat"
+                                        id="annuler" value="2">
+                                    <label class="form-check-label" for="annuler">
+                                        Annuler
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">What will students learn in your course?*</label>
+            
+                            <textarea class="form-control" name="prerequis" placeholder="Description" rows="7"></textarea>
+                          </div>
+            
+            
+                          <div class="col-md-6">
+            
+                            <label class="form-label">Requirements*</label>
+            
+                            <textarea class="form-control" name="objectifs" placeholder="Description" rows="7"></textarea>
+                          </div>
+
+                        <hr>
+                        <div class="row container my-4 d-flex justify-content-center">
+                            <h5 class=" text-primary fs-4">Tags</h5>
+                            @foreach ($tags as $tag)
+                                <div class="col-md-2 mb-0">
+                                    <label>
+                                        <input type="checkbox" name="tags[]" value="{{ $tag->id }}">
+                                        {{ $tag->nom }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Save button -->
+                        <div class="d-sm-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary mb-0">Enregistrer</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- Card body END -->
+
+            </div>
+
+        </div>
+    </div>
+
+@endsection

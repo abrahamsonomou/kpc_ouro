@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('titre');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->foreignId('categorie_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('image')->nullable();
-            $table->boolean('active')->default(true);
-            $table->enum('etat', ['draft', 'published', 'archived'])->default('draft');
+            $table->tinyInteger('active')->default(1);
+            $table->tinyInteger('etat')->default(0);
             $table->timestamps();
         });
     }

@@ -28,32 +28,18 @@
           <h3 class="text-24 lh-1 fw-500">Our offices</h3>
           <div class="row y-gap-30 pt-40">
 
-            <div class="col-sm-6">
-              <div class="text-20 fw-500 text-dark-1">London</div>
-              <div class="y-gap-10 pt-15">
-                <a href="#" class="d-block">328 Queensberry Street, North Melbourne VIC 3051, Australia.</a>
-                <a href="#" class="d-block">+(1) 123 456 7890</a>
-                <a href="#" class="d-block">hi@educrat.com</a>
-              </div>
-            </div>
+            @foreach($bureaux as $bureau)
 
             <div class="col-sm-6">
-              <div class="text-20 fw-500 text-dark-1">Paris</div>
+              <div class="text-20 fw-500 text-dark-1">{{ $bureau->ville }}</div>
               <div class="y-gap-10 pt-15">
-                <a href="#" class="d-block">328 Queensberry Street, North Melbourne VIC 3051, Australia.</a>
-                <a href="#" class="d-block">+(1) 123 456 7890</a>
-                <a href="#" class="d-block">hi@educrat.com</a>
+                <a href="#" class="d-block">{{ $bureau->adresse }}</a>
+                <a href="#" class="d-block">{{ $bureau->telephone }}</a>
+                <a href="#" class="d-block">{{ $bureau->email }}</a>
               </div>
             </div>
+            @endforeach
 
-            <div class="col-sm-6">
-              <div class="text-20 fw-500 text-dark-1">Los Angeles</div>
-              <div class="y-gap-10 pt-15">
-                <a href="#" class="d-block">328 Queensberry Street, North Melbourne VIC 3051, Australia.</a>
-                <a href="#" class="d-block">+(1) 123 456 7890</a>
-                <a href="#" class="d-block">hi@educrat.com</a>
-              </div>
-            </div>
 
           </div>
         </div>

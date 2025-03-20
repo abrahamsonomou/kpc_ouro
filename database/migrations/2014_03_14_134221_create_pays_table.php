@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('pays', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('code_iso');
-            $table->string('indicatif');
-            $table->string('nationnalite');
+            $table->string('code_iso')->nullable();
+            $table->string('indicatif')->nullable();
+            $table->string('nationnalite')->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

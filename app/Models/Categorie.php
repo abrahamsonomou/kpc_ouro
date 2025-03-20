@@ -9,4 +9,6 @@ class Categorie extends Model
 {
     use HasFactory;
     protected $fillable = ['code', 'nom', 'is_article', 'is_cours', 'active'];
+
+    
 }

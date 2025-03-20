@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('avatar')->nullable();
             $table->string('role')->nullable()->default('student');
-            $table->boolean('is_admin')->default(false);
-            $table->boolean('is_active')->default(true);
+            $table->tinyInteger('is_admin')->default(0);
+            $table->tinyInteger('is_active')->default(1);
+            $table->tinyInteger('approuve_cours')->default(0);
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('telephone')->nullable();
