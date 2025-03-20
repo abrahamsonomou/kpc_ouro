@@ -2,34 +2,35 @@
 @section('title', 'Home')
 @section('content')
 
-<section data-anim-wrap class="masthead -type-5">
-    <div class="masthead__bg"></div>
+    <section data-anim-wrap class="masthead -type-5">
+        <div class="masthead__bg"></div>
 
-    <div class="masthead__container">
-      <div class="row y-gap-50 items-center">
-        <div class="col-lg-6">
-          <div class="masthead__content">
-            {{-- <div data-anim-child="slide-up delay-2" class="text-17 lh-15 text-orange-1 fw-500 mb-10">
+        <div class="masthead__container">
+            <div class="row y-gap-50 items-center">
+                <div class="col-lg-6">
+                    <div class="masthead__content">
+                        {{-- <div data-anim-child="slide-up delay-2" class="text-17 lh-15 text-orange-1 fw-500 mb-10">
               Start learning for free
             </div> --}}
-            <h1 data-anim-child="slide-up delay-2" class="masthead__title">
-              Studies can now be done
-              online much easily
-            </h1>
-            <p data-anim-child="slide-up delay-3" class="mt-5">
-              You can access 7900+ different courses from 600<br class="lg:d-none">
-              professional trainers for free
-            </p>
-            <div data-anim-child="slide-up delay-4" class="row items-center x-gap-20 y-gap-20 pt-20">
-              <div class="col-auto">
-                <a href="signup.html" class="button -md -orange-1 text-white">Join For Free</a>
-              </div>
-              <div class="col-auto">
-                <a href="courses-list-1.html" class="button -md -outline-light-5 text-dark-1">Find Courses</a>
-              </div>
-            </div>
+                        <h1 data-anim-child="slide-up delay-2" class="masthead__title">
+                            Studies can now be done
+                            online much easily
+                        </h1>
+                        <p data-anim-child="slide-up delay-3" class="mt-5">
+                            You can access 7900+ different courses from 600<br class="lg:d-none">
+                            professional trainers for free
+                        </p>
+                        <div data-anim-child="slide-up delay-4" class="row items-center x-gap-20 y-gap-20 pt-20">
+                            <div class="col-auto">
+                                <a href="signup.html" class="button -md -orange-1 text-white">Join For Free</a>
+                            </div>
+                            <div class="col-auto">
+                                <a href="courses-list-1.html" class="button -md -outline-light-5 text-dark-1">Find
+                                    Courses</a>
+                            </div>
+                        </div>
 
-            {{-- <div data-anim-child="slide-up delay-5" class="row x-gap-20 y-gap-20 items-center pt-60 lg:pt-30">
+                        {{-- <div data-anim-child="slide-up delay-5" class="row x-gap-20 y-gap-20 items-center pt-60 lg:pt-30">
 
               <div class="col-xl-4 col-auto">
                 <div class="text-dark-1">
@@ -59,19 +60,19 @@
               </div>
 
             </div> --}}
-          </div>
-        </div>
+                    </div>
+                </div>
 
-        <div class="col-lg-6">
-          <div data-anim-child="slide-up delay-6" class="masthead__image">
-            <img src="assets/img/home-8/hero/image.png" alt="image">
-          </div>
+                <div class="col-lg-6">
+                    <div data-anim-child="slide-up delay-6" class="masthead__image">
+                        <img src="assets/img/home-8/hero/image.png" alt="image">
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  {{-- <section class="layout-pt-lg layout-pb-md">
+    {{-- <section class="layout-pt-lg layout-pb-md">
     <div class="container">
       <div class="row justify-center text-center">
         <div class="col-auto">
@@ -163,21 +164,21 @@
     </div>
   </section> --}}
 
-  <section class="layout-pt-md layout-pb-lg">
-    <div data-anim-wrap class="container">
-      <div class="row justify-center text-center">
-        <div class="col-auto">
+    <section class="layout-pt-md layout-pb-lg">
+        <div data-anim-wrap class="container">
+            <div class="row justify-center text-center">
+                <div class="col-auto">
 
-          <div class="sectionTitle ">
+                    <div class="sectionTitle ">
 
-            <h2 class="sectionTitle__title ">Our Most Popular Courses</h2>
+                        <h2 class="sectionTitle__title ">Our Most Popular Courses</h2>
 
-            <p class="sectionTitle__text ">10,000+ unique online course list designs</p>
+                        <p class="sectionTitle__text ">10,000+ unique online course list designs</p>
 
-          </div>
+                    </div>
 
 
-          {{-- <div class="d-flex x-gap-20 text-left pt-60 lg:pt-40">
+                    {{-- <div class="d-flex x-gap-20 text-left pt-60 lg:pt-40">
             <div>
 
               <div class="dropdown js-dropdown js-category-active">
@@ -251,110 +252,44 @@
 
             </div>
           </div> --}}
-        </div>
-      </div>
-
-      <div class="row y-gap-30 justify-center pt-60 lg:pt-40">
-
-        <div class="col-lg-3 col-md-6">
-          <div data-anim-child="slide-up delay-1">
-
-            <a href="courses-single-1.html" class="coursesCard -type-1 border-light rounded-8">
-              <div class="relative">
-                <div class="coursesCard__image overflow-hidden rounded-top-8">
-                  <img class="w-1/1" src="assets/img/coursesCards/1.png" alt="image">
-                  <div class="coursesCard__image_overlay rounded-top-8"></div>
                 </div>
-                <div class="d-flex justify-between py-10 px-10 absolute-full-center z-3">
+            </div>
 
-                </div>
-              </div>
+            <div class="row y-gap-30 justify-center pt-60 lg:pt-40">
 
-              <div class="h-100 pt-15 pb-10 px-20">
-                <div class="d-flex items-center">
-                  <div class="text-14 lh-1 text-yellow-1 mr-10">4.5</div>
-                  <div class="d-flex x-gap-5 items-center">
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                  </div>
-                  <div class="text-13 lh-1 ml-10">(1991)</div>
-                </div>
+                @foreach ($cours as $coursItem)
+                    <div class="col-lg-3 col-md-6">
+                        <div data-anim-child="slide-up delay-2">
 
-                <div class="text-17 lh-15 fw-500 text-dark-1 mt-10">Learn Figma - UI/UX Design Essential Training</div>
+                            <a href="courses-single-1.html" class="coursesCard -type-1 border-light rounded-8">
+                                <div class="relative">
+                                    <div class="coursesCard__image overflow-hidden rounded-top-8">
+                                        <img class="w-1/1" src="{{ asset('storage/' . $coursItem->image) }}"
+                                            alt="Course Image">
+                                        <div class="coursesCard__image_overlay rounded-top-8"></div>
+                                    </div>
 
-                <div class="d-flex x-gap-10 items-center pt-10">
+                                </div>
+                                <div class="d-flex justify-between py-10 px-10 absolute-full-center z-3">
 
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/1.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">6 lesson</div>
-                  </div>
+                                    <div>
+                                        <div class="px-15 rounded-200 bg-purple-1">
+                                            <span
+                                                class="text-11 lh-1 uppercase fw-500 text-white">{{ $coursItem->categorie->nom }}</span>
+                                        </div>
+                                    </div>
 
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/2.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">3h 56m</div>
-                  </div>
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/3.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">Beginner</div>
-                  </div>
-
-                </div>
-
-                <div class="coursesCard-footer">
-                  <div class="coursesCard-footer__author">
-                    <img src="assets/img/general/avatar-1.png" alt="image">
-                    <div>Ali Tufan</div>
-                  </div>
-
-                  <div class="coursesCard-footer__price">
-                    <div>$179</div>
-                    <div>$79</div>
-                  </div>
-                </div>
-              </div>
-            </a>
-
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6">
-          <div data-anim-child="slide-up delay-2">
-
-            <a href="courses-single-1.html" class="coursesCard -type-1 border-light rounded-8">
-              <div class="relative">
-                <div class="coursesCard__image overflow-hidden rounded-top-8">
-                  <img class="w-1/1" src="assets/img/coursesCards/2.png" alt="image">
-                  <div class="coursesCard__image_overlay rounded-top-8"></div>
-                </div>
-                <div class="d-flex justify-between py-10 px-10 absolute-full-center z-3">
-
-                  <div>
-                    <div class="px-15 rounded-200 bg-purple-1">
-                      <span class="text-11 lh-1 uppercase fw-500 text-white">Popular</span>
-                    </div>
-                  </div>
-
-                  <div>
+                                    {{-- <div>
                     <div class="px-15 rounded-200 bg-green-1">
                       <span class="text-11 lh-1 uppercase fw-500 text-dark-1">Best sellers</span>
                     </div>
-                  </div>
+                  </div> --}}
 
-                </div>
-              </div>
+                                </div>
+                        </div>
 
-              <div class="h-100 pt-15 pb-10 px-20">
-                <div class="d-flex items-center">
+                        <div class="h-100 pt-15 pb-10 px-20">
+                            {{-- <div class="d-flex items-center">
                   <div class="text-14 lh-1 text-yellow-1 mr-10">4.5</div>
                   <div class="d-flex x-gap-5 items-center">
                     <div class="icon-star text-9 text-yellow-1"></div>
@@ -364,491 +299,73 @@
                     <div class="icon-star text-9 text-yellow-1"></div>
                   </div>
                   <div class="text-13 lh-1 ml-10">(1991)</div>
-                </div>
+                </div> --}}
 
-                <div class="text-17 lh-15 fw-500 text-dark-1 mt-10">Complete Python Bootcamp From Zero to Hero in Python</div>
+                            <div class="text-17 lh-15 fw-500 text-dark-1 mt-10">{{ $coursItem->titre }}</div>
 
-                <div class="d-flex x-gap-10 items-center pt-10">
+                            <div class="d-flex x-gap-10 items-center pt-10">
 
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/1.svg" alt="icon">
+                                <div class="d-flex items-center">
+                                    <div class="mr-8">
+                                        <img src="assets/img/coursesCards/icons/1.svg" alt="icon">
+                                    </div>
+                                    <div class="text-14 lh-1">{{ $coursItem->nombre_lesson }} Leçons</div>
+                                </div>
+
+                                <div class="d-flex items-center">
+                                    <div class="mr-8">
+                                        <img src="assets/img/coursesCards/icons/2.svg" alt="icon">
+                                    </div>
+                                    <div class="text-14 lh-1">{{ $coursItem->duree }}</div>
+                                </div>
+
+                                <div class="d-flex items-center">
+                                    <div class="mr-8">
+                                        <img src="assets/img/coursesCards/icons/3.svg" alt="icon">
+                                    </div>
+                                    <div class="text-14 lh-1">{{ $coursItem->niveau->nom }}</div>
+                                </div>
+
+                            </div>
+
+                            <div class="coursesCard-footer">
+                                <div class="coursesCard-footer__author">
+                                    {{-- <img src="assets/img/general/avatar-1.png" alt="image"> --}}
+                                    <img src="{{ $coursItem->user->avatar ? asset('storage/' . $coursItem->user->avatar) : asset('assets/img/general/avatar-1.png') }}"
+                                        alt="Avatar" style="width: 50px; height: 50px; border-radius: 50%;">
+
+                                    <div>
+                                        {{-- {{ $coursItem->user->first_name }} {{ $coursItem->user->last_name }} --}}
+                                        {{ $coursItem->user->first_name ?? 'Instructor' }}
+                                        {{ $coursItem->user->last_name ?? '' }}
+                                    </div>
+                                </div>
+
+                                <div class="coursesCard-footer__price">
+                                    <div>{{ $coursItem->prix }} {{ $coursItem->devise->nom_court }} </div>
+                                    <div>{{ $coursItem->prix_promo }} {{ $coursItem->devise->nom_court }} </div>
+                                </div>
+                            </div>
+                        </div>
+                        </a>
+
                     </div>
-                    <div class="text-14 lh-1">6 lesson</div>
-                  </div>
+            </div>
+            @endforeach
 
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/2.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">3h 56m</div>
-                  </div>
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/3.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">Beginner</div>
-                  </div>
-
-                </div>
-
-                <div class="coursesCard-footer">
-                  <div class="coursesCard-footer__author">
-                    <img src="assets/img/general/avatar-1.png" alt="image">
-                    <div>Ali Tufan</div>
-                  </div>
-
-                  <div class="coursesCard-footer__price">
-                    <div>$179</div>
-                    <div>$79</div>
-                  </div>
-                </div>
-              </div>
-            </a>
-
-          </div>
         </div>
 
-        <div class="col-lg-3 col-md-6">
-          <div data-anim-child="slide-up delay-3">
-
-            <a href="courses-single-1.html" class="coursesCard -type-1 border-light rounded-8">
-              <div class="relative">
-                <div class="coursesCard__image overflow-hidden rounded-top-8">
-                  <img class="w-1/1" src="assets/img/coursesCards/3.png" alt="image">
-                  <div class="coursesCard__image_overlay rounded-top-8"></div>
-                </div>
-                <div class="d-flex justify-between py-10 px-10 absolute-full-center z-3">
-
-                </div>
-              </div>
-
-              <div class="h-100 pt-15 pb-10 px-20">
-                <div class="d-flex items-center">
-                  <div class="text-14 lh-1 text-yellow-1 mr-10">4.5</div>
-                  <div class="d-flex x-gap-5 items-center">
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                  </div>
-                  <div class="text-13 lh-1 ml-10">(1991)</div>
-                </div>
-
-                <div class="text-17 lh-15 fw-500 text-dark-1 mt-10">Angular - The Complete Guide (2022 Edition)</div>
-
-                <div class="d-flex x-gap-10 items-center pt-10">
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/1.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">6 lesson</div>
-                  </div>
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/2.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">3h 56m</div>
-                  </div>
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/3.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">Beginner</div>
-                  </div>
-
-                </div>
-
-                <div class="coursesCard-footer">
-                  <div class="coursesCard-footer__author">
-                    <img src="assets/img/general/avatar-1.png" alt="image">
-                    <div>Ali Tufan</div>
-                  </div>
-
-                  <div class="coursesCard-footer__price">
-                    <div>$179</div>
-                    <div>$79</div>
-                  </div>
-                </div>
-              </div>
-            </a>
-
-          </div>
+        <div class="row justify-center pt-60 lg:pt-40">
+            <div class="col-auto">
+                <a href="{{ route('cours') }}" class="button -md -outline-light-5 text-dark-1">
+                    View All Courses
+                </a>
+            </div>
         </div>
-
-        <div class="col-lg-3 col-md-6">
-          <div data-anim-child="slide-up delay-4">
-
-            <a href="courses-single-1.html" class="coursesCard -type-1 border-light rounded-8">
-              <div class="relative">
-                <div class="coursesCard__image overflow-hidden rounded-top-8">
-                  <img class="w-1/1" src="assets/img/coursesCards/4.png" alt="image">
-                  <div class="coursesCard__image_overlay rounded-top-8"></div>
-                </div>
-                <div class="d-flex justify-between py-10 px-10 absolute-full-center z-3">
-
-                </div>
-              </div>
-
-              <div class="h-100 pt-15 pb-10 px-20">
-                <div class="d-flex items-center">
-                  <div class="text-14 lh-1 text-yellow-1 mr-10">4.5</div>
-                  <div class="d-flex x-gap-5 items-center">
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                  </div>
-                  <div class="text-13 lh-1 ml-10">(1991)</div>
-                </div>
-
-                <div class="text-17 lh-15 fw-500 text-dark-1 mt-10">The Ultimate Drawing Course Beginner to Advanced</div>
-
-                <div class="d-flex x-gap-10 items-center pt-10">
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/1.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">6 lesson</div>
-                  </div>
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/2.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">3h 56m</div>
-                  </div>
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/3.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">Beginner</div>
-                  </div>
-
-                </div>
-
-                <div class="coursesCard-footer">
-                  <div class="coursesCard-footer__author">
-                    <img src="assets/img/general/avatar-1.png" alt="image">
-                    <div>Ali Tufan</div>
-                  </div>
-
-                  <div class="coursesCard-footer__price">
-                    <div>$179</div>
-                    <div>$79</div>
-                  </div>
-                </div>
-              </div>
-            </a>
-
-          </div>
         </div>
+    </section>
 
-        <div class="col-lg-3 col-md-6">
-          <div data-anim-child="slide-up delay-5">
-
-            <a href="courses-single-1.html" class="coursesCard -type-1 border-light rounded-8">
-              <div class="relative">
-                <div class="coursesCard__image overflow-hidden rounded-top-8">
-                  <img class="w-1/1" src="assets/img/coursesCards/5.png" alt="image">
-                  <div class="coursesCard__image_overlay rounded-top-8"></div>
-                </div>
-                <div class="d-flex justify-between py-10 px-10 absolute-full-center z-3">
-
-                </div>
-              </div>
-
-              <div class="h-100 pt-15 pb-10 px-20">
-                <div class="d-flex items-center">
-                  <div class="text-14 lh-1 text-yellow-1 mr-10">4.5</div>
-                  <div class="d-flex x-gap-5 items-center">
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                  </div>
-                  <div class="text-13 lh-1 ml-10">(1991)</div>
-                </div>
-
-                <div class="text-17 lh-15 fw-500 text-dark-1 mt-10">Photography Masterclass: A Complete Guide to Photography</div>
-
-                <div class="d-flex x-gap-10 items-center pt-10">
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/1.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">6 lesson</div>
-                  </div>
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/2.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">3h 56m</div>
-                  </div>
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/3.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">Beginner</div>
-                  </div>
-
-                </div>
-
-                <div class="coursesCard-footer">
-                  <div class="coursesCard-footer__author">
-                    <img src="assets/img/general/avatar-1.png" alt="image">
-                    <div>Ali Tufan</div>
-                  </div>
-
-                  <div class="coursesCard-footer__price">
-                    <div>$179</div>
-                    <div>$79</div>
-                  </div>
-                </div>
-              </div>
-            </a>
-
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6">
-          <div data-anim-child="slide-up delay-6">
-
-            <a href="courses-single-1.html" class="coursesCard -type-1 border-light rounded-8">
-              <div class="relative">
-                <div class="coursesCard__image overflow-hidden rounded-top-8">
-                  <img class="w-1/1" src="assets/img/coursesCards/6.png" alt="image">
-                  <div class="coursesCard__image_overlay rounded-top-8"></div>
-                </div>
-                <div class="d-flex justify-between py-10 px-10 absolute-full-center z-3">
-
-                </div>
-              </div>
-
-              <div class="h-100 pt-15 pb-10 px-20">
-                <div class="d-flex items-center">
-                  <div class="text-14 lh-1 text-yellow-1 mr-10">4.5</div>
-                  <div class="d-flex x-gap-5 items-center">
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                  </div>
-                  <div class="text-13 lh-1 ml-10">(1991)</div>
-                </div>
-
-                <div class="text-17 lh-15 fw-500 text-dark-1 mt-10">Instagram Marketing 2021: Complete Guide To Instagram</div>
-
-                <div class="d-flex x-gap-10 items-center pt-10">
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/1.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">6 lesson</div>
-                  </div>
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/2.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">3h 56m</div>
-                  </div>
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/3.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">Beginner</div>
-                  </div>
-
-                </div>
-
-                <div class="coursesCard-footer">
-                  <div class="coursesCard-footer__author">
-                    <img src="assets/img/general/avatar-1.png" alt="image">
-                    <div>Ali Tufan</div>
-                  </div>
-
-                  <div class="coursesCard-footer__price">
-                    <div>$179</div>
-                    <div>$79</div>
-                  </div>
-                </div>
-              </div>
-            </a>
-
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6">
-          <div data-anim-child="slide-up delay-7">
-
-            <a href="courses-single-1.html" class="coursesCard -type-1 border-light rounded-8">
-              <div class="relative">
-                <div class="coursesCard__image overflow-hidden rounded-top-8">
-                  <img class="w-1/1" src="assets/img/coursesCards/7.png" alt="image">
-                  <div class="coursesCard__image_overlay rounded-top-8"></div>
-                </div>
-                <div class="d-flex justify-between py-10 px-10 absolute-full-center z-3">
-
-                </div>
-              </div>
-
-              <div class="h-100 pt-15 pb-10 px-20">
-                <div class="d-flex items-center">
-                  <div class="text-14 lh-1 text-yellow-1 mr-10">4.5</div>
-                  <div class="d-flex x-gap-5 items-center">
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                  </div>
-                  <div class="text-13 lh-1 ml-10">(1991)</div>
-                </div>
-
-                <div class="text-17 lh-15 fw-500 text-dark-1 mt-10">Complete Blender Creator: Learn 3D Modelling for Beginners</div>
-
-                <div class="d-flex x-gap-10 items-center pt-10">
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/1.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">6 lesson</div>
-                  </div>
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/2.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">3h 56m</div>
-                  </div>
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/3.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">Beginner</div>
-                  </div>
-
-                </div>
-
-                <div class="coursesCard-footer">
-                  <div class="coursesCard-footer__author">
-                    <img src="assets/img/general/avatar-1.png" alt="image">
-                    <div>Ali Tufan</div>
-                  </div>
-
-                  <div class="coursesCard-footer__price">
-                    <div>$179</div>
-                    <div>$79</div>
-                  </div>
-                </div>
-              </div>
-            </a>
-
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6">
-          <div data-anim-child="slide-up delay-8">
-
-            <a href="courses-single-1.html" class="coursesCard -type-1 border-light rounded-8">
-              <div class="relative">
-                <div class="coursesCard__image overflow-hidden rounded-top-8">
-                  <img class="w-1/1" src="assets/img/coursesCards/8.png" alt="image">
-                  <div class="coursesCard__image_overlay rounded-top-8"></div>
-                </div>
-                <div class="d-flex justify-between py-10 px-10 absolute-full-center z-3">
-
-                </div>
-              </div>
-
-              <div class="h-100 pt-15 pb-10 px-20">
-                <div class="d-flex items-center">
-                  <div class="text-14 lh-1 text-yellow-1 mr-10">4.5</div>
-                  <div class="d-flex x-gap-5 items-center">
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                    <div class="icon-star text-9 text-yellow-1"></div>
-                  </div>
-                  <div class="text-13 lh-1 ml-10">(1991)</div>
-                </div>
-
-                <div class="text-17 lh-15 fw-500 text-dark-1 mt-10">The Complete Financial Analyst Training &amp; Investing Course</div>
-
-                <div class="d-flex x-gap-10 items-center pt-10">
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/1.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">6 lesson</div>
-                  </div>
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/2.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">3h 56m</div>
-                  </div>
-
-                  <div class="d-flex items-center">
-                    <div class="mr-8">
-                      <img src="assets/img/coursesCards/icons/3.svg" alt="icon">
-                    </div>
-                    <div class="text-14 lh-1">Beginner</div>
-                  </div>
-
-                </div>
-
-                <div class="coursesCard-footer">
-                  <div class="coursesCard-footer__author">
-                    <img src="assets/img/general/avatar-1.png" alt="image">
-                    <div>Ali Tufan</div>
-                  </div>
-
-                  <div class="coursesCard-footer__price">
-                    <div>$179</div>
-                    <div>$79</div>
-                  </div>
-                </div>
-              </div>
-            </a>
-
-          </div>
-        </div>
-
-      </div>
-
-      <div class="row justify-center pt-60 lg:pt-40">
-        <div class="col-auto">
-          <a href="#" class="button -md -outline-light-5 text-dark-1">
-            View All Courses
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {{-- <section class="layout-pt-lg layout-pb-lg bg-dark-5">
+    {{-- <section class="layout-pt-lg layout-pb-lg bg-dark-5">
     <div data-anim-wrap class="container">
       <div class="row justify-center text-center">
         <div data-anim-child="slide-up delay-1" class="col-auto">
@@ -906,7 +423,7 @@
     </div>
   </section> --}}
 
-  {{-- <section class="layout-pt-lg layout-pb-lg">
+    {{-- <section class="layout-pt-lg layout-pb-lg">
     <div class="container">
       <div class="row justify-center text-center">
         <div class="col-xl-6 col-lg-7">
@@ -970,7 +487,7 @@
     </div>
   </section> --}}
 
-  {{-- <section class="section-bg pt-90 pb-90 lg:pt-50 lg:pb-50">
+    {{-- <section class="section-bg pt-90 pb-90 lg:pt-50 lg:pb-50">
     <div class="section-bg__item -full">
       <div class="bg-image js-lazy" data-bg="assets/img/home-8/grow/bg.png"></div>
     </div>
@@ -1013,7 +530,7 @@
     </div>
   </section> --}}
 
-  {{-- <section class="layout-pt-lg layout-pb-lg">
+    {{-- <section class="layout-pt-lg layout-pb-lg">
     <div class="container">
       <div class="row y-gap-50">
         <div class="col-xl-3 col-lg-4 col-md-8">
@@ -1150,7 +667,7 @@
     </div>
   </section> --}}
 
-  {{-- <section class="layout-pt-lg layout-pb-md">
+    {{-- <section class="layout-pt-lg layout-pb-md">
     <div data-anim-wrap class="container">
       <div class="row justify-center text-center">
         <div data-anim-child="slide-up delay-1" class="col-auto">
@@ -1418,7 +935,7 @@
     </div>
   </section> --}}
 
-  {{-- <section class="layout-pt-lg layout-pb-lg">
+    {{-- <section class="layout-pt-lg layout-pb-lg">
     <div class="container">
       <div class="row y-gap-30 justify-between items-center">
         <div class="col-xl-4 col-lg-5 col-md-9">
@@ -1525,7 +1042,7 @@
     </div>
   </section> --}}
 
-  {{-- <section class="layout-pt-md layout-pb-md bg-light-6">
+    {{-- <section class="layout-pt-md layout-pb-md bg-light-6">
     <div data-anim-wrap class="container">
       <div class="row justify-center">
         <div class="col text-center">
@@ -1575,7 +1092,7 @@
     </div>
   </section> --}}
 
-  {{-- <section class="layout-pt-lg layout-pb-md">
+    {{-- <section class="layout-pt-lg layout-pb-md">
     <div class="container">
       <div class="row y-gap-30 items-center">
         <div class="col-xl-5 offset-xl-1 col-lg-6">
@@ -1593,7 +1110,7 @@
     </div>
   </section> --}}
 
-  {{-- <section class="layout-pt-md layout-pb-lg">
+    {{-- <section class="layout-pt-md layout-pb-lg">
     <div class="container">
       <div class="row y-gap-30 items-center">
         <div class="col-xl-4 offset-xl-1 order-lg-1 col-lg-6 order-2">
@@ -1610,5 +1127,5 @@
       </div>
     </div>
   </section> --}}
-  
+
 @endsection

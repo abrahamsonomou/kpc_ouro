@@ -139,6 +139,15 @@ active
                                         @method('DELETE')
                                         <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce cours ?')" class="btn btn-sm btn-danger me-1 mb-1 mb-md-0">Delete</button>
                                     </form>
+
+                                    <form action="{{ route('admin.cours.toggleStatus', $course->id) }}" method="POST">
+                                        @csrf
+                                        @method('POST') <!-- ou @method('PUT') selon vos préférences -->
+                                        <button type="submit" class="btn btn-{{ $course->etat == 0 ? 'success' : 'danger' }}">
+                                            {{ $course->etat == 0 ? 'Activate' : 'Deactivate' }}
+                                        </button>
+                                    </form>
+                                    
                                 </td>
                             </tr>
 

@@ -22,10 +22,10 @@ Route::get('lang/{locale}', function ($locale) {
 // Routes avec localisation
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/', [SiteController::class, 'home'])->name('home');
-});
+// });
 
-// Routes accessibles aux invités
-Route::middleware(['guest'])->group(function () {
+// // Routes accessibles aux invités
+// Route::middleware(['guest'])->group(function () {
     Route::get('/contact', [SiteController::class, 'contact'])->name('contact');
     Route::post('/contact', [SiteController::class, 'store_contact'])->name('contacts.store');
     Route::get('/contact/success', [SiteController::class, 'contact_success'])->name('contact_success');
@@ -81,6 +81,7 @@ Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(functi
     Route::match(['get', 'post'], '/parametres/{id?}', [AdminController::class, 'settings'])->name('settings');
     Route::get('/instructors/request', [AdminController::class, 'instructors_request'])->name('instructors_request');
     Route::get('/instructors/details', [AdminController::class, 'instructors_details'])->name('instructors_details');
+    Route::post('cours/{id}/toggle-status', [AdminController::class, 'toggleStatus'])->name('cours.toggleStatus');
 
     // Gestion des entités (CRUD)
     $entities = ['pays', 'villes', 'devises', 'niveaux', 'users', 'categories', 'tags', 'cours', 'langues', 'bureaux', 'articles'];

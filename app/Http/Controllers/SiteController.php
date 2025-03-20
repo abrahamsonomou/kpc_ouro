@@ -5,14 +5,24 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Contact;
 use App\Models\Bureau;
+use App\Models\Cours;
 
 class SiteController extends Controller
 {
     
     public function home()
     {
-        return view('site.home');
+        // Récupérer les 20 premiers cours avec 'top' égal à 1 et où 'active' est 1
+        $cours = Cours::where('active', 1)
+                      ->where('top', 1)  // Filtrer par 'top' égal à 1
+                      ->with('user')      // Charger la relation avec 'user'
+                      ->take(20)          // Limiter les résultats à 20 cours
+                      ->get();
+    
+        return view('site.home', compact('cours'));
     }
+    
+    
 
     public function contact()
     {
@@ -45,7 +55,8 @@ class SiteController extends Controller
 
     public function cours()
     {
-        return view('site.cours');
+        $cours = Cours::where('active', 1)->with('user')->get();
+        return view('site.cours', compact('cours'));
     }
 
     public function cours_details()

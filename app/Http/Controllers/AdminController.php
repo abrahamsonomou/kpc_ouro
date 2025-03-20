@@ -692,7 +692,11 @@ class AdminController extends Controller
         $niveaux = Niveau::where('active', 1)->get();
         $langues = Langue::where('active', 1)->get();
         $devises = Devise::where('active', 1)->get();
-        $instructors = User::where('is_active', 1)->get();
+        // $instructors = User::where('is_active', 1)->get();
+        $instructors = User::where('is_active', 1)
+                   ->where('role', 'instructor')
+                   ->get();
+
         $tags = Tag::where('active', 1)->get(); // Get all tags
         return view('admin.cours.create', compact('categories', 'niveaux', 'tags', 'langues', 'devises', 'instructors'));
     }
@@ -733,7 +737,7 @@ class AdminController extends Controller
             $imagePath = $request->file('image')->store('images/cours', 'public');
         }
 
-        Cours::create([
+        $cours = Cours::create([
             'titre' => $request->titre,
             'description' => $request->description,
             'short_description' => $request->short_description,
@@ -768,64 +772,116 @@ class AdminController extends Controller
     // Show the form to edit a course
     public function cours_edit($id)
     {
-        $cours = Cours::findOrFail($id);
-        $categories = Categorie::where('active', 1)->get();
-        $niveaux = Niveau::where('active', 1)->get();
-        $langues = Langue::where('active', 1)->get();
-        $devises = Devise::where('active', 1)->get();
-        $instructors = User::where('active', 1)->get();
-        $tags = Tag::where('active', 1)->get(); // Get all tags
-        return view('admin.cours.edit', compact('cours', 'categories', 'niveaux', 'tags', 'langues', 'devises', 'instructors'));
+        $cours = Cours::findOrFail($id); // Trouver le cours par ID
+        $categories = Categorie::all();
+        $instructors = User::where('role', 'instructor')->get(); // Filtrer les instructeurs
+        $devises = Devise::all();
+        $langues = Langue::all();
+        $niveaux = Niveau::all();
+        $tags = Tag::all();
+    
+        return view('admin.cours.edit', compact('cours', 'categories', 'instructors', 'devises', 'langues', 'niveaux', 'tags'));
     }
 
     // Update the course
     public function cours_update(Request $request, $id)
-    {
-        $request->validate([
-            'titre' => 'required|string',
-            'description' => 'required|string',
-            'short_description' => 'required|string',
-            'categorie_id' => 'required|exists:categories,id',
-            'niveau_id' => 'required|exists:niveaux,id',
-            'langue_id' => 'required|exists:langues,id',
-            'devise_id' => 'required|exists:devises,id',
-            'prix' => 'required|numeric',
-            'prix_promo' => 'nullable|numeric',
-            'taux_reduction' => 'nullable|numeric|max:100',
-            'duree' => 'required|integer',
-            'nombre_lesson' => 'required|integer',
-            'certificat' => 'required|in:0,1',
-            'nombre_quizz' => 'required|integer',
-            'objectifs' => 'required|string',
-            'prerequis' => 'required|string',
-            'image' => 'nullable|image',
-            'url_video' => 'nullable|url',
-            'user_id' => 'required|exists:users,id',
-            'active' => 'required|in:0,1',
-            'etat' => 'required|in:0,1,2',
+{
+    $request->validate([
+        'titre' => 'required|string',
+        'description' => 'required|string',
+        'short_description' => 'required|string',
+        'categorie_id' => 'required|exists:categories,id',
+        'niveau_id' => 'required|exists:niveaux,id',
+        'langue_id' => 'required|exists:langues,id',
+        'devise_id' => 'required|exists:devises,id',
+        'prix' => 'required|numeric',
+        'prix_promo' => 'nullable|numeric',
+        'taux_reduction' => 'nullable|numeric|max:100',
+        'duree' => 'required|integer',
+        'nombre_lesson' => 'required|integer',
+        'certificat' => 'required|in:0,1',
+        'nombre_quizz' => 'required|integer',
+        'objectifs' => 'required|string',
+        'prerequis' => 'required|string',
+        'image' => 'nullable|image',
+        'url_video' => 'nullable|url',
+        'user_id' => 'required|exists:users,id',
+        'active' => 'required|in:0,1',
+        'etat' => 'required|in:0,1,2',
+        'tags' => 'nullable|array',
+        'tags.*' => 'exists:tags,id',
+    ]);
 
-            'tags' => 'nullable|array', // Validate tags as an array
-            'tags.*' => 'exists:tags,id', // Validate each tag ID
-        ]);
+    $cours = Cours::findOrFail($id);
 
-        $cours = Cours::findOrFail($id);
-
-        // Store image if uploaded
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images/cours', 'public');
-            $cours->image = $imagePath;
+    // Handle image upload (if new image is uploaded)
+    if ($request->hasFile('image')) {
+        // Delete the old image if it exists
+        if ($cours->image && file_exists(storage_path('app/public/' . $cours->image))) {
+            unlink(storage_path('app/public/' . $cours->image));
         }
 
-        $cours->update($request->all());
-
-        // Sync selected tags (add new ones and remove the removed ones)
-        if ($request->has('tags')) {
-            $cours->tags()->sync($request->tags);
-        }
-        
-
-        return redirect()->route('admin.cours.list')->with('success', 'Course updated successfully');
+        // Store the new image
+        $imagePath = $request->file('image')->store('images/cours', 'public');
+        $cours->image = $imagePath;
     }
+
+    // Update course details, excluding tags
+    $cours->update([
+        'titre' => $request->titre,
+        'description' => $request->description,
+        'short_description' => $request->short_description,
+        'categorie_id' => $request->categorie_id,
+        'niveau_id' => $request->niveau_id,
+        'langue_id' => $request->langue_id,
+        'devise_id' => $request->devise_id,
+        'prix' => $request->prix,
+        'prix_promo' => $request->prix_promo,
+        'taux_reduction' => $request->taux_reduction,
+        'duree' => $request->duree,
+        'nombre_lesson' => $request->nombre_lesson,
+        'certificat' => $request->certificat,
+        'nombre_quizz' => $request->nombre_quizz,
+        'objectifs' => $request->objectifs,
+        'prerequis' => $request->prerequis,
+        'url_video' => $request->url_video,
+        'user_id' => $request->user_id,
+        'active' => $request->active,
+        'etat' => $request->etat,
+    ]);
+
+    // Sync selected tags
+    if ($request->has('tags')) {
+        $cours->tags()->sync($request->tags);
+    }
+
+    // Redirect back with success message
+    return redirect()->route('admin.cours.list')->with('success', 'Course updated successfully');
+}
+
+public function toggleStatus($id)
+{
+    // Trouver le cours par son ID
+    $cours = Cours::findOrFail($id);
+
+    // Vérifier l'état actuel du cours et le modifier
+    if ($cours->etat == 0) {
+        // Si l'état est "0" (désactivé), on l'active
+        $cours->etat = 1;
+        $status = 'activated';
+    } else {
+        // Si l'état est "1" (activé), on le désactive
+        $cours->etat = 0;
+        $status = 'deactivated';
+    }
+
+    // Sauvegarder les modifications
+    $cours->save();
+
+    // Rediriger avec un message de succès
+    return redirect()->route('admin.cours.list')->with('success', 'Course has been ' . $status . ' successfully');
+}
+
 
     // Delete a course
     public function cours_destroy($id)

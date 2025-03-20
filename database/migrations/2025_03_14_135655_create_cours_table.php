@@ -28,6 +28,7 @@ return new class extends Migration
             $table->integer('duree')->nullable();
             $table->integer('nombre_lesson')->nullable();
             $table->tinyInteger('certificat')->default(0);
+            // $table->tinyInteger('top')->default(0);
             $table->integer('nombre_quizz')->nullable();
             $table->text('objectifs')->nullable();
             $table->text('prerequis')->nullable();
