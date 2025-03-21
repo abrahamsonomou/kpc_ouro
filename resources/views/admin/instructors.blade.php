@@ -13,11 +13,10 @@ active
     <!-- Title -->
     <div class="row">
         <div class="col-12">
-            <h1 class="h3 mb-2 mb-sm-0">Instructors</h1>
+            <h1 class="h3 mb-2 mb-sm-0">instructors</h1>
         </div>
     </div>
-
-    <!-- Card START -->
+        
     <div class="card bg-transparent">
 
         <!-- Card header START -->
@@ -35,7 +34,7 @@ active
                     </form>
                 </div>
 
-                <!-- Tab buttons -->
+                <!-- Tab button -->
                 <div class="col-md-3">
                     <!-- Tabs START -->
                     <ul class="list-inline mb-0 nav nav-pills nav-pill-dark-soft border-0 justify-content-end" id="pills-tab" role="tablist">
@@ -61,37 +60,39 @@ active
 
         <!-- Card body START -->
         <div class="card-body px-0">
+
             <!-- Tabs content START -->
             <div class="tab-content">
 
                 <!-- Tabs content item START -->
                 <div class="tab-pane fade show active" id="nav-preview-tab-1">
                     <div class="row g-4">
+                        @foreach($instructors as $instructor)
 
-                        <!-- Card item START -->
                         <div class="col-md-6 col-xxl-4">
                             <div class="card bg-transparent border h-100"> 
                                 <!-- Card header -->
-                                <div class="card-header bg-transparent border-bottom d-flex align-items-sm-center justify-content-between">
+                                <div class="card-header bg-transparent border-bottom d-flex justify-content-between">
                                     <div class="d-sm-flex align-items-center">
                                         <!-- Avatar -->
                                         <div class="avatar avatar-md flex-shrink-0">
-                                            <img class="avatar-img rounded-circle" src="{{ asset('assets/images/avatar/09.jpg') }}" alt="avatar">
+                                            <img class="avatar-img rounded-circle" src="{{ $instructor->avatar ? asset('storage/' . $instructor->avatar) : asset('assets/img/general/avatar-1.png') }}" alt="avatar" alt="avatar">
                                         </div>
                                         <!-- Info -->
                                         <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                                            <h5 class="mb-0"><a href="#">Lori Stevens</a></h5>
-                                            <p class="mb-0 small">Web Designer</p>
+                                            <h5 class="mb-0"><a href="#">{{ $instructor->first_name ?? $instructor->email }}
+                                                {{ $instructor->last_name ?? '' }}</a></h5>
+                                            <span class="text-body small"><i class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i>{{ $instructor->pays->nom ?? '' }}</span>
                                         </div>
                                     </div>
 
                                     <!-- Edit dropdown -->
-                                    <div class="dropdown">
-                                        <a href="#" class="btn btn-sm btn-light btn-round small mb-0" role="button" id="dropdownShare1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div class="dropdown text-end">
+                                        <a href="#" class="btn btn-sm btn-light btn-round small mb-0" role="button" id="dropdownShare2" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="bi bi-three-dots fa-fw"></i>
                                         </a>
                                         <!-- dropdown button -->
-                                        <ul class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownShare1">
+                                        <ul class="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded" aria-labelledby="dropdownShare2">
                                             <li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square fa-fw me-2"></i>Edit</a></li>
                                             <li><a class="dropdown-item" href="#"><i class="bi bi-trash fa-fw me-2"></i>Remove</a></li>
                                         </ul>
@@ -99,7 +100,14 @@ active
                                 </div>
 
                                 <div class="card-body">
-                                    <!-- Total students -->
+                                    {{-- <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="icon-md bg-success bg-opacity-10 text-success rounded-circle flex-shrink-0"><i class="bi bi-currency-dollar fa-fw"></i></div>
+                                            <h6 class="mb-0 ms-2 fw-light">Payments</h6>
+                                        </div>
+                                        <span class="mb-0 fw-bold">$6,205</span>
+                                    </div> --}}
+
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <div class="d-flex align-items-center">
                                             <div class="icon-md bg-orange bg-opacity-10 text-orange rounded-circle flex-shrink-0"><i class="fas fa-user-graduate fa-fw"></i></div>
@@ -107,123 +115,124 @@ active
                                         </div>
                                         <span class="mb-0 fw-bold">5,354</span>
                                     </div>
-
-                                    <!-- Total courses -->
-                                    <div class="d-flex justify-content-between align-items-center">
+                                    
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
                                         <div class="d-flex align-items-center">
                                             <div class="icon-md bg-purple bg-opacity-10 text-purple rounded-circle flex-shrink-0"><i class="fas fa-book fa-fw"></i></div>
-                                            <h6 class="mb-0 ms-2 fw-light">Total Courses</h6>
+                                            <h6 class="mb-0 ms-2 fw-light">Total Course</h6>
                                         </div>
-                                        <span class="mb-0 fw-bold">15</span>
+                                        <span class="mb-0 fw-bold">21</span>
                                     </div>
+                                    
+                                    {{-- <div class="overflow-hidden">
+                                        <h6 class="mb-0">85%</h6>
+                                        <div class="progress progress-sm bg-primary bg-opacity-10">
+                                            <div class="progress-bar bg-primary aos" role="progressbar" data-aos="slide-right" data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                                            </div>
+                                        </div>
+                                    </div> --}}
                                 </div>
 
                                 <!-- Card footer -->
                                 <div class="card-footer bg-transparent border-top">
-                                    <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-sm-flex justify-content-between align-items-center">
                                         <!-- Rating star -->
-                                        <ul class="list-inline mb-0">
-                                            <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                            <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                            <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                            <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                            <li class="list-inline-item me-0 small"><i class="far fa-star text-warning"></i></li>
-                                        </ul>
-                                        <!-- Message button -->
-                                        <a href="#" class="btn btn-link text-body p-0 mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Message" aria-label="Message">
-                                            <i class="bi bi-envelope-fill"></i>
-                                        </a>
+                                        <h6 class="mb-2 mb-sm-0">
+                                            <i class="bi bi-calendar fa-fw text-orange me-2"></i><span class="text-body">Join at:</span> {{ $instructor->created_at ?? '' }}
+                                        </h6>
+                                        <!-- Buttons -->
+                                        <div class="text-end text-primary-hover">
+                                            <a href="#" class="btn btn-link text-body p-0 mb-0 me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Message" aria-label="Message">
+                                                <i class="bi bi-envelope-fill"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-link text-body p-0 mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Block" aria-label="Block">
+                                                <i class="fas fa-ban"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- Card item END -->
-
-                    </div> <!-- Row END -->
+                        @endforeach
+                        
+                    </div>
                 </div>
-                <!-- Tabs content item END -->
 
-                <!-- Tabs content item START -->
                 <div class="tab-pane fade" id="nav-html-tab-1">
-                    <!-- Table START -->
                     <div class="table-responsive border-0">
                         <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
                             <!-- Table head -->
                             <thead>
                                 <tr>
-                                    <th scope="col" class="border-0 rounded-start">Instructor name</th>
-                                    <th scope="col" class="border-0">Detail</th>
-                                    <th scope="col" class="border-0">Courses</th>
+                                    <th scope="col" class="border-0 rounded-start">instructor name</th>
+                                    <th scope="col" class="border-0">Join date</th>
                                     <th scope="col" class="border-0">Total studentss</th>
+                                    {{-- <th scope="col" class="border-0">Courses</th> --}}
                                     <th scope="col" class="border-0 rounded-end">Action</th>
                                 </tr>
                             </thead>
 
-                            <!-- Table body START -->
                             <tbody>
-                                <!-- Table row -->
+                                @foreach($instructors as $instructor)
+
                                 <tr>
-                                    <!-- Table data -->
                                     <td>
                                         <div class="d-flex align-items-center position-relative">
                                             <!-- Image -->
                                             <div class="avatar avatar-md">
-                                                <img src="{{ asset('assets/images/avatar/09.jpg') }}" class="rounded-circle" alt="">
+                                                <img src="{{ $instructor->avatar ? asset('storage/' . $instructor->avatar) : asset('assets/img/general/avatar-1.png') }}" alt="avatar" class="rounded-circle">
                                             </div>
-                                            <div class="mb-0 ms-2">
+                                            <div class="mb-0 ms-3">
                                                 <!-- Title -->
-                                                <h6 class="mb-0"><a href="{{ route('admin.instructors_details', ['id'=>1]) }}" class="stretched-link">Lori Stevens</a></h6>
+                                                <h6 class="mb-0"><a href="#" class="stretched-link"> {{ $instructor->first_name ?? $instructor->email }}
+                                                    {{ $instructor->last_name ?? '' }}</a></h6>
+                                                <span class="text-body small"><i class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i>{{ $instructor->pays->nom ?? '' }}</span>
                                             </div>
                                         </div>
                                     </td>
 
-                                    <!-- Table data -->
-                                    <td class="text-center text-sm-start">
-                                        <h6 class="mb-0">Web Designer</h6>
-                                    </td>
+                                    <td>{{ $instructor->created_at ?? '' }}</td>
+                                    <td>22</td>
 
-                                    <!-- Table data -->
-                                    <td>15</td>
+                                    {{-- <td class="text-center text-sm-start">
+                                        <div class="overflow-hidden">
+                                            <h6 class="mb-0">85%</h6>
+                                            <div class="progress progress-sm bg-primary bg-opacity-10">
+                                                <div class="progress-bar bg-primary aos" role="progressbar" data-aos="slide-right" data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td> --}}
 
-                                    <!-- Table data -->
-                                    <td>5,354</td>
+                                    {{-- <td>21</td> --}}
 
-                                    <!-- Table data -->
                                     <td>
-                                        <a href="#" class="btn btn-info-soft btn-round me-1 mb-1 mb-md-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Message">
+                                        <a href="#" class="btn btn-light btn-round me-1 mb-1 mb-md-0" data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-light btn-round me-1 mb-1 mb-md-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Message">
                                             <i class="bi bi-envelope"></i>
                                         </a>
-                                        <a href="#" class="btn btn-success-soft btn-round me-1 mb-1 mb-md-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                        <button class="btn btn-danger-soft btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
-                                            <i class="bi bi-trash"></i>
+                                        <button class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Block">
+                                            <i class="fas fa-ban"></i>
                                         </button>
                                     </td>
                                 </tr>
+                                @endforeach
 
                             </tbody>
-                            <!-- Table body END -->
                         </table>
                     </div>
-                    <!-- Table END -->
                 </div>
-                <!-- Tabs content item END -->
 
             </div>
-            <!-- Tabs content END -->
         </div>
-        <!-- Card body END -->
 
-        <!-- Card footer START -->
-        <div class="card-footer bg-transparent p-0">
-            <!-- Pagination START -->
+        <div class="card-footer bg-transparent pt-0 px-0">
             <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
-                <!-- Content -->
                 <p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
-                <!-- Pagination -->
                 <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
-                    <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                    <ul class="pagination pagination-sm pagination-primary-soft mb-0 pb-0 px-0">
                         <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
                         <li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
                         <li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
@@ -232,11 +241,8 @@ active
                     </ul>
                 </nav>
             </div>
-            <!-- Pagination END -->
         </div>
-        <!-- Card footer END -->
     </div>
-    <!-- Card END -->
 </div>
 
 @endsection

@@ -129,21 +129,46 @@
 
 				<li class="nav-item">
 					<a class="nav-link @yield('isActive11')" data-bs-toggle="collapse" href="#collapseparametres" role="button" aria-expanded="false" aria-controls="collapseparametres">
-						<i class="fas fa-user-tie fa-fw me-2"></i>Parametres
+						<i class="fas fa-user-tie fa-fw me-2"></i>Parametres Cours
 					</a>
 					<ul class="nav collapse flex-column" id="collapseparametres" data-bs-parent="#navbar-sidebar">
-						<li class="nav-item"> <a class="nav-link @yield('isActive12')" href="{{ route('admin.pays.list') }}">Pays</a></li>
-						<li class="nav-item"> <a class="nav-link @yield('isActive13')" href="{{ route('admin.villes.list') }}">Villes</a></li>
-						<li class="nav-item"><a class="nav-link @yield('isActive14')" href="{{ route('admin.devises.list') }}">Devises</a></li>
 						<li class="nav-item"><a class="nav-link @yield('isActive15')" href="{{ route('admin.niveaux.list') }}">Niveaux</a></li>
-						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.users.list') }}">Utilisateurs</a></li>
 						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.categories.list') }}">Categories</a></li>
 						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.tags.list') }}">Tags</a></li>
-						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.langues.list') }}">langues</a></li>
 						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.bureaux.list') }}">Bureaux</a></li>
 					</ul>
 				</li>
 
+
+				<li class="nav-item">
+					<a class="nav-link @yield('isActive12')" data-bs-toggle="collapse" href="#collapseparametresDivers" role="button" aria-expanded="false" aria-controls="collapseparametresDivers">
+						<i class="fas fa-user-tie fa-fw me-2"></i>Divers
+					</a>
+					<ul class="nav collapse flex-column" id="collapseparametresDivers" data-bs-parent="#navbar-sidebar">
+						<li class="nav-item"> <a class="nav-link @yield('isActive12')" href="{{ route('admin.pays.list') }}">Pays</a></li>
+						<li class="nav-item"> <a class="nav-link @yield('isActive13')" href="{{ route('admin.villes.list') }}">Villes</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive14')" href="{{ route('admin.devises.list') }}">Devises</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.langues.list') }}">langues</a></li>
+					</ul>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link @yield('isActive13')" data-bs-toggle="collapse" href="#collapseparametresSecurite" role="button" aria-expanded="false" aria-controls="collapseparametresSecurite">
+						<i class="fas fa-user-tie fa-fw me-2"></i>Securite
+					</a>
+					<ul class="nav collapse flex-column" id="collapseparametresSecurite" data-bs-parent="#navbar-sidebar">
+						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.users.list') }}">Utilisateurs</a></li>
+					</ul>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link @yield('isActive14')" data-bs-toggle="collapse" href="#collapseparametresSiteDive" role="button" aria-expanded="false" aria-controls="collapseparametresSiteDive">
+						<i class="fas fa-user-tie fa-fw me-2"></i>Parametres Site
+					</a>
+					<ul class="nav collapse flex-column" id="collapseparametresSiteDive" data-bs-parent="#navbar-sidebar">
+						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.bureaux.list') }}">Bureaux</a></li>
+					</ul>
+				</li>
 			</ul>
 
 		</div>

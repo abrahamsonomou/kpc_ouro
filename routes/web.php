@@ -78,10 +78,13 @@ Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(functi
     Route::get('/students', [AdminController::class, 'students'])->name('students');
     Route::get('/contacts', [AdminController::class, 'contacts'])->name('contacts');
 
-    Route::match(['get', 'post'], '/parametres/{id?}', [AdminController::class, 'settings'])->name('settings');
+    Route::match(['get', 'post'], '/parametres', [AdminController::class, 'settings'])->name('settings');
     Route::get('/instructors/request', [AdminController::class, 'instructors_request'])->name('instructors_request');
     Route::get('/instructors/details', [AdminController::class, 'instructors_details'])->name('instructors_details');
-    Route::post('cours/{id}/toggle-status', [AdminController::class, 'toggleStatus'])->name('cours.toggleStatus');
+
+    Route::post('/cours/{id}/approve', [AdminController::class, 'approveCourse'])->name('cours.approve');
+    Route::post('/cours/{id}/reject', [AdminController::class, 'rejectCourse'])->name('cours.reject');
+    Route::post('/cours/{id}/toggle-status', [AdminController::class, 'toggleCourseStatus'])->name('cours.toggleStatus');
 
     // Gestion des entités (CRUD)
     $entities = ['pays', 'villes', 'devises', 'niveaux', 'users', 'categories', 'tags', 'cours', 'langues', 'bureaux', 'articles'];

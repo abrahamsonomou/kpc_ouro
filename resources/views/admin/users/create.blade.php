@@ -49,8 +49,8 @@ active
             <input type="text" name="adresse2" id="adresse2" class="form-control">
         </div>
         <div class="form-group">
-            <label for="paysId">Country</label>
-            <select name="paysId" id="paysId" class="form-control">
+            <label for="pays_id">Country</label>
+            <select name="pays_id" id="pays_id" class="form-control">
                 @foreach($pays as $pay)
                     <option value="{{ $pay->id }}">{{ $pay->nom }}</option>
                 @endforeach
@@ -98,6 +98,16 @@ active
             </select>
         </div>
         
+        <div class="form-group">
+            <label for="role">Role</label>
+            {{-- <input type="checkbox" name="role" id="role" class="form-sweet" checked> --}}
+            <select name="role" id="" class="form-select js-choice z-index-9 border-0 bg-light">
+                <option value="admin">Admin</option>
+                <option value="student">Apprenant</option>
+                <option value="instructor">Consultant</option>
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>

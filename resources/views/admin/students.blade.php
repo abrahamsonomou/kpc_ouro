@@ -64,8 +64,8 @@ active
                 <!-- Tabs content item START -->
                 <div class="tab-pane fade show active" id="nav-preview-tab-1">
                     <div class="row g-4">
+                        @foreach($students as $student)
 
-                        <!-- Card item START -->
                         <div class="col-md-6 col-xxl-4">
                             <div class="card bg-transparent border h-100"> 
                                 <!-- Card header -->
@@ -73,12 +73,13 @@ active
                                     <div class="d-sm-flex align-items-center">
                                         <!-- Avatar -->
                                         <div class="avatar avatar-md flex-shrink-0">
-                                            <img class="avatar-img rounded-circle" src="{{ asset('assets/images/avatar/01.jpg') }}" alt="avatar">
+                                            <img class="avatar-img rounded-circle" src="{{ $student->avatar ? asset('storage/' . $student->avatar) : asset('assets/img/general/avatar-1.png') }}" alt="avatar" alt="avatar">
                                         </div>
                                         <!-- Info -->
                                         <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                                            <h5 class="mb-0"><a href="#">Carolyn Ortiz</a></h5>
-                                            <span class="text-body small"><i class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i>Mumbai</span>
+                                            <h5 class="mb-0"><a href="#">{{ $student->first_name ?? $student->email }}
+                                                {{ $student->last_name ?? '' }}</a></h5>
+                                            <span class="text-body small"><i class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i>{{ $student->pays->nom ?? '' }}</span>
                                         </div>
                                     </div>
 
@@ -126,7 +127,7 @@ active
                                     <div class="d-sm-flex justify-content-between align-items-center">
                                         <!-- Rating star -->
                                         <h6 class="mb-2 mb-sm-0">
-                                            <i class="bi bi-calendar fa-fw text-orange me-2"></i><span class="text-body">Join at:</span> 29 Aug 2021
+                                            <i class="bi bi-calendar fa-fw text-orange me-2"></i><span class="text-body">Join at:</span> {{ $student->created_at ?? '' }}
                                         </h6>
                                         <!-- Buttons -->
                                         <div class="text-end text-primary-hover">
@@ -141,6 +142,7 @@ active
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                         
                     </div>
                 </div>
@@ -153,29 +155,31 @@ active
                                 <tr>
                                     <th scope="col" class="border-0 rounded-start">Student name</th>
                                     <th scope="col" class="border-0">Join date</th>
-                                    <th scope="col" class="border-0">Courses</th>
+                                    {{-- <th scope="col" class="border-0">Courses</th> --}}
                                     <th scope="col" class="border-0 rounded-end">Action</th>
                                 </tr>
                             </thead>
 
                             <tbody>
+                                @foreach($students as $student)
 
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center position-relative">
                                             <!-- Image -->
                                             <div class="avatar avatar-md">
-                                                <img src="{{ asset('assets/images/avatar/09.jpg') }}" class="rounded-circle" alt="">
+                                                <img src="{{ $student->avatar ? asset('storage/' . $student->avatar) : asset('assets/img/general/avatar-1.png') }}" alt="avatar" class="rounded-circle">
                                             </div>
                                             <div class="mb-0 ms-3">
                                                 <!-- Title -->
-                                                <h6 class="mb-0"><a href="#" class="stretched-link">Lori Stevens</a></h6>
-                                                <span class="text-body small"><i class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i>Mumbai</span>
+                                                <h6 class="mb-0"><a href="#" class="stretched-link"> {{ $student->first_name ?? $student->email }}
+                                                    {{ $student->last_name ?? '' }}</a></h6>
+                                                <span class="text-body small"><i class="fas fa-fw fa-map-marker-alt me-1 mt-1"></i>{{ $student->pays->nom ?? '' }}</span>
                                             </div>
                                         </div>
                                     </td>
 
-                                    <td>29 Aug 2021</td>
+                                    <td>{{ $student->created_at ?? '' }}</td>
 
                                     {{-- <td class="text-center text-sm-start">
                                         <div class="overflow-hidden">
@@ -187,7 +191,7 @@ active
                                         </div>
                                     </td> --}}
 
-                                    <td>21</td>
+                                    {{-- <td>21</td> --}}
 
                                     <td>
                                         <a href="#" class="btn btn-light btn-round me-1 mb-1 mb-md-0" data-bs-toggle="tooltip" data-bs-placement="top" title="View">
@@ -201,6 +205,7 @@ active
                                         </button>
                                     </td>
                                 </tr>
+                                @endforeach
 
                             </tbody>
                         </table>

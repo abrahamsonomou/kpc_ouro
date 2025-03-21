@@ -33,6 +33,7 @@ return new class extends Migration
             $table->text('objectifs')->nullable();
             $table->text('prerequis')->nullable();
             $table->string('image')->nullable();
+            $table->text('commentaire')->nullable();
             $table->string('url_video')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->tinyInteger('active')->default(1);
