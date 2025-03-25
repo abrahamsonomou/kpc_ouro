@@ -183,8 +183,16 @@
                           <div class="col-md-6">
             
                             <label class="form-label">Requirements*</label>
-            
-                            <textarea class="form-control" name="objectifs" placeholder="Description" rows="7"></textarea>
+                            {{-- <textarea class="form-control" name="objectifs" placeholder="Description" rows="7"></textarea> --}}
+                            @foreach ($prerequis as $item)
+                            <div class="col-md-2 mb-0">
+                                <label>
+                                    <input type="checkbox" name="prerequis[]" value="{{ $item->id }}">
+                                    {{ $item->nom }}
+                                </label>
+                            </div>
+                            @endforeach
+
                           </div>
 
                         <hr>
@@ -203,6 +211,7 @@
                         <!-- Save button -->
                         <div class="d-sm-flex justify-content-end">
                             <button type="submit" class="btn btn-primary mb-0">Enregistrer</button>
+                    <a href="{{ route('admin.cours.list') }}" class="btn btn-secondary mb-0">Cancel</a>
                         </div>
                     </form>
                 </div>

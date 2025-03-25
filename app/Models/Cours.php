@@ -25,19 +25,30 @@ class Cours extends Model
         'certificat', 
         'nombre_quizz', 
         'objectifs', 
-        'prerequis', 
+        'top',
         'image', 
         'url_video', 
         'user_id', 
         'active', 
         'etat',
+        'date_creation',
     ];
 
+    public function prerequis()
+    {
+        return $this->belongsToMany(Prerequis::class, 'prerequis_cours');
+    }
+    
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'tags_cours');
     }
-    
+
+    public function categoriy()
+    {
+        return $this->belongsTo(Categorie::class);
+    }
+
     public function categorie()
     {
         return $this->belongsTo(Categorie::class, 'categorie_id');
@@ -66,6 +77,17 @@ class Cours extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    // Automatically convert the string into an array
+    public function getObjectifsAttribute($value)
+    {
+        return $value ? explode(';', $value) : [];
+    }
+
+    public function getPrerequisAttribute($value)
+    {
+        return $value ? explode(';', $value) : [];
     }
 
 }

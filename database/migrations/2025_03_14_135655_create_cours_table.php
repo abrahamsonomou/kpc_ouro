@@ -28,12 +28,12 @@ return new class extends Migration
             $table->integer('duree')->nullable();
             $table->integer('nombre_lesson')->nullable();
             $table->tinyInteger('certificat')->default(0);
-            // $table->tinyInteger('top')->default(0);
+            $table->tinyInteger('top')->default(0);
             $table->integer('nombre_quizz')->nullable();
             $table->text('objectifs')->nullable();
-            $table->text('prerequis')->nullable();
             $table->string('image')->nullable();
             $table->text('commentaire')->nullable();
+            $table->string('date_creation')->nullable();
             $table->string('url_video')->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->tinyInteger('active')->default(1);

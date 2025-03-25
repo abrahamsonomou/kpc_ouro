@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Contact;
 use App\Models\Bureau;
 use App\Models\Cours;
+use App\Models\Categorie;
+use App\Models\Tag;
+use App\Models\Langue;
+use App\Models\Article;
+use App\Models\Slide;
+use App\Models\Service;
+use App\Models\Partenaire;
 
 class SiteController extends Controller
 {
@@ -18,12 +25,13 @@ class SiteController extends Controller
                       ->with('user')      // Charger la relation avec 'user'
                       ->take(20)          // Limiter les résultats à 20 cours
                       ->get();
-    
-        return view('site.home', compact('cours'));
+        $slides = Slide::where('active', 1)->orderBy('ordre', 'asc')->get();
+        $partenaires = Partenaire::where('active', 1)->orderBy('ordre', 'asc')->get();
+        return view('site.home', compact('cours', 'slides', 'partenaires'));
     }
     
     
-
+    
     public function contact()
     {
         $bureaux = Bureau::all();
@@ -66,12 +74,39 @@ class SiteController extends Controller
 
     public function blog()
     {
-        return view('site.blog');
+            // Get the articles created by the authenticated user
+    // $articles = Article::where('active', 1)->get();
+    $articles = Article::where('active', 1)->orderBy('created_at', 'desc')->paginate(6);
+
+    $categories = Categorie::withCount('articles')->where('active', 1)->get();
+    // where('active', 1)->get();
+
+    // Count the articles created by the authenticated user
+    $articleCount = $articles->count();
+
+    $tags = Tag::where('active', 1)->
+    where('is_article', 1)->get();
+
+        // Retrieve the 3 most recent articles
+    $articles_recent = Article::where('active', 1)->orderBy('created_at', 'desc')->take(3)->get();
+
+    // Return the view with the articles and article count
+        return view('site.articles.blog', compact('articles', 'articleCount', 'categories', 'tags', 'articles_recent'));
     }
 
-    public function blog_details()
+    public function showByTag($tagId)
+{
+    $tag = Tag::findOrFail($tagId);  // Find the tag by ID
+    $articles = $tag->articles;      // Get all articles associated with this tag
+
+    return view('site.articles.by_tag', compact('tag', 'articles'));
+}
+
+
+    public function blog_details($id)
     {
-        return view('site.blog-details');
+        $article = Article::findOrFail($id);
+        return view('site.articles.blog-detail', compact('article'));
     }
 
     public function events()

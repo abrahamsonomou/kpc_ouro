@@ -135,7 +135,7 @@
 						<li class="nav-item"><a class="nav-link @yield('isActive15')" href="{{ route('admin.niveaux.list') }}">Niveaux</a></li>
 						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.categories.list') }}">Categories</a></li>
 						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.tags.list') }}">Tags</a></li>
-						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.bureaux.list') }}">Bureaux</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.prerequis.list') }}">Prerequis</a></li>
 					</ul>
 				</li>
 
@@ -149,6 +149,7 @@
 						<li class="nav-item"> <a class="nav-link @yield('isActive13')" href="{{ route('admin.villes.list') }}">Villes</a></li>
 						<li class="nav-item"><a class="nav-link @yield('isActive14')" href="{{ route('admin.devises.list') }}">Devises</a></li>
 						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.langues.list') }}">langues</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.specialites.list') }}">specialites</a></li>
 					</ul>
 				</li>
 
@@ -167,6 +168,9 @@
 					</a>
 					<ul class="nav collapse flex-column" id="collapseparametresSiteDive" data-bs-parent="#navbar-sidebar">
 						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.bureaux.list') }}">Bureaux</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.slides.list') }}">slides</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.services.list') }}">services</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.partenaires.list') }}">partenaires</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -299,6 +303,7 @@
 <script src="{{ asset('assets/vendor/overlay-scrollbar/js/overlayscrollbars.min.js') }}"></script>
 
 <script src="{{ asset('assets/js/functions.js') }}"></script>
+
 
 </body>
 </html>

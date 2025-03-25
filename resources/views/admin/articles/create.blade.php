@@ -17,10 +17,17 @@ active
             <input type="text" name="titre" class="form-control" required>
         </div>
 
-        <div class="form-group">
+        {{-- <div class="form-group">
             <label for="description">Description</label>
             <textarea name="description" class="form-control" required></textarea>
-        </div>
+        </div> --}}
+
+        
+    <!-- Éditeur HTML pour la Description -->
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="editor" name="description" class="form-control" required></textarea>
+    </div>
 
         <div class="col-lg-6">
             <label class="form-label">Select Categorie *</label>
@@ -44,20 +51,73 @@ active
             </select>
         </div>
 
-        <!-- Other article fields... -->
-
-        <div class="form-group">
-            <label for="tags">Tags</label>
-            <div>
-                @foreach($tags as $tag)
-                    <label>
-                        <input type="checkbox" name="tags[]" value="{{ $tag->id }}"> {{ $tag->nom }}
-                    </label><br>
-                @endforeach
-            </div>
+        <div class="mb-2 col-md-6">
+            <label for="image">image</label>
+            <input type="file" name="image" id="image" class="form-control">
         </div>
 
+        <div class="mb-2 col-md-2">
+            <label for="active">active</label>
+            {{-- <input type="checkbox" name="active" id="active" checked> --}}
+            <select name="active" id="" class="form-select js-choice z-index-9 border-0 bg-light">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+
+
+                        <div class="col-lg-4">
+                            <label class="form-label">Statut du Article</label>
+                            <div class="d-sm-flex">
+                                <!-- Radio -->
+                                <div class="form-check radio-bg-light me-4">
+                                    <input class="form-check-input" type="radio" name="etat"
+                                        id="nouveau" value="0" checked>
+                                    <label class="form-check-label" for="nouveau">
+                                        Nouveau
+                                    </label>
+                                </div>
+                                <!-- Radio -->
+                                <div class="form-check radio-bg-light me-4">
+                                    <input class="form-check-input" type="radio" name="etat"
+                                        id="approuver" value="1">
+                                    <label class="form-check-label" for="approuver">
+                                        Approuver
+                                    </label>
+                                </div>
+                                <!-- Radio -->
+                                <div class="form-check radio-bg-light">
+                                    <input class="form-check-input" type="radio" name="etat"
+                                        id="annuler" value="2">
+                                    <label class="form-check-label" for="annuler">
+                                        Annuler
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row container my-4 d-flex justify-content-center">
+                            <h5 class=" text-primary fs-4">Tags</h5>
+                            @foreach ($tags as $tag)
+                                <div class="col-md-2 mb-0">
+                                    <label>
+                                        <input type="checkbox" name="tags[]" value="{{ $tag->id }}">
+                                        {{ $tag->nom }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+
         <button type="submit" class="btn btn-primary">Create Article</button>
+        <a href="{{ route('admin.articles.list') }}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
+
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('editor');
+</script>
+
+
 @endsection

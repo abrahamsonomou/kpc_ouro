@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('telephone')->nullable();
             $table->date('date_naissance')->nullable();
             $table->string('adresse1')->nullable();
+            $table->string('specialite_id')->nullable();
             $table->string('adresse2')->nullable();
             $table->foreignId('pays_id')->nullable()->constrained('pays')->onDelete('set null');
             $table->foreignId('ville_id')->nullable()->constrained('villes')->onDelete('set null');
@@ -38,7 +39,7 @@ return new class extends Migration
             $table->string('linkedln_link')->nullable();
             $table->string('youtube_link')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

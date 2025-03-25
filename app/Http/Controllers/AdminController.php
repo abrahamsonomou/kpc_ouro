@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
@@ -17,6 +18,11 @@ use App\Models\Langue;
 use App\Models\Article;
 use App\Models\Bureau;
 use App\Models\Parametre;
+use App\Models\Specialite;
+use App\Models\Prerequis;
+use App\Models\Slide;
+use App\Models\Service;
+use App\Models\Partenaire;
 
 class AdminController extends Controller
 {
@@ -29,6 +35,7 @@ class AdminController extends Controller
     {
         return view('admin.reviews');
     }
+
 
     public function cours_categorie()
     {
@@ -102,6 +109,279 @@ class AdminController extends Controller
         $contacts = 1;
         return view('admin.list_contacts', compact('contacts'));
     }
+
+                // Display all partenaires
+
+                public function partenaires_list()
+                {
+                    $partenaires = Partenaire::all();
+                    return view('admin.partenaires.list', compact('partenaires'));
+                }
+            
+                //
+            
+                // Show the form to create a new prerequi
+                public function partenaires_create()
+                {
+                    return view('admin.partenaires.create');
+                }
+            
+                // Store a new prerequi
+                public function partenaires_store(Request $request)
+                {
+                    $request->validate([
+                        'nom' => 'required|string|unique:partenaires,nom',
+                        'description' => 'nullable|string',
+                        'logo' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                        'ordre' => 'nullable|integer',
+                        'active' => 'required|in:0,1',
+                    ]);
+            
+                    $data = $request->all();
+    
+                    if ($request->hasFile('logo')) {
+                        $data['logo'] = $request->file('logo')->store('partenaires', 'public');
+                    }
+            
+                    Partenaire::create($data);
+            
+                    return redirect()->route('admin.partenaires.list')->with('success', 'prerequi created successfully');
+                }
+            
+                // Show the form to edit a prerequi
+                public function partenaires_edit($id)
+                {
+                    $partenaire = Partenaire::findOrFail($id);
+                    return view('admin.partenaires.edit', compact('partenaire'));
+                }
+            
+                // Update the prerequi
+                public function partenaires_update(Request $request, $id)
+                {
+                    $request->validate([
+                        'nom' => 'sometimes|required|string|unique:partenaires,nom,' . $id,
+                        'description' => 'nullable|string',
+                        'logo' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                        'ordre' => 'nullable|integer',
+                        'active' => 'required|in:0,1',
+                    ]);
+            
+                    $partenaire = Partenaire::findOrFail($id);
+                    $data = $request->all();
+            
+                    if ($request->hasFile('logo')) {
+                        // Delete old logo
+                        if ($partenaire->logo) {
+                            Storage::disk('public')->delete($partenaire->logo);
+                        }
+                        $data['logo'] = $request->file('logo')->store('partenaires', 'public');
+                    }
+            
+                    $partenaire->update($data);
+            
+                    return redirect()->route('admin.partenaires.list')->with('success', 'prerequi updated successfully');
+                }
+            
+                public function partenaires_show($id)
+                {
+                    $partenaire = Partenaire::findOrFail($id);
+                    return view('admin.partenaires.show', compact('partenaire'));
+                }
+            
+                // Delete a prerequi
+                public function partenaires_destroy($id)
+                {
+                    $partenaire = Partenaire::findOrFail($id);
+                    if ($partenaire->logo) {
+                        Storage::disk('public')->delete($partenaire->logo);
+                    }
+                    $partenaire->delete();
+            
+            
+                    return redirect()->route('admin.partenaires.list')->with('success', 'partenaires deleted successfully');
+                }
+
+                // Display all services
+
+                public function services_list()
+                {
+                    $services = Service::all();
+                    return view('admin.services.list', compact('services'));
+                }
+            
+                //
+            
+                // Show the form to create a new prerequi
+                public function services_create()
+                {
+                    return view('admin.services.create');
+                }
+            
+                // Store a new prerequi
+                public function services_store(Request $request)
+                {
+                    $request->validate([
+                        'titre' => 'required|string|unique:services,titre',
+                        'description' => 'nullable|string',
+                        'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                        'ordre' => 'nullable|integer',
+                        'active' => 'required|in:0,1',
+                    ]);
+            
+                    $data = $request->all();
+    
+                    if ($request->hasFile('image')) {
+                        $data['image'] = $request->file('image')->store('services', 'public');
+                    }
+            
+                    Service::create($data);
+            
+                    return redirect()->route('admin.services.list')->with('success', 'prerequi created successfully');
+                }
+            
+                // Show the form to edit a prerequi
+                public function services_edit($id)
+                {
+                    $service = Service::findOrFail($id);
+                    return view('admin.services.edit', compact('service'));
+                }
+            
+                // Update the prerequi
+                public function services_update(Request $request, $id)
+                {
+                    $request->validate([
+                        'titre' => 'sometimes|required|string|unique:services,titre,' . $id,
+                        'description' => 'nullable|string',
+                        'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                        'ordre' => 'nullable|integer',
+                        'active' => 'required|in:0,1',
+                    ]);
+            
+                    $service = Service::findOrFail($id);
+                    $data = $request->all();
+            
+                    if ($request->hasFile('image')) {
+                        // Delete old image
+                        if ($service->image) {
+                            Storage::disk('public')->delete($service->image);
+                        }
+                        $data['image'] = $request->file('image')->store('services', 'public');
+                    }
+            
+                    $service->update($data);
+            
+                    return redirect()->route('admin.services.list')->with('success', 'prerequi updated successfully');
+                }
+            
+                public function services_show($id)
+                {
+                    $service = Service::findOrFail($id);
+                    return view('admin.services.show', compact('service'));
+                }
+            
+                // Delete a prerequi
+                public function services_destroy($id)
+                {
+                    $service = Service::findOrFail($id);
+                    if ($service->image) {
+                        Storage::disk('public')->delete($service->image);
+                    }
+                    $service->delete();
+            
+            
+                    return redirect()->route('admin.services.list')->with('success', 'services deleted successfully');
+                }
+
+            // Display all slides
+
+            public function slides_list()
+            {
+                $slides = Slide::all();
+                return view('admin.slides.list', compact('slides'));
+            }
+        
+            //
+        
+            // Show the form to create a new prerequi
+            public function slides_create()
+            {
+                return view('admin.slides.create');
+            }
+        
+            // Store a new prerequi
+            public function slides_store(Request $request)
+            {
+                $request->validate([
+                    'titre' => 'required|string|unique:slides,titre',
+                    'description' => 'nullable|string',
+                    'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'ordre' => 'nullable|integer',
+                    'active' => 'required|in:0,1',
+                ]);
+        
+                $data = $request->all();
+
+                if ($request->hasFile('image')) {
+                    $data['image'] = $request->file('image')->store('slides', 'public');
+                }
+        
+                Slide::create($data);
+        
+                return redirect()->route('admin.slides.list')->with('success', 'prerequi created successfully');
+            }
+        
+            // Show the form to edit a prerequi
+            public function slides_edit($id)
+            {
+                $slide = Slide::findOrFail($id);
+                return view('admin.slides.edit', compact('slide'));
+            }
+        
+            // Update the prerequi
+            public function slides_update(Request $request, $id)
+            {
+                $request->validate([
+                    'titre' => 'sometimes|required|string|unique:slides,titre,' . $id,
+                    'description' => 'nullable|string',
+                    'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'ordre' => 'nullable|integer',
+                    'active' => 'required|in:0,1',
+                ]);
+        
+                $slide = Slide::findOrFail($id);
+                $data = $request->all();
+        
+                if ($request->hasFile('image')) {
+                    // Delete old image
+                    if ($slide->image) {
+                        Storage::disk('public')->delete($slide->image);
+                    }
+                    $data['image'] = $request->file('image')->store('slides', 'public');
+                }
+        
+                $slide->update($data);
+        
+                return redirect()->route('admin.slides.list')->with('success', 'prerequi updated successfully');
+            }
+        
+            public function slides_show($id)
+            {
+                $slide = Slide::findOrFail($id);
+                return view('admin.slides.show', compact('slide'));
+            }
+        
+            // Delete a prerequi
+            public function slides_destroy($id)
+            {
+                $slide = Slide::findOrFail($id);
+                if ($slide->image) {
+                    Storage::disk('public')->delete($slide->image);
+                }
+                $slide->delete();
+        
+        
+                return redirect()->route('admin.slides.list')->with('success', 'slides deleted successfully');
+            }
 
     public function pays_list()
     {
@@ -246,6 +526,71 @@ class AdminController extends Controller
         return redirect()->route('admin.devises.list')->with('success', 'Devise deleted successfully');
     }
 
+    // Display all Specialite
+
+    public function specialites_list()
+    {
+        $specialites = Specialite::all();
+        return view('admin.specialites.list', compact('specialites'));
+    }
+
+    //
+
+    // Show the form to create a new specialite
+    public function specialites_create()
+    {
+        return view('admin.specialites.create');
+    }
+
+    // Store a new specialite
+    public function specialites_store(Request $request)
+    {
+        $request->validate([
+            'nom' => 'required|string|unique:specialites,nom',
+            'active' => 'required|in:0,1',
+        ]);
+
+        Specialite::create($request->all());
+
+        return redirect()->route('admin.specialites.list')->with('success', 'specialite created successfully');
+    }
+
+    // Show the form to edit a specialite
+    public function specialites_edit($id)
+    {
+        $specialite = Specialite::findOrFail($id);
+        return view('admin.specialites.edit', compact('specialite'));
+    }
+
+    // Update the Specialite
+    public function specialites_update(Request $request, $id)
+    {
+        $request->validate([
+            'nom' => 'sometimes|required|string|unique:specialites,nom,' . $id,
+            'active' => 'required|in:0,1',
+        ]);
+
+        $specialite = Specialite::findOrFail($id);
+        $specialite->update($request->all());
+
+        return redirect()->route('admin.specialites.list')->with('success', 'specialite updated successfully');
+    }
+
+    public function specialites_show($id)
+    {
+        $specialite = Specialite::findOrFail($id);
+        return view('admin.specialites.show', compact('specialite'));
+    }
+
+    // Delete a specialite
+    public function specialites_destroy($id)
+    {
+        $specialite = Specialite::findOrFail($id);
+        $specialite->delete();
+
+        return redirect()->route('admin.specialites.list')->with('success', 'Specialite deleted successfully');
+    }
+
     // Display all Niveaux
 
     public function niveaux_list()
@@ -311,6 +656,72 @@ class AdminController extends Controller
         return redirect()->route('admin.niveaux.list')->with('success', 'Niveau deleted successfully');
     }
 
+        // Display all Prerequis
+
+        public function prerequis_list()
+        {
+            $prerequis = Prerequis::all();
+            return view('admin.prerequis.list', compact('prerequis'));
+        }
+    
+        //
+    
+        // Show the form to create a new prerequi
+        public function prerequis_create()
+        {
+            return view('admin.prerequis.create');
+        }
+    
+        // Store a new prerequi
+        public function prerequis_store(Request $request)
+        {
+            $request->validate([
+                'nom' => 'required|string|unique:prerequis,nom',
+                'active' => 'required|in:0,1',
+            ]);
+    
+            Prerequis::create($request->all());
+    
+            return redirect()->route('admin.prerequis.list')->with('success', 'prerequi created successfully');
+        }
+    
+        // Show the form to edit a prerequi
+        public function prerequis_edit($id)
+        {
+            $item = Prerequis::findOrFail($id);
+            return view('admin.prerequis.edit', compact('item'));
+        }
+    
+        // Update the prerequi
+        public function prerequis_update(Request $request, $id)
+        {
+            $request->validate([
+                'nom' => 'sometimes|required|string|unique:prerequis,nom,' . $id,
+                'active' => 'required|in:0,1',
+            ]);
+    
+            $prerequi = Prerequis::findOrFail($id);
+            $prerequi->update($request->all());
+    
+            return redirect()->route('admin.prerequis.list')->with('success', 'prerequi updated successfully');
+        }
+    
+        public function prerequis_show($id)
+        {
+            $item = Prerequis::findOrFail($id);
+            return view('admin.prerequis.show', compact('item'));
+        }
+    
+        // Delete a prerequi
+        public function prerequis_destroy($id)
+        {
+            $prerequi = Prerequis::findOrFail($id);
+            $prerequi->delete();
+    
+            return redirect()->route('admin.prerequis.list')->with('success', 'prerequis deleted successfully');
+        }
+
+
     // Display all users
     public function users_list()
     {
@@ -323,13 +734,14 @@ class AdminController extends Controller
     {
         $pays = Pays::all();
         $villes = Ville::all();
-        return view('admin.users.create', compact('pays', 'villes'));
+        $specialites = Specialite::all();
+        return view('admin.users.create', compact('pays', 'villes', 'specialites'));
     }
 
     // Store a new user
     public function users_store(Request $request)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
@@ -341,20 +753,29 @@ class AdminController extends Controller
             'adresse2' => 'nullable|string',
             'pays_id' => 'exists:pays,id',
             'ville_id' => 'exists:villes,id',
+            'specialite_id' => 'exists:specialites,id',
             'bio' => 'nullable|string',
-            'avatar' => 'nullable|image|max:1024',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'role' => 'nullable|string',
             'is_admin' => 'in:0,1',
             'is_active' => 'in:0,1',
+            'is_othor' => 'in:0,1',
             'approuve_cours' => 'in:0,1',
         ]);
-
-        $user = new User($request->all());
+        
+        // $user = new User($request->all());
 
         if ($request->hasFile('avatar')) {
-            $user->avatar = $request->file('avatar')->store('avatars', 'public');
+            $fileExtension = $request->file('avatar')->getClientOriginalExtension();
+            $fileName = pathinfo($request->file('avatar')->getClientOriginalName(), PATHINFO_FILENAME);
+            $fileName = $fileName.'_'.uniqid().'_'.time().'.'.$fileExtension;
+            $request->file('avatar')->storeAs('public/users/avatar', $fileName);
+            $validatedData['avatar'] = $fileName;
         }
 
-        $user->password = Hash::make($request->password);
+        $validatedData['password'] = Hash::make($request->password);
+
+        $user = User::create($validatedData);
         $user->save();
 
         return redirect()->route('admin.users.list')->with('success', 'User created successfully');
@@ -373,13 +794,14 @@ class AdminController extends Controller
         $user = User::findOrFail($id);
         $pays = Pays::all();
         $villes = Ville::all();
-        return view('admin.users.edit', compact('user', 'pays', 'villes'));
+        $specialites = Specialite::all();
+        return view('admin.users.edit', compact('user', 'pays', 'villes', 'specialites'));
     }
 
     // Update a user
     public function users_update(Request $request, $id)
     {
-        $request->validate([
+        $validatedData = $request->validate([
             'name' => 'string|max:255',
             'email' => 'email|unique:users,email,' . $id,
             'first_name' => 'string|max:255',
@@ -390,16 +812,30 @@ class AdminController extends Controller
             'adresse2' => 'nullable|string',
             'pays_id' => 'exists:pays,id',
             'ville_id' => 'exists:villes,id',
+            'specialite_id' => 'exists:specialites,id',
             'bio' => 'nullable|string',
-            'avatar' => 'nullable|image|max:1024',
+            'role' => 'nullable|string',
+            'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'is_admin' => 'in:0,1',
+            'is_active' => 'in:0,1',
+            'is_othor' => 'in:0,1',
+            'approuve_cours' => 'in:0,1',
         ]);
 
         $user = User::findOrFail($id);
-        $user->update($request->all());
 
         if ($request->hasFile('avatar')) {
-            $user->avatar = $request->file('avatar')->store('avatars', 'public');
+            $fileExtension = $request->file('avatar')->getClientOriginalExtension();
+            $fileName = pathinfo($request->file('avatar')->getClientOriginalName(), PATHINFO_FILENAME);
+            $fileName = $fileName.'_'.uniqid().'_'.time().'.'.$fileExtension;
+            $request->file('avatar')->storeAs('public/users/avatar', $fileName);
+            $validatedData['avatar'] = $fileName;
         }
+
+        $validatedData['password'] = Hash::make($request->password);
+
+        $user->update($validatedData);
+        $user->save();
 
         return redirect()->route('admin.users.list')->with('success', 'User updated successfully');
     }
@@ -416,7 +852,11 @@ class AdminController extends Controller
     // Display all categories
     public function categories_list()
     {
-        $categories = Categorie::all();
+        // $categories = Categorie::all();
+
+        // Retrieve categories with the count of related courses
+        $categories = Categorie::withCount('cours')->get();
+
         return view('admin.categories.list', compact('categories'));
     }
 
@@ -676,9 +1116,45 @@ class AdminController extends Controller
 
     public function cours_list()
     {
-        $cours = Cours::all();
-        return view('admin.cours.list', compact('cours'));
+        // Retrieve all courses
+        // $cours = Cours::all();
+    
+            // Fetch courses with pagination (10 per page)
+        $cours = Cours::paginate(1); 
+
+        // Count the total number of courses
+        $totalCours = Cours::count();
+
+        // Count the number of activated courses (etat = 1)
+        $activatedCours = Cours::where('etat', 1)->count();
+
+        // Count the number of pending courses (etat = 0)
+        $pendingCours = Cours::where('etat', 0)->count();
+    
+        // Count the number of rejected courses (etat = 2)
+        $rejectedCours = Cours::where('etat', 2)->count();
+
+        // Pass the courses and counts to the view
+        return view('admin.cours.list', compact('cours', 'totalCours', 'activatedCours', 'pendingCours', 'rejectedCours'));
     }
+    
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        
+        if ($query) {
+            // If there's a query, search for courses
+            $courses = Cours::where('titre', 'like', '%' . $query . '%')
+                            ->orWhere('description', 'like', '%' . $query . '%')
+                            ->get();
+        } else {
+            // If there's no query, return all courses
+            $courses = Cours::all();
+        }
+    
+        return response()->json($courses);
+    }
+    
 
     public function cours_create()
     {
@@ -690,7 +1166,8 @@ class AdminController extends Controller
         $instructors = User::where('is_active', 1)->where('role', 'instructor')->get();
 
         $tags = Tag::where('active', 1)->get(); // Get all tags
-        return view('admin.cours.create', compact('categories', 'niveaux', 'tags', 'langues', 'devises', 'instructors'));
+        $prerequis = Prerequis::where('active', 1)->get(); // Get all prerequis
+        return view('admin.cours.create', compact('categories', 'niveaux', 'tags', 'prerequis', 'langues', 'devises', 'instructors'));
     }
 
     // Store a new course
@@ -712,15 +1189,18 @@ class AdminController extends Controller
             'certificat' => 'required|in:0,1',
             'nombre_quizz' => 'nullable|integer',
             'objectifs' => 'nullable|string',
-            'prerequis' => 'nullable|string',
+            // 'prerequis' => 'nullable|string',
             'image' => 'nullable|image',
             'url_video' => 'nullable|url',
             'user_id' => 'exists:users,id',
             'active' => 'required|in:0,1',
             'etat' => 'required|in:0,1,2',
-
+            
             'tags' => 'nullable|array', // Validate tags as an array
             'tags.*' => 'exists:tags,id', // Validate each tag ID
+
+            'prerequis' => 'nullable|array', // Validate prerequis as an array
+            'prerequis.*' => 'exists:prerequis,id', // Validate each prerequis ID
         ]);
 
         // Store image
@@ -745,7 +1225,7 @@ class AdminController extends Controller
             'certificat' => $request->certificat,
             'nombre_quizz' => $request->nombre_quizz,
             'objectifs' => $request->objectifs,
-            'prerequis' => $request->prerequis,
+            // 'prerequis' => $request->prerequis,
             'image' => $imagePath,
             'url_video' => $request->url_video,
             'user_id' => $request->user_id,
@@ -756,6 +1236,10 @@ class AdminController extends Controller
         // Attach selected tags to the course
         if ($request->has('tags')) {
             $cours->tags()->attach($request->tags);
+        }
+
+        if ($request->has('prerequis')) {
+            $cours->prerequis()->attach($request->prerequis);
         }
 
         return redirect()->route('admin.cours.list')->with('success', 'Course created successfully');
@@ -771,8 +1255,9 @@ class AdminController extends Controller
         $langues = Langue::all();
         $niveaux = Niveau::all();
         $tags = Tag::all();
+        $prerequis = Prerequis::where('active', 1)->get(); // Get all prerequis
 
-        return view('admin.cours.edit', compact('cours', 'categories', 'instructors', 'devises', 'langues', 'niveaux', 'tags'));
+        return view('admin.cours.edit', compact('cours', 'categories', 'instructors', 'devises', 'prerequis', 'langues', 'niveaux', 'tags'));
     }
 
     // Update the course
@@ -794,7 +1279,6 @@ class AdminController extends Controller
             'certificat' => 'required|in:0,1',
             'nombre_quizz' => 'required|integer',
             'objectifs' => 'required|string',
-            'prerequis' => 'required|string',
             'image' => 'nullable|image',
             'url_video' => 'nullable|url',
             'user_id' => 'required|exists:users,id',
@@ -802,6 +1286,8 @@ class AdminController extends Controller
             'etat' => 'required|in:0,1,2',
             'tags' => 'nullable|array',
             'tags.*' => 'exists:tags,id',
+            'prerequis' => 'nullable|array', 
+            'prerequis.*' => 'exists:prerequis,id',
         ]);
 
         $cours = Cours::findOrFail($id);
@@ -835,7 +1321,6 @@ class AdminController extends Controller
             'certificat' => $request->certificat,
             'nombre_quizz' => $request->nombre_quizz,
             'objectifs' => $request->objectifs,
-            'prerequis' => $request->prerequis,
             'url_video' => $request->url_video,
             'user_id' => $request->user_id,
             'active' => $request->active,
@@ -911,14 +1396,21 @@ class AdminController extends Controller
     public function articles_list()
     {
         $articles = Article::all();
-        return view('admin.articles.list', compact('articles'));
+
+           // Count the articles created by the authenticated user
+        $articleCount = $articles->count();
+
+        return view('admin.articles.list', compact('articles', 'articleCount'));
     }
 
     public function articles_create()
     {
-        $categories = Categorie::where('active', 1)->get();
-        $auteurs = User::where('active', 1)->get();
-        $tags = Tag::where('active', 1)->get(); // Get all tags
+        $categories = Categorie::where('active', 1)->
+                                where('is_article', 1)->get();
+        $auteurs = User::where('is_othor', 1)->
+                        where('is_active', 1)->get();
+        $tags = Tag::where('active', 1)->
+                        where('is_article', 1)->get();
         return view('admin.articles.create', compact('categories', 'tags', 'auteurs'));
     }
 
@@ -931,8 +1423,8 @@ class AdminController extends Controller
             'categorie_id' => 'required|exists:categories,id',
             'user_id' => 'required|exists:users,id',
             'image' => 'nullable|image',
-            'active' => 'required|in:0,1',
-            'etat' => 'required|in:0,1,2',
+            'active' => 'in:0,1',
+            'etat' => 'in:0,1,2',
             'tags' => 'nullable|array',
             'tags.*' => 'exists:tags,id', // Validate that each tag ID exists
         ]);
@@ -961,44 +1453,56 @@ class AdminController extends Controller
     // Show the form to edit a article
     public function articles_edit($id)
     {
-        $articles = Article::findOrFail($id);
-        $categories = Categorie::where('active', 1)->get();
-        $niveaux = Niveau::where('active', 1)->get();
-        $langues = Langue::where('active', 1)->get();
-        $devises = Devise::where('active', 1)->get();
-        $instructors = User::where('active', 1)->get();
-        $tags = Tag::where('active', 1)->get(); // Get all tags
-        return view('admin.articles.edit', compact('articles', 'categories', 'niveaux', 'tags', 'langues', 'devises', 'instructors'));
+        $article = Article::findOrFail($id);
+        $categories = Categorie::where('active', 1)->
+                 where('is_article', 1)->get();
+        $auteurs = User::where('is_othor', 1)->
+                 where('is_active', 1)->get();
+        $tags = Tag::where('active', 1)->
+             where('is_article', 1)->get();
+        return view('admin.articles.edit', compact('article', 'categories', 'tags', 'auteurs'));
     }
 
     // Update the article
     public function articles_update(Request $request, $id)
     {
+        $article = Article::findOrFail($id);
+
         $request->validate([
             'titre' => 'required|string|max:255',
-            'description' => 'required|string',
-            'categorie_id' => 'required|exists:categories,id',
+            'description' => 'nullable|string',
             'user_id' => 'required|exists:users,id',
-            'image' => 'nullable|image',
-            'active' => 'required|in:0,1',
-            'etat' => 'required|in:0,1,2',
+            'categorie_id' => 'required|exists:categories,id',
+            'image' => 'nullable|image|max:1024',
+            'active' => 'required|boolean',
+            'etat' => 'in:0,1,2',
             'tags' => 'nullable|array',
             'tags.*' => 'exists:tags,id', // Validate that each tag ID exists
         ]);
+    
+        // Update the article's details
+        $article->titre = $request->titre;
+        $article->description = $request->description;
+        $article->categorie_id = $request->categorie_id;
+        $article->active = $request->active;
+        $article->user_id = $request->user_id;
 
-        $articles = Article::findOrFail($id);
-
-        // Store image if uploaded
+        // Handle image upload (if a new image is provided)
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images/articles', 'public');
-            $articles->image = $imagePath;
+            // Delete the old image if exists
+            if ($article->image) {
+                \Storage::delete('public/' . $article->image);
+            }
+            // Store the new image
+            $imagePath = $request->file('image')->store('articles', 'public');
+            $article->image = $imagePath;
         }
-
-        $articles->update($request->all());
-
+    
+        $article->save(); // Save the updated article
+        
         // Sync selected tags (add new ones and remove the removed ones)
         if ($request->has('tags')) {
-            $articles->tags()->sync($request->tags);
+            $article->tags()->sync($request->tags);
         }
 
         return redirect()->route('admin.articles.list')->with('success', 'article updated successfully');
@@ -1012,4 +1516,60 @@ class AdminController extends Controller
 
         return redirect()->route('admin.articles.list')->with('success', 'article deleted successfully');
     }
+
+    public function articles_show($id)
+    {
+        $article = Article::findOrFail($id);
+        return view('admin.articles.show', compact('article'));
+    }
+
+    public function approvearticle($id, Request $request)
+    {
+        $articles = Article::findOrFail($id);
+
+        // Valider le commentaire si fourni
+        $request->validate([
+            'commentaire' => 'nullable|string|max:255',
+        ]);
+
+        $articles->etat = 1; // Approuver le articles
+        $articles->commentaire = $request->input('commentaire') ?? 'Approved'; // Ajouter le commentaire
+        $articles->save();
+
+        return redirect()->route('admin.articles.list')->with('success', 'article approved successfully');
+    }
+
+    public function rejectarticle($id, Request $request)
+    {
+        $articles = Article::findOrFail($id);
+
+        // Valider le commentaire si fourni
+        $request->validate([
+            'commentaire' => 'nullable|string|max:255',
+        ]);
+
+        $articles->etat = 2; // Rejeter le articles
+        $articles->commentaire = $request->input('commentaire') ?? 'Rejected'; // Ajouter le commentaire
+        $articles->save();
+
+        return redirect()->route('admin.articles.list')->with('success', 'article rejected successfully');
+    }
+
+    public function togglearticleStatus($id)
+    {
+        $articles = Article::findOrFail($id);
+
+        // Activer ou désactiver le articles
+        if ($articles->active == 0) {
+            $articles->active = 1; // Activer
+        } else {
+            $articles->active = 0; // Désactiver
+        }
+
+        $articles->save();
+
+        return redirect()->route('admin.articles.list')->with('success', 'article has been successfully');
+    }
+
+
 }

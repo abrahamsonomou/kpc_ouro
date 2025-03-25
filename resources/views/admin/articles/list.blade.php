@@ -7,23 +7,23 @@ active
 
 <div class="page-content-wrapper border">
 
-    <!-- Title -->
     <div class="row mb-3">
         <div class="col-12 d-sm-flex justify-content-between align-items-center">
-            <h1 class="h3 mb-2 mb-sm-0">Nombres articles: <span class="badge bg-orange bg-opacity-10 text-orange">245</span></h1>
+            <h1 class="h3 mb-2 mb-sm-0">Nombres articles: <span class="badge bg-orange bg-opacity-10 text-orange">{{ $articleCount }}</span></h1>
             <a href="{{ route('admin.articles.create') }}" class="btn btn-sm btn-primary mb-0">Create article</a>
         </div>
     </div>
 
-    <!-- Card START -->
     <div class="card bg-transparent border">
-
-        <!-- Card header START -->
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    
         <div class="card-header bg-light border-bottom">
-            <!-- Search and select START -->
             <div class="row g-3 align-items-center justify-content-between">
 
-                <!-- Search bar -->
                 <div class="col-md-8">
                     <form class="rounded position-relative">
                         <input class="form-control bg-body" type="search" placeholder="Search" aria-label="Search">
@@ -33,9 +33,7 @@ active
                     </form>
                 </div>
 
-                <!-- Select option -->
                 <div class="col-md-3">
-                    <!-- Short by filter -->
                     <form>
                         <select class="form-select js-choice border-0 z-index-9" aria-label=".form-select-sm">
                             <option value="">Sort by</option>
@@ -47,91 +45,106 @@ active
                     </form>
                 </div>
             </div>
-            <!-- Search and select END -->
         </div>
-        <!-- Card header END -->
-
-        <!-- Card body START -->
         <div class="card-body">
-            <!-- Course table START -->
             <div class="table-responsive border-0 rounded-3">
-                <!-- Table START -->
                 <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
-                    <!-- Table head -->
                     <thead>
                         <tr>
-                            <th scope="col" class="border-0 rounded-start">Article</th>
-                            <th scope="col" class="border-0">Auteur</th>
-                            <th scope="col" class="border-0">Categorie</th>
-                            <th scope="col" class="border-0">Date creation</th>
-                            <th scope="col" class="border-0 rounded-end">Action</th>
+                            <th>#</th>
+                            <th>Title</th>
+                            {{-- <th>Description</th> --}}
+                            <th>Category</th>
+                            <th>Author</th>
+                            <th>Active</th>
+                            <th>Etat</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
 
-                    <!-- Table body START -->
                     <tbody>
                         
-                        <!-- Table row -->
+                        @foreach($articles as $article)
                         <tr>
-                            <!-- Table data -->
+                            <td>{{ $article->id }}</td>
+
                             <td>
                                 <div class="d-flex align-items-center position-relative">
-                                    <!-- Image -->
                                     <div class="w-60px">
-                                        <img src="{{ asset('assets/images/courses/4by3/08.jpg') }}" class="rounded" alt="">
+                                        <img src="{{ asset('storage/' . $article->image) }}" class="rounded" alt="">
                                     </div>
-                                    <!-- Title -->
-                                    <h6 class="table-responsive-title mb-0 ms-2">	
-                                        <a href="#" class="stretched-link">Building Scalable APIs with GraphQL</a>
+                                    <h6 class="table-responsive-title mb-0 ms-2">    
+                                        <a href="#" class="stretched-link">{{  Str::limit($article->titre, 20) }}</a>
                                     </h6>
                                 </div>
                             </td>
-
-                            <!-- Table data -->
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <!-- Avatar -->
-                                    <div class="avatar avatar-xs flex-shrink-0">
-                                        <img class="avatar-img rounded-circle" src="{{ asset('assets/images/avatar/09.jpg') }}" alt="avatar">
-                                    </div>
-                                    <!-- Info -->
-                                    <div class="ms-2">
-                                        <h6 class="mb-0 fw-light">Lori Stevens</h6>
-                                    </div>
-                                </div>
+                            {{-- <td>{{ Str::limit($article->description, 50) }}</td> <!-- Displaying a shortened version of the description --> --}}
+                            <td>{{ $article->categorie->nom }}</td>
+                            <td>{{ $article->user->first_name ?? 'Auteur' }} {{ $article->user->last_name ?? '' }}</td>
+                            <td> 
+                                @if ($article->active == 0)
+                                    <span class="badge bg-warning bg-opacity-15 text-warning">Inactif</span> 
+                                @elseif($article->active == 1)
+                                    <span class="badge bg-warning bg-opacity-15 text-success">Actif</span> 
+                                @endif
                             </td>
-
-                            <!-- Table data -->
-                            <td>
-                                Developpement
+                            <td> 
+                                @if ($article->etat == 0)
+                                    <span class="badge bg-warning bg-opacity-15 text-primary">Nouveau</span> 
+                                @elseif($article->etat == 1)
+                                    <span class="badge bg-warning bg-opacity-15 text-success">Approuvé</span> 
+                                @elseif($article->etat == 2)
+                                    <span class="badge bg-warning bg-opacity-15 text-danger">Rejeté</span> 
+                                @endif
                             </td>
-
-                            <!-- Table data -->
-                            <td> 25/01/2025</td>
-
-                            <!-- Table data -->
                             <td>
-                                <a href="#" class="btn btn-sm btn-success me-1 mb-1 mb-md-0">Edit</a>
-                                <button class="btn btn-sm btn-danger mb-0">Delete</button>
+                                <a href="{{ route('admin.articles.show', $article->id) }}" class="btn btn-sm btn-primary-soft me-1 mb-1 mb-md-0">View</a>
+                                <a href="{{ route('admin.articles.edit', $article->id) }}" class="btn btn-sm btn-dark-soft me-1 mb-1 mb-md-0">Edit</a>
+                                <form action="{{ route('admin.articles.destroy', $article->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet articles ?')" class="btn btn-sm btn-danger-soft me-1 mb-1 mb-md-0">Delete</button>
+                                </form>
+                                <form action="{{ route('admin.articles.toggleStatus', $article->id) }}" method="POST" class="d-inline-block">
+                                    @csrf
+                                        @if ($article->active == 0)
+                                        <button type="submit" class="btn btn-sm btn-warning-soft me-1 mb-1 mb-md-0">
+                                            Activer
+                                        @else
+                                            <button type="submit" class="btn btn-sm btn-danger-soft me-1 mb-1 mb-md-0">
+                                                Désactiver
+                                            @endif
+                                    </button>
+                                </form>
+
+                                <form action="{{ route('admin.articles.approve', $article->id) }}" method="POST" class="d-inline-block">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="commentaire">Commentaire (optional)</label>
+                                        <textarea name="commentaire" id="commentaire" class="form-control"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-success mt-2">Approuver</button>
+                                </form>
+                                
+                                <form action="{{ route('admin.articles.reject', $article->id) }}" method="POST" class="d-inline-block">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="commentaire">Commentaire (optional)</label>
+                                        <textarea name="commentaire" id="commentaire" class="form-control"></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger mt-2">Rejeter</button>
+                                </form>
                             </td>
                         </tr>
+                    @endforeach
 
                     </tbody>
-                    <!-- Table body END -->
                 </table>
-                <!-- Table END -->
             </div>
-            <!-- Course table END -->
         </div>
-        <!-- Card body END -->
-
-        <!-- Card footer START -->
         <div class="card-footer bg-transparent pt-0">
-            <!-- Pagination START -->
             <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
-                <!-- Content -->
                 <p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
-                <!-- Pagination -->
                 <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
                     <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
                         <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
@@ -142,11 +155,8 @@ active
                     </ul>
                 </nav>
             </div>
-            <!-- Pagination END -->
         </div>
-        <!-- Card footer END -->
     </div>
-    <!-- Card END -->
 </div>
 
 @endsection

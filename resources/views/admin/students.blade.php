@@ -73,7 +73,7 @@ active
                                     <div class="d-sm-flex align-items-center">
                                         <!-- Avatar -->
                                         <div class="avatar avatar-md flex-shrink-0">
-                                            <img class="avatar-img rounded-circle" src="{{ $student->avatar ? asset('storage/' . $student->avatar) : asset('assets/img/general/avatar-1.png') }}" alt="avatar" alt="avatar">
+                                            <img class="avatar-img rounded-circle" src="{{ $student->avatar ? asset('storage/users/avatar/' . $student->avatar) : asset('assets/img/general/avatar-1.png') }}" alt="avatar" alt="avatar">
                                         </div>
                                         <!-- Info -->
                                         <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
@@ -168,7 +168,7 @@ active
                                         <div class="d-flex align-items-center position-relative">
                                             <!-- Image -->
                                             <div class="avatar avatar-md">
-                                                <img src="{{ $student->avatar ? asset('storage/' . $student->avatar) : asset('assets/img/general/avatar-1.png') }}" alt="avatar" class="rounded-circle">
+                                                <img src="{{ $student->avatar ? asset('storage/users/avatar/' . $student->avatar) : asset('assets/img/general/avatar-1.png') }}" alt="avatar" class="rounded-circle">
                                             </div>
                                             <div class="mb-0 ms-3">
                                                 <!-- Title -->

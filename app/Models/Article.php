@@ -17,10 +17,24 @@ class Article extends Model
         'image', 
         'active', 
         'etat',
+        'commentaire',
+        'date_creation',
+        'image2',
     ];
 
+    // Many-to-many relationship with Tag
     public function tags()
     {
         return $this->belongsToMany(Tag::class, 'tags_articles');
+    }
+
+    public function categorie()
+    {
+        return $this->belongsTo(Categorie::class, 'categorie_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

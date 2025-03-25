@@ -178,17 +178,34 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Requirements*</label>
+                        
+                            {{-- Vérification si des prérequis existent --}}
+                            @foreach ($prerequis as $item)
+                                <div class="col-md-2 mb-0">
+                                    <label>
+                                        <input type="checkbox" name="prerequis[]" value="{{ $item->id }}"
+                                            @if(in_array($item->id, old('prerequis', isset($cours) ? $cours->prerequis->pluck('id')->toArray() : []))) 
+                                                checked 
+                                            @endif>
+                                        {{ $item->nom }}
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                        
 
-                        <!-- Tags -->
-                        <div class="col-lg-12">
-                            <label class="form-label">Tags</label>
-                            <select class="form-select" multiple name="tags[]">
-                                @foreach($tags as $tag)
-                                    <option value="{{ $tag->id }}" {{ in_array($tag->id, old('tags', $cours->tags->pluck('id')->toArray())) ? 'selected' : '' }}>
+                        <div class="row container my-4 d-flex justify-content-center">
+                            <h5 class=" text-primary fs-4">Tags</h5>
+                            @foreach ($tags as $tag)
+                                <div class="col-md-2 mb-0">
+                                    <label>
+                                        <input type="checkbox" name="tags[]" value="{{ $tag->id }}" @if(in_array($tag->id, old('tags', $cours->tags->pluck('id')->toArray()))) checked @endif>
                                         {{ $tag->nom }}
-                                    </option>
-                                @endforeach
-                            </select>
+                                    </label>
+                                </div>
+                            @endforeach
                         </div>
 
                         <div class="col-lg-12 mt-4">

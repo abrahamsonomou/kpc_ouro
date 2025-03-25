@@ -32,10 +32,11 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/cours', [SiteController::class, 'cours'])->name('cours');
     Route::get('/cours/details', [SiteController::class, 'cours_details'])->name('cours-details');
     Route::get('/blog', [SiteController::class, 'blog'])->name('blog');
-    Route::get('/blog/details', [SiteController::class, 'blog_details'])->name('blog-details');
+    Route::get('/blog/details/{id}', [SiteController::class, 'blog_details'])->name('blog-details');
     Route::get('/events', [SiteController::class, 'events'])->name('events');
     Route::get('/instructors', [SiteController::class, 'instructors'])->name('instructors');
     Route::get('/about', [SiteController::class, 'about'])->name('about');
+    Route::get('/tags/{tagId}/articles', [SiteController::class, 'showByTag'])->name('tags.articles');
 
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
@@ -85,9 +86,14 @@ Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(functi
     Route::post('/cours/{id}/approve', [AdminController::class, 'approveCourse'])->name('cours.approve');
     Route::post('/cours/{id}/reject', [AdminController::class, 'rejectCourse'])->name('cours.reject');
     Route::post('/cours/{id}/toggle-status', [AdminController::class, 'toggleCourseStatus'])->name('cours.toggleStatus');
+    Route::get('/search', [AdminController::class, 'search'])->name('search');
 
+    Route::post('/articles/{id}/approve', [AdminController::class, 'approvearticle'])->name('articles.approve');
+    Route::post('/articles/{id}/reject', [AdminController::class, 'rejectarticle'])->name('articles.reject');
+    Route::post('/articles/{id}/toggle-status', [AdminController::class, 'togglearticleStatus'])->name('articles.toggleStatus');
+    
     // Gestion des entités (CRUD)
-    $entities = ['pays', 'villes', 'devises', 'niveaux', 'users', 'categories', 'tags', 'cours', 'langues', 'bureaux', 'articles'];
+    $entities = ['pays', 'villes', 'slides', 'services', 'evenements', 'partenaires', 'devises', 'specialites', 'prerequis', 'niveaux', 'users', 'categories', 'tags', 'cours', 'langues', 'bureaux', 'articles'];
     foreach ($entities as $entity) {
         Route::prefix($entity)->name("$entity.")->group(function () use ($entity) {
             Route::get('/', [AdminController::class, "{$entity}_list"])->name('list');
