@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('partenaires', function (Blueprint $table) {
+        Schema::create('inscriptions', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->text('description')->nullable();
-            $table->string('date_debut')->nullable();
-            $table->string('logo');
-            $table->integer('ordre')->default(0);
-            $table->boolean('active')->default(true);
-
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('cours_id')->constrained('cours')->onDelete('cascade');
+            $table->timestamp('date_inscription')->useCurrent();
+            $table->tinyInteger('etat')->default(0);
             $table->timestamps();
         });
     }
@@ -33,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('partenaires');
+        Schema::dropIfExists('inscriptions');
     }
 };

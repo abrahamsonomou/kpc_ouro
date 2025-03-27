@@ -79,6 +79,25 @@ class Cours extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+     /**
+     * Relation avec les étudiants inscrits (Many-to-Many)
+     */
+    public function etudiants()
+    {
+        return $this->belongsToMany(User::class, 'inscriptions', 'cours_id', 'user_id');
+    }
+
+    /**
+     * Obtenir les cours en relation (même niveau)
+     */
+    public function coursEnRelation()
+    {
+        return self::where('niveau_id', $this->niveau_id)
+                    ->where('id', '!=', $this->id)
+                    ->take(5)
+                    ->get();
+    }
+    
     // Automatically convert the string into an array
     public function getObjectifsAttribute($value)
     {

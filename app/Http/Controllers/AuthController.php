@@ -30,17 +30,8 @@ class AuthController extends Controller
     if (Auth::attempt($credentials, $remember)) {
         // Redirection après connexion réussie
         $request->session()->regenerate();
-    $user = Auth::user();   
-    if ($user->hasRole('admin')) {
-        return redirect()->route('admin.dashboard');
-    } elseif ($user->hasRole('student')) {
-        return redirect()->route('students.dashboard');
-    } elseif ($user->hasRole('instructor')) {
-        return redirect()->route('instructors.dashboard');
-    } 
-    else {
         return redirect()->intended('/');
-    }
+
     }
 
     // Retour en cas d'échec
@@ -49,10 +40,26 @@ class AuthController extends Controller
     ])->onlyInput('email');
     }
 
+    public function dashboard()
+    {
+        $user = Auth::user();
+        if ($user->hasRole('admin')) {
+            return redirect()->route('admin.dashboard');
+        } elseif ($user->hasRole('student')) {
+            return redirect()->route('students.dashboard');
+        } elseif ($user->hasRole('instructor')) {
+            return redirect()->route('instructors.dashboard');
+        } 
+        else {
+            return redirect()->intended('/');
+        }
+    }
+
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login');
+        return redirect()->intended('/');
+        // return redirect()->route('login');
     }
 
     public function showRegisterForm()

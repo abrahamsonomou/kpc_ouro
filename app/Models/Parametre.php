@@ -17,6 +17,7 @@ class Parametre extends Model
         'site_name',
         'email2',
         'logo',
+        'logo_footer',
         'favicon',
         'default_avatar_user',
         'default_avatar_student',

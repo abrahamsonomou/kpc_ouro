@@ -47,39 +47,112 @@ class AdminController extends Controller
         return view('admin.details_cours');
     }
 
-    public function settings(Request $request)
-    {
-        // Retrieve the first Parametre by ID or create a new one with default values if not found
-        $parametre = Parametre::firstOrCreate([
-            'telephone' => '',
-            'email' => '',
-            'twitter_link' => '',
-            'facebook_link' => '',
-            'instagram_link' => '',
-            'linkedln_link' => '',
-            'youtube_link' => '',
+//     public function settings(Request $request)
+// {
+//     // Récupère le premier enregistrement de Parametre ou crée un nouvel enregistrement par défaut
+//     $parametre = Parametre::firstOrCreate([]);
+
+//     // Si la requête est de type POST, on met à jour les valeurs
+//     if ($request->isMethod('post')) {
+//         $request->validate([
+//             'telephone' => 'required|string|max:20',
+//             'email' => 'required|email|max:255',
+//             'copyright' => 'nullable|string',
+//             'twitter_link' => 'nullable|url|max:255',
+//             'facebook_link' => 'nullable|url|max:255',
+//             'instagram_link' => 'nullable|url|max:255',
+//             'linkedln_link' => 'nullable|url|max:255',
+//             'youtube_link' => 'nullable|url|max:255',
+//             'site_name' => 'nullable|string',
+            
+//             'logo' => 'nullable|image|max:2048', // Max 2MB
+//             'favicon' => 'nullable|image|max:512', // Max 512KB
+//             'logo_footer' => 'nullable|image|max:2048', // Max 2MB
+//         ]);
+
+//         // Gestion des fichiers (logo, favicon, logo_footer)
+//         if ($request->hasFile('logo')) {
+//             if ($parametre->logo) {
+//                 Storage::disk('public')->delete($parametre->logo);
+//             }
+//             $parametre->logo = $request->file('logo')->store('images/settings', 'public');
+//         }
+
+//         if ($request->hasFile('favicon')) {
+//             if ($parametre->favicon) {
+//                 Storage::disk('public')->delete($parametre->favicon);
+//             }
+//             $parametre->favicon = $request->file('favicon')->store('images/settings', 'public');
+//         }
+
+//         if ($request->hasFile('logo_footer')) {
+//             if ($parametre->logo_footer) {
+//                 Storage::disk('public')->delete($parametre->logo_footer);
+//             }
+//             $parametre->logo_footer = $request->file('logo_footer')->store('images/settings', 'public');
+//         }
+
+//         // Mise à jour des autres paramètres
+//         $parametre->update($request->only([
+//             'telephone', 'email', 'twitter_link', 'facebook_link',
+//             'instagram_link', 'linkedln_link', 'youtube_link'
+//         ]));
+
+//         return redirect()->route('admin.settings')->with('success', 'Paramètres mis à jour avec succès.');
+//     }
+
+//     return view('admin.settings', compact('parametre'));
+// }
+
+public function settings(Request $request)
+{
+    $parametre = Parametre::firstOrCreate([]);
+
+    if ($request->isMethod('post')) {
+        $request->validate([
+            'site_name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'telephone' => 'nullable|string|max:20',
+            'email' => 'required|email|max:255',
+            'email2' => 'nullable|email|max:255',
+            'copyright' => 'nullable|string|max:255',
+            'twitter_link' => 'nullable|url|max:255',
+            'facebook_link' => 'nullable|url|max:255',
+            'instagram_link' => 'nullable|url|max:255',
+            'linkedin_link' => 'nullable|url|max:255',
+            'youtube_link' => 'nullable|url|max:255',
+
+            'logo' => 'nullable|image|max:2048',
+            'favicon' => 'nullable|image|max:512',
+            'logo_footer' => 'nullable|image|max:2048',
+            'default_avatar_user' => 'nullable|image|max:2048',
+            'default_avatar_student' => 'nullable|image|max:2048',
+            'default_avatar_instructor' => 'nullable|image|max:2048',
         ]);
 
-        // If the request is a POST (form submission), update the Parametre
-        if ($request->isMethod('post')) {
-            $request->validate([
-                'telephone' => 'required|string',
-                'email' => 'required|email',
-                'twitter_link' => 'nullable|url',
-                'facebook_link' => 'nullable|url',
-                'instagram_link' => 'nullable|url',
-                'linkedln_link' => 'nullable|url',
-                'youtube_link' => 'nullable|url',
-            ]);
+        $fieldsToUpdate = $request->only([
+            'site_name', 'description', 'telephone', 'email', 'email2', 'copyright',
+            'twitter_link', 'facebook_link', 'instagram_link', 'linkedin_link', 'youtube_link'
+        ]);
 
-            // Update the Parametre with the new data
-            $parametre->update($request->all());
-
-            return redirect()->route('admin.settings', $parametre)->with('success', 'Parameters updated successfully!');
+        // Handling file uploads
+        $imageFields = ['logo', 'favicon', 'logo_footer', 'default_avatar_user', 'default_avatar_student', 'default_avatar_instructor'];
+        foreach ($imageFields as $field) {
+            if ($request->hasFile($field)) {
+                if ($parametre->$field) {
+                    Storage::disk('public')->delete($parametre->$field);
+                }
+                $fieldsToUpdate[$field] = $request->file($field)->store('images/settings', 'public');
+            }
         }
-        // Return the edit form with the Parametre data
-        return view('admin.settings', compact('parametre'));
+
+        $parametre->update($fieldsToUpdate);
+
+        return redirect()->route('admin.settings')->with('success', 'Settings updated successfully.');
     }
+
+    return view('admin.settings', compact('parametre'));
+}
 
     public function instructors()
     {
@@ -1158,14 +1231,15 @@ class AdminController extends Controller
 
     public function cours_create()
     {
-        $categories = Categorie::where('active', 1)->get();
+        $categories = Categorie::where('active', 1)->
+        where('is_cours', 1)->get();
         $niveaux = Niveau::where('active', 1)->get();
         $langues = Langue::where('active', 1)->get();
         $devises = Devise::where('active', 1)->get();
-        // $instructors = User::where('is_active', 1)->get();
         $instructors = User::where('is_active', 1)->where('role', 'instructor')->get();
 
-        $tags = Tag::where('active', 1)->get(); // Get all tags
+        $tags = Tag::where('active', 1)->
+        where('is_cours', 1)->get();
         $prerequis = Prerequis::where('active', 1)->get(); // Get all prerequis
         return view('admin.cours.create', compact('categories', 'niveaux', 'tags', 'prerequis', 'langues', 'devises', 'instructors'));
     }
@@ -1189,12 +1263,12 @@ class AdminController extends Controller
             'certificat' => 'required|in:0,1',
             'nombre_quizz' => 'nullable|integer',
             'objectifs' => 'nullable|string',
-            // 'prerequis' => 'nullable|string',
             'image' => 'nullable|image',
             'url_video' => 'nullable|url',
             'user_id' => 'exists:users,id',
             'active' => 'required|in:0,1',
             'etat' => 'required|in:0,1,2',
+            'top' => 'nullable|in:0,1',
             
             'tags' => 'nullable|array', // Validate tags as an array
             'tags.*' => 'exists:tags,id', // Validate each tag ID
@@ -1219,13 +1293,13 @@ class AdminController extends Controller
             'devise_id' => $request->devise_id,
             'prix' => $request->prix,
             'prix_promo' => $request->prix_promo,
+            'top' => $request->top,
             'taux_reduction' => $request->taux_reduction,
             'duree' => $request->duree,
             'nombre_lesson' => $request->nombre_lesson,
             'certificat' => $request->certificat,
             'nombre_quizz' => $request->nombre_quizz,
             'objectifs' => $request->objectifs,
-            // 'prerequis' => $request->prerequis,
             'image' => $imagePath,
             'url_video' => $request->url_video,
             'user_id' => $request->user_id,
@@ -1249,12 +1323,14 @@ class AdminController extends Controller
     public function cours_edit($id)
     {
         $cours = Cours::findOrFail($id); // Trouver le cours par ID
-        $categories = Categorie::all();
+        $categories = Categorie::where('active', 1)->
+        where('is_cours', 1)->get();
         $instructors = User::where('role', 'instructor')->get(); // Filtrer les instructeurs
         $devises = Devise::all();
         $langues = Langue::all();
         $niveaux = Niveau::all();
-        $tags = Tag::all();
+        $tags = Tag::where('active', 1)->
+        where('is_cours', 1)->get();
         $prerequis = Prerequis::where('active', 1)->get(); // Get all prerequis
 
         return view('admin.cours.edit', compact('cours', 'categories', 'instructors', 'devises', 'prerequis', 'langues', 'niveaux', 'tags'));
@@ -1263,76 +1339,65 @@ class AdminController extends Controller
     // Update the course
     public function cours_update(Request $request, $id)
     {
+        // Validation des données
         $request->validate([
-            'titre' => 'required|string',
-            'description' => 'required|string',
-            'short_description' => 'required|string',
-            'categorie_id' => 'required|exists:categories,id',
-            'niveau_id' => 'required|exists:niveaux,id',
-            'langue_id' => 'required|exists:langues,id',
-            'devise_id' => 'required|exists:devises,id',
-            'prix' => 'required|numeric',
-            'prix_promo' => 'nullable|numeric',
-            'taux_reduction' => 'nullable|numeric|max:100',
-            'duree' => 'required|integer',
-            'nombre_lesson' => 'required|integer',
-            'certificat' => 'required|in:0,1',
-            'nombre_quizz' => 'required|integer',
-            'objectifs' => 'required|string',
-            'image' => 'nullable|image',
+            'titre' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'short_description' => 'nullable|string|max:500',
+            'categorie_id' => 'nullable|exists:categories,id',
+            'niveau_id' => 'nullable|exists:niveaux,id',
+            'langue_id' => 'nullable|exists:langues,id',
+            'devise_id' => 'nullable|exists:devises,id',
+            'prix' => 'nullable|numeric|min:0',
+            'prix_promo' => 'nullable|numeric|min:0',
+            'taux_reduction' => 'nullable|numeric|min:0|max:100',
+            'duree' => 'nullable|string',
+            'nombre_lesson' => 'nullable|integer|min:0',
+            'certificat' => 'nullable|boolean',
+            'nombre_quizz' => 'nullable|integer|min:0',
+            'objectifs' => 'nullable|string',
+            'image' => 'nullable|image|max:2048', // Limite de 2MB
             'url_video' => 'nullable|url',
             'user_id' => 'required|exists:users,id',
-            'active' => 'required|in:0,1',
-            'etat' => 'required|in:0,1,2',
+            'active' => 'nullable|boolean',
+            'top' => 'nullable|boolean',
+            'etat' => 'nullable|in:0,1,2',
+    
             'tags' => 'nullable|array',
             'tags.*' => 'exists:tags,id',
-            'prerequis' => 'nullable|array', 
+    
+            'prerequis' => 'nullable|array',
             'prerequis.*' => 'exists:prerequis,id',
         ]);
-
+    
+        // Trouver le cours ou échouer
         $cours = Cours::findOrFail($id);
-
-        // Handle image upload (if new image is uploaded)
+    
+        // Gestion de l'image
         if ($request->hasFile('image')) {
-            // Delete the old image if it exists
-            if ($cours->image && file_exists(storage_path('app/public/' . $cours->image))) {
-                unlink(storage_path('app/public/' . $cours->image));
+            // Supprimer l'ancienne image si elle existe
+            if ($cours->image) {
+                Storage::disk('public')->delete($cours->image);
             }
-
-            // Store the new image
+    
+            // Enregistrer la nouvelle image
             $imagePath = $request->file('image')->store('images/cours', 'public');
             $cours->image = $imagePath;
         }
-
-        // Update course details, excluding tags
-        $cours->update([
-            'titre' => $request->titre,
-            'description' => $request->description,
-            'short_description' => $request->short_description,
-            'categorie_id' => $request->categorie_id,
-            'niveau_id' => $request->niveau_id,
-            'langue_id' => $request->langue_id,
-            'devise_id' => $request->devise_id,
-            'prix' => $request->prix,
-            'prix_promo' => $request->prix_promo,
-            'taux_reduction' => $request->taux_reduction,
-            'duree' => $request->duree,
-            'nombre_lesson' => $request->nombre_lesson,
-            'certificat' => $request->certificat,
-            'nombre_quizz' => $request->nombre_quizz,
-            'objectifs' => $request->objectifs,
-            'url_video' => $request->url_video,
-            'user_id' => $request->user_id,
-            'active' => $request->active,
-            'etat' => $request->etat,
-        ]);
-
-        // Sync selected tags
-        if ($request->has('tags')) {
-            $cours->tags()->sync($request->tags);
-        }
-
-        // Redirect back with success message
+    
+        // Mise à jour des champs du cours
+        $cours->update($request->only([
+            'titre', 'description', 'short_description', 'categorie_id', 'niveau_id', 
+            'langue_id', 'devise_id', 'prix', 'prix_promo', 'taux_reduction', 'duree', 
+            'nombre_lesson', 'certificat', 'nombre_quizz', 'objectifs', 'url_video', 
+            'user_id', 'active', 'top', 'etat'
+        ]));
+    
+        // Mise à jour des tags et prérequis
+        $cours->tags()->sync($request->tags ?? []);
+        $cours->prerequis()->sync($request->prerequis ?? []);
+    
+        // Redirection avec message de succès
         return redirect()->route('admin.cours.list')->with('success', 'Course updated successfully');
     }
 

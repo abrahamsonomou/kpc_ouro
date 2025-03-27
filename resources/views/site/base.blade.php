@@ -41,7 +41,7 @@
 
               <div class="header__logo ">
                 <a data-barba href="{{ route('home') }}">
-                  <img src="{{ asset('assets/img/general/logo.svg') }}" alt="logo">
+                  <img src="{{ asset('storage/' . $parametre->logo) }}" alt="logo">
                 </a>
               </div>
 
@@ -54,25 +54,22 @@
 
                 <div class="explore-content py-25 rounded-8 bg-white toggle-element js-explore-toggle">
 
-                  <div class="explore__item">
+                  {{-- <div class="explore__item">
                     <a href="#" class="d-flex items-center justify-between text-dark-1">
                       Design<div class="icon-chevron-right text-11"></div>
                     </a>
                     <div class="explore__subnav rounded-8">
-                      <a class="text-dark-1" href="courses-single-1.html">Web Design</a>
-                      <a class="text-dark-1" href="courses-single-2.html">Graphic Design</a>
-                      <a class="text-dark-1" href="courses-single-3.html">Design Tools</a>
-                      <a class="text-dark-1" href="courses-single-4.html">User Experience Design</a>
-                      <a class="text-dark-1" href="courses-single-5.html">Game Design</a>
-                      <a class="text-dark-1" href="courses-single-6.html">3D & Animation</a>
-                      <a class="text-dark-1" href="courses-single-1.html">Fashion Design</a>
                       <a class="text-dark-1" href="courses-single-2.html">Interior Design</a>
                     </div>
-                  </div>
+                  </div> --}}
 
+                  {{-- @if($categories_cours->count() > 0)
+                  @foreach ($categories_cours as $categorie_cours)
                   <div class="explore__item">
                     <a href="courses-single-6.html" class="text-dark-1">Education</a>
                   </div>
+                  @endforeach
+                  @endif --}}
 
                 </div>
               </div>
@@ -136,8 +133,8 @@
 
               <div class="mobile-footer px-20 py-20 border-top-light js-mobile-footer">
                 <div class="mobile-footer__number">
-                  <div class="text-17 fw-500 text-dark-1">Call us</div>
-                  <div class="text-17 fw-500 text-purple-1">800 388 80 90</div>
+                  <div class="text-17 fw-500 text-dark-1">Telephone</div>
+                  <div class="text-17 fw-500 text-purple-1">{{ $parametre->telephone ?? 'N/A' }}</div>
                 </div>
 
                 <div class="lh-2 mt-10">
@@ -189,11 +186,21 @@
 
               </div>
 
-              <div class="header-right__buttons d-flex items-center ml-30 md:d-none">
+              {{-- <div class="header-right__buttons d-flex items-center ml-30 md:d-none">
                 <a href="{{ route('login') }}" class="button -underline text-white">Log in</a>
                 <a href="{{ route('register') }}" class="button -sm -white text-dark-1 ml-30">Sign Up</a>
-              </div>
+              </div> --}}
 
+              <div class="header-right__buttons d-flex items-center ml-30 xl:ml-20 md:d-none">
+                @guest
+                  <a href="{{ route('login') }}" class="button -underline text-white">Log in</a>
+                  <a href="{{ route('register') }}" class="button px-25 h-50 -white text-dark-1 -rounded ml-30 xl:ml-20">Sign Up</a>
+                @else
+                  <a href="{{ route('dashboard') }}" class="button -underline text-white">Mon Espace</a>
+                  <a href="{{ route('logout') }}" class="button px-25 h-50 -white text-dark-1 -rounded ml-30 xl:ml-20">Deconnexion</a>
+                @endguest
+                </div>
+                
             </div>
           </div>
 

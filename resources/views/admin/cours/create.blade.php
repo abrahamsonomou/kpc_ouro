@@ -19,6 +19,16 @@
 
             <div class="card shadow">
                 <div class="card-body">
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                    
                     <form class="row g-4 align-items-center" action="{{ route('admin.cours.store') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
@@ -142,6 +152,14 @@
                             </select>
                           </div>
 
+                          <div class="col-md-2">
+                            <label class="form-label">Top *</label>
+                            <select name="top" id="" class="form-select js-choice z-index-9 border-0 bg-light">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                          </div>
+
                         <div class="col-lg-4">
                             <label class="form-label">Statut du cours</label>
                             <div class="d-sm-flex">
@@ -174,7 +192,7 @@
 
                         <div class="col-md-6">
 
-                            <label class="form-label">What will students learn in your course?*</label>
+                            <label class="form-label">Objectifs du cours*</label>
             
                             <textarea class="form-control" name="prerequis" placeholder="Description" rows="7"></textarea>
                           </div>
@@ -182,7 +200,7 @@
             
                           <div class="col-md-6">
             
-                            <label class="form-label">Requirements*</label>
+                            <label class="form-label">Prerequis du cours*</label>
                             {{-- <textarea class="form-control" name="objectifs" placeholder="Description" rows="7"></textarea> --}}
                             @foreach ($prerequis as $item)
                             <div class="col-md-2 mb-0">

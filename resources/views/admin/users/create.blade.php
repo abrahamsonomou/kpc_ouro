@@ -7,6 +7,7 @@ active
 active
 @endsection
 @section('content')
+
 <div class="container">
     <h1>Create New User</h1>
 
@@ -135,4 +136,5 @@ active
         <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>
+
 @endsection

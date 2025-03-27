@@ -89,8 +89,8 @@
 <nav class="navbar sidebar navbar-expand-xl navbar-dark bg-dark">
 
 	<div class="d-flex align-items-center">
-		<a class="navbar-brand" href="{{ route('admin.dashboard') }}">
-			<img class="navbar-brand-item" src="{{ asset('assets/images/logo-light.svg') }}" alt="">
+		<a class="navbar-brand" href="{{ route('home') }}" target="_blank">
+			<img class="navbar-brand-item" src="{{ asset('storage/' . $parametre->logo) }}" alt="">
 		</a>
 	</div>
 	
@@ -187,8 +187,8 @@
 
 				<div class="d-flex align-items-center d-xl-none">
 					<a class="navbar-brand" href="index.html">
-						<img class="light-mode-item navbar-brand-item h-30px" src="{{ asset('assets/images/logo-mobile.svg') }}" alt="">
-						<img class="dark-mode-item navbar-brand-item h-30px" src="{{ asset('assets/images/logo-mobile-light.svg') }}" alt="">
+						<img class="light-mode-item navbar-brand-item h-30px" src="{{ asset('storage/' . $parametre->logo) }}" alt="">
+						<img class="dark-mode-item navbar-brand-item h-30px" src="{{ asset('storage/' . $parametre->logo) }}" alt="">
 					</a>
 				</div>
 

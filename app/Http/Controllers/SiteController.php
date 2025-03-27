@@ -13,17 +13,21 @@ use App\Models\Article;
 use App\Models\Slide;
 use App\Models\Service;
 use App\Models\Partenaire;
+use App\Models\Inscription;
+use Illuminate\Support\Facades\Auth;
 
 class SiteController extends Controller
 {
     
+
     public function home()
     {
         // Récupérer les 20 premiers cours avec 'top' égal à 1 et où 'active' est 1
         $cours = Cours::where('active', 1)
                       ->where('top', 1)  // Filtrer par 'top' égal à 1
+                      ->where('etat', 1)
                       ->with('user')      // Charger la relation avec 'user'
-                      ->take(20)          // Limiter les résultats à 20 cours
+                      ->take(12)          // Limiter les résultats à 12 cours
                       ->get();
         $slides = Slide::where('active', 1)->orderBy('ordre', 'asc')->get();
         $partenaires = Partenaire::where('active', 1)->orderBy('ordre', 'asc')->get();
@@ -34,6 +38,7 @@ class SiteController extends Controller
     
     public function contact()
     {
+
         $bureaux = Bureau::all();
         return view('site.contact', compact('bureaux'));
     }
@@ -63,13 +68,39 @@ class SiteController extends Controller
 
     public function cours()
     {
-        $cours = Cours::where('active', 1)->with('user')->get();
-        return view('site.cours', compact('cours'));
+        $cours = Cours::where('active', 1)->where('etat', 1)->orderBy('created_at', 'desc')->with('user')->paginate(2);
+        return view('site.cours.allcourse', compact('cours'));
     }
 
-    public function cours_details()
+    public function cours_details($id)
     {
-        return view('site.cours-details');
+        // Récupérer les détails du cours
+        $cours = Cours::findOrFail($id);
+    
+        // Récupérer les cours en relation
+        $cours_en_relation = $cours->coursEnRelation();
+
+
+        // Retourner la vue avec les détails du cours et les cours en relation
+        return view('site.cours.details', compact('cours', 'cours_en_relation'));
+    }
+    
+    public function enroulement_cours($coursId)
+    {
+        $user = Auth::user();
+
+        // Vérifier si l'utilisateur est déjà inscrit
+        if (Inscription::where('user_id', $user->id)->where('cours_id', $coursId)->exists()) {
+            return redirect()->back()->with('error', 'Vous êtes déjà inscrit à ce cours.');
+        }
+
+        // Inscrire l'utilisateur
+        Inscription::create([
+            'user_id' => $user->id,
+            'cours_id' => $coursId
+        ]);
+
+        return redirect()->back()->with('success', 'Inscription réussie au cours.');
     }
 
     public function blog()

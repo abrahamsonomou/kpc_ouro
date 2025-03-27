@@ -112,6 +112,9 @@ message
 Parametre
 telephone
 email
+logo
+favicon
+logo_footer
 twitter_link
 facebook_link
 instagram_link

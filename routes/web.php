@@ -22,15 +22,13 @@ Route::get('lang/{locale}', function ($locale) {
 // Routes avec localisation
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/', [SiteController::class, 'home'])->name('home');
-// });
-
-// // Routes accessibles aux invités
-// Route::middleware(['guest'])->group(function () {
     Route::get('/contact', [SiteController::class, 'contact'])->name('contact');
     Route::post('/contact', [SiteController::class, 'store_contact'])->name('contacts.store');
     Route::get('/contact/success', [SiteController::class, 'contact_success'])->name('contact_success');
     Route::get('/cours', [SiteController::class, 'cours'])->name('cours');
-    Route::get('/cours/details', [SiteController::class, 'cours_details'])->name('cours-details');
+    // Route::get('/cours/details', [SiteController::class, 'cours_details'])->name('cours-details');
+    Route::get('/cours/{id}/details', [SiteController::class, 'cours_details'])->name('cours.details');
+
     Route::get('/blog', [SiteController::class, 'blog'])->name('blog');
     Route::get('/blog/details/{id}', [SiteController::class, 'blog_details'])->name('blog-details');
     Route::get('/events', [SiteController::class, 'events'])->name('events');
@@ -50,6 +48,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/lock-screen', [AuthController::class, 'lockScreen'])->name('lockScreen');
     Route::post('/unlock-screen', [AuthController::class, 'unlockScreen'])->name('unlockScreen');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+    Route::post('/inscrire/{cours}', [SiteController::class, 'enroulement_cours'])->name('inscrire');
 });
 
 // Routes spécifiques aux étudiants
