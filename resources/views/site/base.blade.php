@@ -63,13 +63,13 @@
                     </div>
                   </div> --}}
 
-                  {{-- @if($categories_cours->count() > 0)
+                  @if($categories_cours->count() > 0)
                   @foreach ($categories_cours as $categorie_cours)
                   <div class="explore__item">
-                    <a href="courses-single-6.html" class="text-dark-1">Education</a>
+                    <a href="" class="text-dark-1">{{ $categorie_cours->nom }}</a>
                   </div>
                   @endforeach
-                  @endif --}}
+                  @endif
 
                 </div>
               </div>

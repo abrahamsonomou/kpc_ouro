@@ -97,7 +97,7 @@
 	<div class="offcanvas offcanvas-start flex-row custom-scrollbar h-100" data-bs-backdrop="true" tabindex="-1" id="offcanvasSidebar">
 		<div class="offcanvas-body sidebar-content d-flex flex-column bg-dark">
 
-			<ul class="navbar-nav flex-column" id="navbar-sidebar">
+			{{-- <ul class="navbar-nav flex-column" id="navbar-sidebar">
 				
 				<li class="nav-item"><a href="{{ route('admin.dashboard') }}" class="nav-link @yield('isActive1')"><i class="bi bi-house fa-fw me-2"></i>Dashboard</a></li>
 				
@@ -173,8 +173,74 @@
 						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.partenaires.list') }}">partenaires</a></li>
 					</ul>
 				</li>
+			</ul> --}}
+			<ul class="navbar-nav flex-column" id="navbar-sidebar">
+				<li class="nav-item"><a href="{{ route('admin.dashboard') }}" class="nav-link @yield('isActive1')"><i class="bi bi-house fa-fw me-2"></i>Dashboard</a></li>
+				<li class="nav-item"><a class="nav-link @yield('isActive2')" href="{{ route('admin.cours.list') }}"><i class="bi bi-basket fa-fw me-2"></i>Courses</a></li>
+				<li class="nav-item"><a class="nav-link @yield('isActive3')" href="{{ route('admin.students') }}"><i class="fas fa-user-graduate fa-fw me-2"></i>Students</a></li>
+				
+				<li class="nav-item">
+					<a class="nav-link @yield('isActive4')" data-bs-toggle="collapse" href="#collapseinstructors" role="button" aria-expanded="false">
+						<i class="fas fa-chalkboard-teacher fa-fw me-2"></i>Instructors
+					</a>
+					<ul class="nav collapse flex-column" id="collapseinstructors">
+						<li class="nav-item"><a class="nav-link @yield('isActive5')" href="{{ route('admin.instructors') }}">Instructors</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive6')" href="{{ route('admin.instructors_request') }}">Instructor Requests <span class="badge text-bg-success rounded-circle ms-2">2</span></a></li>
+					</ul>
+				</li>
+				
+				<li class="nav-item"><a class="nav-link @yield('isActive7')" href="{{ route('admin.reviews') }}"><i class="far fa-comment-dots fa-fw me-2"></i>Reviews</a></li>
+				<li class="nav-item"><a class="nav-link @yield('isActive8')" href="{{ route('admin.articles.list') }}"><i class="far fa-newspaper fa-fw me-2"></i>Articles</a></li>
+				<li class="nav-item"><a class="nav-link @yield('isActive9')" href="{{ route('admin.settings') }}"><i class="fas fa-cogs fa-fw me-2"></i>Admin Settings</a></li>
+				<li class="nav-item"><a class="nav-link @yield('isActive10')" href="{{ route('admin.contacts') }}"><i class="far fa-envelope fa-fw me-2"></i>Contacts</a></li>
+				
+				<li class="nav-item">
+					<a class="nav-link @yield('isActive11')" data-bs-toggle="collapse" href="#collapseparametres" role="button" aria-expanded="false">
+						<i class="fas fa-cog fa-fw me-2"></i>Course Settings
+					</a>
+					<ul class="nav collapse flex-column" id="collapseparametres">
+						<li class="nav-item"><a class="nav-link @yield('isActive12')" href="{{ route('admin.niveaux.list') }}">Niveaux</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive13')" href="{{ route('admin.categories.list') }}">Categories</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive14')" href="{{ route('admin.tags.list') }}">Tags</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive15')" href="{{ route('admin.prerequis.list') }}">Prerequisites</a></li>
+					</ul>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link @yield('isActive16')" data-bs-toggle="collapse" href="#collapseparametresDivers" role="button" aria-expanded="false">
+						<i class="fas fa-globe fa-fw me-2"></i>Divers
+					</a>
+					<ul class="nav collapse flex-column" id="collapseparametresDivers">
+						<li class="nav-item"><a class="nav-link @yield('isActive17')" href="{{ route('admin.pays.list') }}">Pays</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive18')" href="{{ route('admin.villes.list') }}">Villes</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive19')" href="{{ route('admin.devises.list') }}">Devises</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive20')" href="{{ route('admin.langues.list') }}">Langues</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive21')" href="{{ route('admin.specialites.list') }}">Specialites</a></li>
+					</ul>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link @yield('isActive22')" data-bs-toggle="collapse" href="#collapseparametresSecurite" role="button" aria-expanded="false">
+						<i class="fas fa-shield-alt fa-fw me-2"></i>Security
+					</a>
+					<ul class="nav collapse flex-column" id="collapseparametresSecurite">
+						<li class="nav-item"><a class="nav-link @yield('isActive23')" href="{{ route('admin.users.list') }}">Users</a></li>
+					</ul>
+				</li>
+				
+				<li class="nav-item">
+					<a class="nav-link @yield('isActive24')" data-bs-toggle="collapse" href="#collapseparametresSite" role="button" aria-expanded="false">
+						<i class="fas fa-tools fa-fw me-2"></i>Site Settings
+					</a>
+					<ul class="nav collapse flex-column" id="collapseparametresSite">
+						<li class="nav-item"><a class="nav-link @yield('isActive25')" href="{{ route('admin.bureaux.list') }}">Bureaux</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive26')" href="{{ route('admin.slides.list') }}">Slides</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive27')" href="{{ route('admin.services.list') }}">Services</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive28')" href="{{ route('admin.partenaires.list') }}">Partners</a></li>
+					</ul>
+				</li>
 			</ul>
-
+			
 		</div>
 	</div>
 </nav>
