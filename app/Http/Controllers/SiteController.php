@@ -52,7 +52,7 @@ class SiteController extends Controller
             'nom' => 'required|string|max:255',
             // 'email' => 'required|email|unique:contacts,email',
             'email' => 'required|email',
-            'sujet' => 'required|string|max:255',
+            'sujet' => 'nullable|string|max:255',
             'message' => 'required|string',
         ]);
 
@@ -63,7 +63,7 @@ class SiteController extends Controller
 
     public function contact_success()
     {
-        return view('site.contact_success');
+        return view('site.contact-success');
     }
 
     public function cours()
@@ -149,6 +149,12 @@ class SiteController extends Controller
     public function instructors()
     {
         return view('site.instructors');
+    }
+
+
+    public function services()
+    {
+        return view('site.nos-services');
     }
 
 

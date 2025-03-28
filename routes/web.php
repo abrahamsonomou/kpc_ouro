@@ -34,6 +34,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/events', [SiteController::class, 'events'])->name('events');
     Route::get('/instructors', [SiteController::class, 'instructors'])->name('instructors');
     Route::get('/about', [SiteController::class, 'about'])->name('about');
+    Route::get('/nos-services', [SiteController::class, 'services'])->name('services');
     Route::get('/tags/{tagId}/articles', [SiteController::class, 'showByTag'])->name('tags.articles');
 
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -83,6 +84,7 @@ Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(functi
     Route::get('/instructors/request', [AdminController::class, 'instructors_request'])->name('instructors_request');
     Route::get('/instructors/details', [AdminController::class, 'instructors_details'])->name('instructors_details');
 
+    Route::get('/cours/enroulements', [AdminController::class, 'enroulements'])->name('cours.enroulements');
     Route::post('/cours/{id}/approve', [AdminController::class, 'approveCourse'])->name('cours.approve');
     Route::post('/cours/{id}/reject', [AdminController::class, 'rejectCourse'])->name('cours.reject');
     Route::post('/cours/{id}/toggle-status', [AdminController::class, 'toggleCourseStatus'])->name('cours.toggleStatus');

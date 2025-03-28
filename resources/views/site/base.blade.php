@@ -17,7 +17,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/vendors.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 
-  <title>@yield('title') | KPC OURO</title>
+  <title>Acceuil | {{ $parametre->site_name ?? 'KPC OURO' }}</title>
 </head>
 
 <body class="preloader-visible" data-barba="wrapper">
@@ -41,7 +41,7 @@
 
               <div class="header__logo ">
                 <a data-barba href="{{ route('home') }}">
-                  <img src="{{ asset('storage/' . $parametre->logo) }}" alt="logo">
+                  <img src="{{ asset($parametre->logo ?? 'assets/img/general/logo.svg') }}" alt="logo">
                 </a>
               </div>
 
@@ -94,11 +94,13 @@
 
                   <li> <a data-barba href="{{ route('about') }}">About</a></li>
 
+                  <li> <a data-barba href="{{ route('services') }}">Nos Services</a></li>
+
                   <li> <a data-barba href="{{ route('cours') }}">Courses</a></li>
 
                   <li> <a data-barba href="{{ route('blog') }}">Blog</a></li>
 
-                  <li class="menu-item-has-children">
+                  {{-- <li class="menu-item-has-children">
                     <a data-barba href="#">Nos solutions<i class="icon-chevron-right text-13 ml-10"></i></a>
                     <ul class="subnav">
                       <li class="menu__backButton js-nav-list-back">
@@ -110,7 +112,7 @@
                       <li><a href="">Solution 2</a></li>
 
                     </ul>
-                  </li>
+                  </li> --}}
 
                   <li class="menu-item-has-children">
                     <a data-barba href="#">Ressources<i class="icon-chevron-right text-13 ml-10"></i></a>
@@ -134,31 +136,32 @@
               <div class="mobile-footer px-20 py-20 border-top-light js-mobile-footer">
                 <div class="mobile-footer__number">
                   <div class="text-17 fw-500 text-dark-1">Telephone</div>
-                  <div class="text-17 fw-500 text-purple-1">{{ $parametre->telephone ?? 'N/A' }}</div>
+                  <div class="text-17 fw-500 text-purple-1">{{ $parametre->telephone ?? '' }}</div>
                 </div>
 
                 <div class="lh-2 mt-10">
-                  <div>329 Queensberry Street,<br> North Melbourne VIC 3051, Australia.</div>
-                  <div>hi@educrat.com</div>
+                  <div>{{ $parametre->description ?? '' }}</div>
+                  <div>{{ $parametre->email ?? '' }}</div>
                 </div>
 
                 <div class="mobile-socials mt-10">
 
-                  <a href="#" class="d-flex items-center justify-center rounded-full size-40">
+                  <a href="{{ $parametre->facebook_link ?? '#' }}" class="d-flex items-center justify-center rounded-full size-40" target="_blank">
                     <i class="fa fa-facebook"></i>
                   </a>
-
-                  <a href="#" class="d-flex items-center justify-center rounded-full size-40">
+                  
+                  <a href="{{ $parametre->twitter_link ?? '#' }}" class="d-flex items-center justify-center rounded-full size-40" target="_blank">
                     <i class="fa fa-twitter"></i>
                   </a>
-
-                  <a href="#" class="d-flex items-center justify-center rounded-full size-40">
+                  
+                  <a href="{{ $parametre->instagram_link ?? '#' }}" class="d-flex items-center justify-center rounded-full size-40" target="_blank">
                     <i class="fa fa-instagram"></i>
                   </a>
-
-                  <a href="#" class="d-flex items-center justify-center rounded-full size-40">
+                  
+                  <a href="{{ $parametre->linkedin_link ?? '#' }}" class="d-flex items-center justify-center rounded-full size-40" target="_blank">
                     <i class="fa fa-linkedin"></i>
                   </a>
+                  
 
                 </div>
               </div>

@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/vendors.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 
-  <title>Acceuil | KPC OURO</title>
+  <title>Acceuil | {{ $parametre->site_name ?? 'KPC OURO' }}</title>
 </head>
 
 
@@ -24,14 +24,19 @@
           <div class="row y-gap-5 justify-between items-center">
             <div class="col-auto">
               <div class="d-flex x-gap-40 y-gap-10 items-center">
+
+                {{-- @if ({{ $parametre->telephone }}) --}}
                 <div class="d-flex items-center text-white md:d-none">
                   <div class="icon-email mr-10"></div>
-                  <div class="text13 lh-1">{{ $parametre->telephone ?? 'N/A' }}</div>
+                  <div class="text13 lh-1">{{ $parametre->telephone ?? '' }}</div>
                 </div>
+                {{-- @endif --}}
+
                 <div class="d-flex items-center text-white">
                   <div class="icon-email mr-10"></div>
-                  <div class="text13 lh-1"><a href="mailto:{{ $parametre->email ?? '#' }}">{{ $parametre->email ?? 'N/A' }}</a></div>
+                  <div class="text13 lh-1"><a href="mailto:{{ $parametre->email ?? '#' }}">{{ $parametre->email ?? '' }}</a></div>
                 </div>
+
               </div>
             </div>
 
@@ -67,7 +72,8 @@
 
               <div class="header__logo ">
                 <a data-barba href="{{ route('home') }}">
-                  <img src="{{ asset('assets/img/general/logo.svg') }}" alt="logo">
+                  <img src="{{ asset('storage/' .$parametre->logo ?? 'assets/img/general/logo.svg') }}" alt="logo">
+
                 </a>
               </div>
 
@@ -81,14 +87,6 @@
               <div class="header-menu js-mobile-menu-toggle ">
                 <div class="header-menu__content">
                   <div class="mobile-bg js-mobile-bg"></div>
-                 
-                  {{-- @guest
-                  <div class="d-none xl:d-flex items-center px-20 py-20 border-bottom-light">
-                    <a href="{{ route('login') }}" class="text-dark-1">Log in</a>
-                    <a href="{{ route('register') }}" class="text-dark-1 ml-30">Sign Up</a>
-                  </div>
-                  @else
-                  @endguest --}}
 
                   <div class="d-none xl:d-flex items-center px-20 py-20 border-bottom-light">
                     @guest
@@ -107,13 +105,13 @@
                       <li> <a data-barba href="{{ route('home') }}">Home</a></li>
 
                       <li> <a data-barba href="{{ route('about') }}">About</a></li>
-                      <li> <a data-barba href="{{ route('about') }}">Nos Services</a></li>
+                      <li> <a data-barba href="{{ route('services') }}">Nos Services</a></li>
 
                       <li> <a data-barba href="{{ route('cours') }}">Courses</a></li>
 
                       <li> <a data-barba href="{{ route('blog') }}">Blog</a></li>
 
-                      <li class="menu-item-has-children">
+                      {{-- <li class="menu-item-has-children">
                         <a data-barba href="#">Nos solutions<i class="icon-chevron-right text-13 ml-10"></i></a>
                         <ul class="subnav">
                           <li class="menu__backButton js-nav-list-back">
@@ -125,7 +123,7 @@
                           <li><a href="">Solution 2</a></li>
 
                         </ul>
-                      </li>
+                      </li> --}}
 
                       <li class="menu-item-has-children">
                         <a data-barba href="#">Ressources<i class="icon-chevron-right text-13 ml-10"></i></a>
@@ -153,27 +151,32 @@
                     </div>
 
                     <div class="lh-2 mt-10">
-                      <div>329 Queensberry Street,<br> North Melbourne VIC 3051, Australia.</div>
+                      <div>{{ $parametre->description ?? '' }}</div>
                       <div><a href="mailto:{{ $parametre->email ?? '#' }}">{{ $parametre->email ?? 'N/A' }}</a></div>
                     </div>
 
                     <div class="mobile-socials mt-10">
 
-                      <a href="#" class="d-flex items-center justify-center rounded-full size-40">
+                      <a href="{{ $parametre->facebook_link ?? '#' }}" class="d-flex items-center justify-center rounded-full size-40" target="_blank">
                         <i class="fa fa-facebook"></i>
                       </a>
-
-                      <a href="#" class="d-flex items-center justify-center rounded-full size-40">
+                      
+                      <a href="{{ $parametre->twitter_link ?? '#' }}" class="d-flex items-center justify-center rounded-full size-40" target="_blank">
                         <i class="fa fa-twitter"></i>
                       </a>
-
-                      <a href="#" class="d-flex items-center justify-center rounded-full size-40">
+                      
+                      <a href="{{ $parametre->instagram_link ?? '#' }}" class="d-flex items-center justify-center rounded-full size-40" target="_blank">
                         <i class="fa fa-instagram"></i>
                       </a>
-
-                      <a href="#" class="d-flex items-center justify-center rounded-full size-40">
+                      
+                      <a href="{{ $parametre->linkedin_link ?? '#' }}" class="d-flex items-center justify-center rounded-full size-40" target="_blank">
                         <i class="fa fa-linkedin"></i>
                       </a>
+                      
+                      <a href="{{ $parametre->youtube_link ?? '#' }}" class="d-flex items-center justify-center rounded-full size-40" target="_blank">
+                        <i class="fa fa-youtube"></i>
+                      </a>
+                      
 
                     </div>
                   </div>
@@ -233,7 +236,7 @@
           @else
           <div class="swiper-slide">
             <div data-anim-child="fade" class="mainSlider__bg">
-              <div class="bg-image js-lazy" data-bg="{{ asset('assets/img/home-2/mainSlider/bg.png') }}"></div>
+              <div class="bg-image js-lazy" data-bg="{{ asset('assets/img/bg.png') }}"></div>
             </div>
           </div>
           @endif
@@ -267,7 +270,7 @@
 
             <div class="col-xl-3 col-md-4 col-sm-6">
               <div class="mainSlider-item text-center">
-                <img src="{{ asset('assets/img/home-2/mainSlider/icons/1.svg') }}" alt="icon">
+                <img src="{{ asset('assets/img/icons/1.svg') }}" alt="icon">
                 <h4 class="text-20 fw-500 lh-18 text-white mt-8">100,000 online courses</h4>
                 <p class="text-15 text-white">Explore a variety of fresh topics</p>
               </div>
@@ -275,7 +278,7 @@
 
             <div class="col-xl-3 col-md-4 col-sm-6">
               <div class="mainSlider-item text-center">
-                <img src="{{ asset('assets/img/home-2/mainSlider/icons/2.svg') }}" alt="icon">
+                <img src="{{ asset('assets/img/icons/2.svg') }}" alt="icon">
                 <h4 class="text-20 fw-500 lh-18 text-white mt-8">Expert instruction</h4>
                 <p class="text-15 text-white">Find the right instructor for you</p>
               </div>
@@ -283,7 +286,7 @@
 
             <div class="col-xl-3 col-md-4 col-sm-6">
               <div class="mainSlider-item text-center">
-                <img src="{{ asset('assets/img/home-2/mainSlider/icons/3.svg') }}" alt="icon">
+                <img src="{{ asset('assets/img/icons/3.svg') }}" alt="icon">
                 <h4 class="text-20 fw-500 lh-18 text-white mt-8">Lifetime access</h4>
                 <p class="text-15 text-white">Learn on your schedule</p>
               </div>
@@ -475,7 +478,7 @@
 
       <section class="cta -type-1 layout-pt-lg layout-pb-lg">
         <div data-parallax="0.6" class="cta__bg">
-          <div data-parallax-target class="bg-image js-lazy" data-bg="{{ asset('assets/img/home-2/cta/bg.png') }}"></div>
+          <div data-parallax-target class="bg-image js-lazy" data-bg="{{ asset('assets/img/cta/bg.png') }}"></div>
         </div>
 
         <div class="container">
@@ -612,7 +615,7 @@
         </div>
       </section> --}}
 
-      <section class="layout-pt-lg layout-pb-lg bg-light-3">
+      {{-- <section class="layout-pt-lg layout-pb-lg bg-light-3">
         <div class="container">
           <div class="row y-gap-15 justify-between items-end">
             <div class="col-lg-6">
@@ -693,7 +696,7 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> --}}
 {{-- 
       <section class="layout-pt-lg layout-pb-lg">
         <div class="container">
@@ -838,7 +841,7 @@
         <div class="container">
           <div class="row y-gap-30 items-center">
             <div class="col-xl-5 offset-xl-1 col-lg-6">
-              <img class="w-1/1" src="{{ asset('assets/img/home-2/about/1.png') }}" alt="image">
+              <img class="w-1/1" src="{{ asset('assets/img/about/1.png') }}" alt="image">
             </div>
 
             <div class="col-xl-4 offset-xl-1 col-lg-6">
@@ -864,7 +867,7 @@
             </div>
 
             <div class="col-xl-5 offset-xl-1 col-lg-6 order-lg-2 order-1">
-              <img class="w-1/1" src="{{ asset('assets/img/home-2/about/2.png') }}" alt="image">
+              <img class="w-1/1" src="{{ asset('assets/img/about/2.png') }}" alt="image">
             </div>
           </div>
         </div>

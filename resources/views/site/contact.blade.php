@@ -24,8 +24,9 @@
   <section class="layout-pt-md layout-pb-lg">
     <div data-anim-wrap class="container">
       <div class="row y-gap-50 justify-between">
+        
         <div class="col-xl-5 col-lg-6">
-          <h3 class="text-24 lh-1 fw-500">Our offices</h3>
+          <h3 class="text-24 lh-1 fw-500">Nos Bureaux</h3>
           <div class="row y-gap-30 pt-40">
 
             @foreach($bureaux as $bureau)
@@ -49,25 +50,27 @@
             <h3 class="text-24 fw-500">Send a Message</h3>
             <p class="mt-25">Neque convallis a cras semper auctor. Libero id faucibus nisl<br> tincidunt egetnvallis.</p>
 
-            <form class="contact-form row y-gap-30 pt-60 lg:pt-40" action="#">
+            <form class="contact-form row y-gap-30 pt-60 lg:pt-40" action="{{ route('contacts.store') }}" method="POST">
+              @csrf
               <div class="col-12">
-                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Name</label>
-                <input type="text" name="title" placeholder="Name...">
+                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">{{ $parametre->name_label ?? 'Nom' }}</label>
+                <input type="text" name="nom" placeholder="{{ $parametre->name_placeholder ?? 'Nom...' }}">
               </div>
               <div class="col-12">
-                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Email Address</label>
-                <input type="text" name="title" placeholder="Email...">
+                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">{{ $parametre->email_label ?? 'Email Address' }}</label>
+                <input type="email" name="email" placeholder="{{ $parametre->email_placeholder ?? 'Email...' }}">
               </div>
               <div class="col-12">
-                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Message...</label>
-                <textarea name="comment" placeholder="Message" rows="8"></textarea>
+                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">{{ $parametre->message_label ?? 'Message...' }}</label>
+                <textarea name="message" placeholder="{{ $parametre->message_placeholder ?? 'Message' }}" rows="8"></textarea>
               </div>
               <div class="col-12">
                 <button type="submit" name="submit" id="submit" class="button -md -purple-1 text-white">
-                  Send Message
+                  {{ $parametre->submit_button_text ?? 'Send Message' }}
                 </button>
               </div>
             </form>
+            
           </div>
         </div>
       </div>

@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('email2')->nullable();
             $table->string('copyright')->nullable();
+            $table->string('copyright_year')->nullable();
+            $table->string('company_name')->nullable();
             $table->string('logo')->nullable();
             $table->string('logo_footer')->nullable();
             $table->string('favicon')->nullable();

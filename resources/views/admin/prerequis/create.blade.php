@@ -3,12 +3,12 @@
 @section('isActive11')
 active
 @endsection
-@section('isActive12')
+@section('isActive15')
 active
 @endsection
 @section('content')
 <div class="container">
-    <h1>Create New Devise</h1>
+    <h1>Create New Prerequis</h1>
 
     <form action="{{ route('admin.prerequis.store') }}" method="POST">
         @csrf

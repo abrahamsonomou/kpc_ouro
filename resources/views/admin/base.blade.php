@@ -69,11 +69,6 @@
 
 	<link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
 
-	{{-- <!-- Google Font -->
-	<link rel="preconnect" href="https://fonts.googleapis.com/">
-	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&amp;family=Roboto:wght@400;500;700&amp;display=swap"> --}}
-
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/font-awesome/css/all.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/vendor/apexcharts/css/apexcharts.css') }}">
@@ -90,102 +85,25 @@
 
 	<div class="d-flex align-items-center">
 		<a class="navbar-brand" href="{{ route('home') }}" target="_blank">
-			<img class="navbar-brand-item" src="{{ asset('storage/' . $parametre->logo) }}" alt="">
+			<img class="navbar-brand-item" src="{{ asset('storage/' .$parametre->logo ?? 'assets/img/general/logo.svg') }}" alt="">
 		</a>
 	</div>
 	
 	<div class="offcanvas offcanvas-start flex-row custom-scrollbar h-100" data-bs-backdrop="true" tabindex="-1" id="offcanvasSidebar">
 		<div class="offcanvas-body sidebar-content d-flex flex-column bg-dark">
-
-			{{-- <ul class="navbar-nav flex-column" id="navbar-sidebar">
-				
-				<li class="nav-item"><a href="{{ route('admin.dashboard') }}" class="nav-link @yield('isActive1')"><i class="bi bi-house fa-fw me-2"></i>Dashboard</a></li>
-				
-				<li class="nav-item"> <a class="nav-link @yield('isActive2')" href="{{ route('admin.cours.list') }}"><i class="bi bi-basket fa-fw me-2"></i>Courses</a></li>
-
-				<li class="nav-item"> <a class="nav-link @yield('isActive3')" href="{{ route('admin.students') }}"><i class="fas fa-user-graduate fa-fw me-2"></i>Students</a></li>
-
-				<li class="nav-item">
-					<a class="nav-link @yield('isActive4')" data-bs-toggle="collapse" href="#collapseinstructors" role="button" aria-expanded="false" aria-controls="collapseinstructors">
-						<i class="fas fa-user-tie fa-fw me-2"></i>Instructors
-					</a>
-					<ul class="nav collapse flex-column" id="collapseinstructors" data-bs-parent="#navbar-sidebar">
-						<li class="nav-item"> <a class="nav-link @yield('isActive5')" href="{{ route('admin.instructors') }}">Instructors</a></li>
-						<li class="nav-item"> 
-							<a class="nav-link @yield('isActive6')" href="{{ route('admin.instructors_request') }}">Instructor requests
-								<span class="badge text-bg-success rounded-circle ms-2">2</span>
-							</a>
-						</li>
-					</ul>
-				</li>
-				
-				<li class="nav-item"> <a class="nav-link @yield('isActive7')" href="{{ route('admin.reviews') }}"><i class="far fa-comment-dots fa-fw me-2"></i>Reviews</a></li>
-
-				<li class="nav-item"> <a class="nav-link @yield('isActive8')" href="{{ route('admin.articles.list') }}"><i class="far fa-chart-bar fa-fw me-2"></i>Articles</a></li>
-
-				<li class="nav-item"> <a class="nav-link @yield('isActive9')" href="{{ route('admin.settings') }}"><i class="fas fa-user-cog fa-fw me-2"></i>Admin Settings</a></li>
-
-				<li class="nav-item"> <a class="nav-link @yield('isActive10')" href="{{ route('admin.contacts') }}"><i class="far fa-clipboard fa-fw me-2"></i>Contacts</a></li>
-
-				<li class="nav-item">
-					<a class="nav-link @yield('isActive11')" data-bs-toggle="collapse" href="#collapseparametres" role="button" aria-expanded="false" aria-controls="collapseparametres">
-						<i class="fas fa-user-tie fa-fw me-2"></i>Parametres Cours
-					</a>
-					<ul class="nav collapse flex-column" id="collapseparametres" data-bs-parent="#navbar-sidebar">
-						<li class="nav-item"><a class="nav-link @yield('isActive15')" href="{{ route('admin.niveaux.list') }}">Niveaux</a></li>
-						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.categories.list') }}">Categories</a></li>
-						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.tags.list') }}">Tags</a></li>
-						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.prerequis.list') }}">Prerequis</a></li>
-					</ul>
-				</li>
-
-
-				<li class="nav-item">
-					<a class="nav-link @yield('isActive12')" data-bs-toggle="collapse" href="#collapseparametresDivers" role="button" aria-expanded="false" aria-controls="collapseparametresDivers">
-						<i class="fas fa-user-tie fa-fw me-2"></i>Divers
-					</a>
-					<ul class="nav collapse flex-column" id="collapseparametresDivers" data-bs-parent="#navbar-sidebar">
-						<li class="nav-item"> <a class="nav-link @yield('isActive12')" href="{{ route('admin.pays.list') }}">Pays</a></li>
-						<li class="nav-item"> <a class="nav-link @yield('isActive13')" href="{{ route('admin.villes.list') }}">Villes</a></li>
-						<li class="nav-item"><a class="nav-link @yield('isActive14')" href="{{ route('admin.devises.list') }}">Devises</a></li>
-						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.langues.list') }}">langues</a></li>
-						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.specialites.list') }}">specialites</a></li>
-					</ul>
-				</li>
-
-				<li class="nav-item">
-					<a class="nav-link @yield('isActive13')" data-bs-toggle="collapse" href="#collapseparametresSecurite" role="button" aria-expanded="false" aria-controls="collapseparametresSecurite">
-						<i class="fas fa-user-tie fa-fw me-2"></i>Securite
-					</a>
-					<ul class="nav collapse flex-column" id="collapseparametresSecurite" data-bs-parent="#navbar-sidebar">
-						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.users.list') }}">Utilisateurs</a></li>
-					</ul>
-				</li>
-
-				<li class="nav-item">
-					<a class="nav-link @yield('isActive14')" data-bs-toggle="collapse" href="#collapseparametresSiteDive" role="button" aria-expanded="false" aria-controls="collapseparametresSiteDive">
-						<i class="fas fa-user-tie fa-fw me-2"></i>Parametres Site
-					</a>
-					<ul class="nav collapse flex-column" id="collapseparametresSiteDive" data-bs-parent="#navbar-sidebar">
-						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.bureaux.list') }}">Bureaux</a></li>
-						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.slides.list') }}">slides</a></li>
-						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.services.list') }}">services</a></li>
-						<li class="nav-item"><a class="nav-link @yield('isActive16')" href="{{ route('admin.partenaires.list') }}">partenaires</a></li>
-					</ul>
-				</li>
-			</ul> --}}
 			<ul class="navbar-nav flex-column" id="navbar-sidebar">
 				<li class="nav-item"><a href="{{ route('admin.dashboard') }}" class="nav-link @yield('isActive1')"><i class="bi bi-house fa-fw me-2"></i>Dashboard</a></li>
-				<li class="nav-item"><a class="nav-link @yield('isActive2')" href="{{ route('admin.cours.list') }}"><i class="bi bi-basket fa-fw me-2"></i>Courses</a></li>
+				<li class="nav-item"><a class="nav-link @yield('isActive4')" href="{{ route('admin.instructors') }}"><i class="fas fa-chalkboard-teacher fa-fw me-2 "></i>Instructors </a></li>
+				{{-- <li class="nav-item"><a class="nav-link @yield('isActive6')" href="{{ route('admin.instructors_request') }}">Instructor Requests <span class="badge text-bg-success rounded-circle ms-2">2</span></a></li> --}}
 				<li class="nav-item"><a class="nav-link @yield('isActive3')" href="{{ route('admin.students') }}"><i class="fas fa-user-graduate fa-fw me-2"></i>Students</a></li>
 				
 				<li class="nav-item">
-					<a class="nav-link @yield('isActive4')" data-bs-toggle="collapse" href="#collapseinstructors" role="button" aria-expanded="false">
-						<i class="fas fa-chalkboard-teacher fa-fw me-2"></i>Instructors
+					<a class="nav-link @yield('isActive2')" data-bs-toggle="collapse" href="#collapseCourses" role="button" aria-expanded="false">
+						<i class=" bi bi-basket fa-fw me-2"></i>Courses
 					</a>
-					<ul class="nav collapse flex-column" id="collapseinstructors">
-						<li class="nav-item"><a class="nav-link @yield('isActive5')" href="{{ route('admin.instructors') }}">Instructors</a></li>
-						<li class="nav-item"><a class="nav-link @yield('isActive6')" href="{{ route('admin.instructors_request') }}">Instructor Requests <span class="badge text-bg-success rounded-circle ms-2">2</span></a></li>
+					<ul class="nav collapse flex-column" id="collapseCourses">
+						<li class="nav-item"><a class="nav-link @yield('isActive5')" href="{{ route('admin.cours.list') }}">All Courses</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive6')" href="{{ route('admin.cours.enroulements') }}">Enroulements <span class="badge text-bg-success rounded-circle ms-2">2</span></a></li>
 					</ul>
 				</li>
 				
@@ -202,7 +120,7 @@
 						<li class="nav-item"><a class="nav-link @yield('isActive12')" href="{{ route('admin.niveaux.list') }}">Niveaux</a></li>
 						<li class="nav-item"><a class="nav-link @yield('isActive13')" href="{{ route('admin.categories.list') }}">Categories</a></li>
 						<li class="nav-item"><a class="nav-link @yield('isActive14')" href="{{ route('admin.tags.list') }}">Tags</a></li>
-						<li class="nav-item"><a class="nav-link @yield('isActive15')" href="{{ route('admin.prerequis.list') }}">Prerequisites</a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive15')" href="{{ route('admin.prerequis.list') }}">Prerequis</a></li>
 					</ul>
 				</li>
 				
@@ -253,8 +171,8 @@
 
 				<div class="d-flex align-items-center d-xl-none">
 					<a class="navbar-brand" href="index.html">
-						<img class="light-mode-item navbar-brand-item h-30px" src="{{ asset('storage/' . $parametre->logo) }}" alt="">
-						<img class="dark-mode-item navbar-brand-item h-30px" src="{{ asset('storage/' . $parametre->logo) }}" alt="">
+						<img class="light-mode-item navbar-brand-item h-30px" src="{{ asset($parametre->logo ?? 'assets/img/general/logo.svg') }}" alt="">
+						<img class="dark-mode-item navbar-brand-item h-30px" src="{{ asset($parametre->logo ?? 'assets/img/general/logo.svg') }}" alt="">
 					</a>
 				</div>
 

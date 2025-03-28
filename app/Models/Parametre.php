@@ -15,6 +15,8 @@ class Parametre extends Model
         'copyright', 
         'description',
         'site_name',
+        'copyright_year',
+        'company_name',
         'email2',
         'logo',
         'logo_footer',

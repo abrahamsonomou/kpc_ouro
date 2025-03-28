@@ -1,9 +1,9 @@
 @extends('admin.base')
 @section('title', 'Devises')
-@section('isActive11')
+@section('isActive16')
 active
 @endsection
-@section('isActive12')
+@section('isActive19')
 active
 @endsection
 @section('content')

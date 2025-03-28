@@ -23,6 +23,7 @@ use App\Models\Prerequis;
 use App\Models\Slide;
 use App\Models\Service;
 use App\Models\Partenaire;
+use App\Models\Inscription;
 
 class AdminController extends Controller
 {
@@ -1449,6 +1450,13 @@ public function settings(Request $request)
         return redirect()->route('admin.cours.list')->with('success', 'Course has been successfully');
     }
 
+    public function cours_show($id)
+    {
+        $cours = Cours::findOrFail($id);
+
+        return redirect()->route('admin.cours.list')->with('success', 'Course deleted successfully');
+    }
+
     // Delete a course
     public function cours_destroy($id)
     {
@@ -1456,6 +1464,13 @@ public function settings(Request $request)
         $cours->delete();
 
         return redirect()->route('admin.cours.list')->with('success', 'Course deleted successfully');
+    }
+
+    public function enroulements()
+    {
+        $enroulements = Inscription::all();
+
+        return view('admin.cours.enroulements', compact('enroulements'));
     }
 
     public function articles_list()

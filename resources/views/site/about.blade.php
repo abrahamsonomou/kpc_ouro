@@ -31,12 +31,12 @@
             <div data-anim="slide-up delay-1">
 
               <h1 class="page-header__title">About Us</h1>
-              <h2>{{ __('messages.welcome') }}</h2>
+              {{-- <h2>{{ __('messages.welcome') }}</h2> --}}
             </div>
 
             <div data-anim="slide-up delay-2">
 
-              <p class="page-header__text">We’re on a mission to deliver engaging, curated courses at a reasonable price.</p>
+              {{-- <p class="page-header__text">We’re on a mission to deliver engaging, curated courses at a reasonable price.</p> --}}
 
             </div>
           </div>
@@ -62,7 +62,7 @@
           <p class="text-dark-1 mt-30">You can start and finish one of these popular courses in under a day – for free! Check out the list below.. Take the course for free</p>
           <p class="pr-50 lg:pr-0 mt-25">Neque convallis a cras semper auctor. Libero id faucibus nisl tincidunt egetnvallis a cras semper auctonvallis a cras semper aucto. Neque convallis a cras semper auctor. Liberoe convallis a cras semper atincidunt egetnval</p>
           <div class="d-inline-block">
-            <a href="signup.html" class="button -md -purple-1 text-white mt-30">Start Learning For Free</a>
+            <a href="{{ route('register') }}" class="button -md -purple-1 text-white mt-30">Commencer aujourd'hui</a>
           </div>
         </div>
       </div>

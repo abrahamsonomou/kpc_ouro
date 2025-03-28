@@ -13,8 +13,7 @@ active
         </div>
     </div>
 
-    <div class="row g-4 mb-4">
-        <!-- Counter item -->
+    {{-- <div class="row g-4 mb-4">
         <div class="col-md-6 col-xxl-3">
             <div class="card card-body bg-warning bg-opacity-15 p-4 h-100">
                 <div class="d-flex justify-content-between align-items-center">
@@ -29,7 +28,6 @@ active
             </div>
         </div>
 
-        <!-- Counter item -->
         <div class="col-md-6 col-xxl-3">
             <div class="card card-body bg-purple bg-opacity-10 p-4 h-100">
                 <div class="d-flex justify-content-between align-items-center">
@@ -44,7 +42,6 @@ active
             </div>
         </div>
 
-        <!-- Counter item -->
         <div class="col-md-6 col-xxl-3">
             <div class="card card-body bg-primary bg-opacity-10 p-4 h-100">
                 <div class="d-flex justify-content-between align-items-center">
@@ -59,7 +56,6 @@ active
             </div>
         </div>
 
-        <!-- Counter item -->
         <div class="col-md-6 col-xxl-3">
             <div class="card card-body bg-success bg-opacity-10 p-4 h-100">
                 <div class="d-flex justify-content-between align-items-center">
@@ -195,7 +191,7 @@ active
             </div>
         </div>
 
-    </div>
+    </div> --}}
 
 </div>
 
