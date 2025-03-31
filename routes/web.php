@@ -45,10 +45,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
 // Routes pour utilisateurs authentifiés
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+    Route::post('/password/update', [AuthController::class, 'update_password'])->name('password.update');
     Route::post('/lock-screen', [AuthController::class, 'lockScreen'])->name('lockScreen');
     Route::post('/unlock-screen', [AuthController::class, 'unlockScreen'])->name('unlockScreen');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/profile', [AuthController::class, 'show_profile'])->name('profile.show');
+    Route::put('/profile/update', [AuthController::class, 'update_profile'])->name('profile.update');
+
     Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
     Route::post('/inscrire/{cours}', [SiteController::class, 'enroulement_cours'])->name('inscrire');
 });
@@ -94,6 +97,9 @@ Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(functi
     Route::post('/articles/{id}/reject', [AdminController::class, 'rejectarticle'])->name('articles.reject');
     Route::post('/articles/{id}/toggle-status', [AdminController::class, 'togglearticleStatus'])->name('articles.toggleStatus');
     
+    Route::post('/enroulements/{id}/approve', [AdminController::class, 'approveenroulement'])->name('enroulements.approve');
+    Route::post('/enroulements/{id}/toggle-status', [AdminController::class, 'toggleenroulementstatus'])->name('enroulements.toggleStatus');
+
     // Gestion des entités (CRUD)
     $entities = ['pays', 'villes', 'slides', 'services', 'evenements', 'partenaires', 'devises', 'specialites', 'prerequis', 'niveaux', 'users', 'categories', 'tags', 'cours', 'langues', 'bureaux', 'articles'];
     foreach ($entities as $entity) {

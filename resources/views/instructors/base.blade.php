@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/vendors.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 
-  <title>@yield('title') | KPC OURO</title>
+  <title>@yield('title') | {{ $parametre->site_name ?? 'KPC OURO' }}</title>
 </head>
 
 <body class="preloader-visible" data-barba="wrapper">
@@ -38,9 +38,11 @@
                 </div>
 
                 <div class="header__logo ml-30 md:ml-20">
-                  <a data-barba href="index.html">
-                    <img class="-light-d-none" src="{{ asset('assets/img/general/logo.svg') }}" alt="logo">
-                    <img class="-dark-d-none" src="{{ asset('assets/img/general/logo-dark.svg') }}" alt="logo">
+                  <a data-barba href="{{ route('home') }}">
+                    {{-- <img class="-light-d-none" src="{{ asset('assets/img/general/logo.svg') }}" alt="logo">
+                    <img class="-dark-d-none" src="{{ asset('assets/img/general/logo-dark.svg') }}" alt="logo"> --}}
+                    <img src="{{ asset('storage/' .$parametre->logo ?? 'assets/img/general/logo.svg') }}" alt="logo">
+                  
                   </a>
                 </div>
               </div>
@@ -300,7 +302,7 @@
               </div> --}}
 
               <div class="sidebar__item @yield('isActive6')">
-                <a href="{{ route('instructors.settings') }}" class="d-flex items-center text-17 lh-1 fw-500 ">
+                <a href="{{ route('profile.show') }}" class="d-flex items-center text-17 lh-1 fw-500 ">
                   <i class="text-20 icon-setting mr-15"></i>
                   Settings
                 </a>
@@ -325,7 +327,10 @@
             <footer class="footer -dashboard py-30">
               <div class="row items-center justify-between">
                 <div class="col-auto">
-                  <div class="text-13 lh-1">© 2025 KPC OURO. All Right Reserved.</div>
+                  <div class="text-13 lh-1">
+                    © {{ $parametre->copyright_year ?? '2025' }} {{ $parametre->company_name ?? 'KCP OURO' }}. All Rights Reserved.</div>
+                  
+                  </div>
                 </div>
   
                 <div class="col-auto">

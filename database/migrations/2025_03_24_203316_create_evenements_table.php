@@ -20,8 +20,7 @@ return new class extends Migration
             $table->date('date');
             $table->string('lieu');
             $table->string('image');
-            $table->boolean('active')->default(true);
-            $table->integer('ordre')->default(0);
+            $table->tinyInteger('active')->default(1);
             $table->timestamps();
         });
     }

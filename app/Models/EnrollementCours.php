@@ -10,4 +10,6 @@ class EnrollementCours extends Model
     use HasFactory;
 
     protected $fillable = ['user_id', 'cours_id', 'date_enrolemment', 'active'];
+
+    
 }

@@ -19,39 +19,91 @@ active
             <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
                 <thead>
                     <tr>
-                        <th scope="col" class="border-0 rounded-start">#</th>
+                        {{-- <th scope="col" class="border-0 rounded-start">#</th> --}}
                         <th scope="col" class="border-0">Apprenant</th>
                         <th scope="col" class="border-0">Cours</th>
-                        <th scope="col" class="border-0">Etat</th>
                         <th scope="col" class="border-0">Date</th>
+                        <th scope="col" class="border-0">taux_progression</th>
+                        <th scope="col" class="border-0">Active</th>
+                        <th scope="col" class="border-0">Etat</th>
                         <th scope="col" class="border-0 rounded-end">Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($enroulements as $enroulement)
+
                     <tr>
-                        <td>01</td>
+                        {{-- <td>01</td> --}}
                         <td>
-                            <div class="d-flex align-items-center position-relative">
-                                <div class="mb-0 ms-2">
-                                    <h6 class="mb-0"><a href="#" class="stretched-link">Lori Stevens</a></h6>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="avatar avatar-xs flex-shrink-0">
+                                    <img class="avatar-img rounded-circle" src="{{ $enroulement->user->avatar ? asset('storage/users/avatar/' . $enroulement->user->avatar) : asset('assets/img/general/avatar-1.png') }}" alt="avatar">
+                                </div>
+                                <div class="ms-2">
+                                    <h6 class="mb-0 fw-light">{{ $enroulement->user->first_name ?? '' }} {{ $enroulement->user->last_name ?? '' }}</h6>
                                 </div>
                             </div>
                         </td>
                         <td>
-                            <h6 class="table-responsive-title mb-0"><a href="#">test@gmail.com</a></h6>
+                            <h6 class="table-responsive-title mb-0"><a href="#">{{ $enroulement->user->email ?? '' }}</a></h6>
                         </td>
                         <td>
-                            <h6 class="table-responsive-title mb-0"><a href="#">Building Scalable APIs with GraphQL</a></h6>
+                            <div class="d-flex align-items-center position-relative">
+                                <div class="w-60px">
+                                    <img src="{{ asset('storage/' . $enroulement->cours->image) }}" class="rounded" alt="">
+                                </div>
+                                <h6 class="table-responsive-title mb-0 ms-2">    
+                                    <a href="#" class="stretched-link">{{ $enroulement->cours->titre }}</a>
+                                </h6>
+                            </div>
                         </td>
                         <td>
-                            <h6>21/05/2025</h6>
+                            <h6>{{ $enroulement->date_inscription }}</h6>
+                        </td>
+                        <td>
+                            <h6>{{ $enroulement->taux_progression }}</h6>
+                        </td>
+                        <td> 
+                            @if ($enroulement->active == 0)
+                                <span class="badge bg-warning bg-opacity-15 text-warning">Inactif</span> 
+                            @elseif($enroulement->active == 1)
+                                <span class="badge bg-warning bg-opacity-15 text-success">Actif</span> 
+                            @endif
+                        </td>
+                        <td> 
+                            @if ($enroulement->etat == 0)
+                                <span class="badge bg-warning bg-opacity-15 text-primary">Nouveau</span> 
+                            @elseif($enroulement->etat == 1)
+                                <span class="badge bg-warning bg-opacity-15 text-success">Approuvé</span> 
+                            @elseif($enroulement->etat == 2)
+                                <span class="badge bg-warning bg-opacity-15 text-danger">Rejeté</span> 
+                            @endif
                         </td>
                         <td>
                             <button class="btn btn-danger-soft btn-round me-1 mb-1 mb-md-0" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Delete">
                                 <i class="bi bi-trash"></i>
                             </button>
+
+                            <form action="{{ route('admin.enroulements.toggleStatus', $enroulement->id) }}" method="POST" class="d-inline-block">
+                                @csrf
+                                    @if ($enroulement->active == 0)
+                                    <button type="submit" class="btn btn-sm btn-warning-soft me-1 mb-1 mb-md-0">
+                                        Activer
+                                    @else
+                                        <button type="submit" class="btn btn-sm btn-danger-soft me-1 mb-1 mb-md-0">
+                                            Désactiver
+                                        @endif
+                                </button>
+                            </form>
+
+                            <form action="{{ route('admin.enroulements.approve', $enroulement->id) }}" method="POST" class="d-inline-block">
+                                @csrf
+                                <button type="submit" class="btn btn-success mt-2">Approuver</button>
+                            </form>
+                            
                         </td>
                     </tr>
+                    @endforeach
 
                 </tbody>
             </table>

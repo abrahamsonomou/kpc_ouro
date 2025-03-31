@@ -9,7 +9,11 @@ active
 @section('content')
 <div class="container">
     <h1>Edit User</h1>
-
+    @if ($errors->any())
+    <div>
+        <p style="color: red;">{{ $errors->first() }}</p>
+    </div>
+    @endif
     <form action="{{ route('admin.users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')

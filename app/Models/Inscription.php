@@ -14,6 +14,8 @@ class Inscription extends Model
         'user_id',
         'cours_id',
         'etat',
+        'active',
+        'taux_progression',
         'date_inscription'
     ];
 

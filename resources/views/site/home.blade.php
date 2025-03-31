@@ -72,6 +72,7 @@
 
               <div class="header__logo ">
                 <a data-barba href="{{ route('home') }}">
+                  {{-- si c'est null --}}
                   <img src="{{ asset('storage/' .$parametre->logo ?? 'assets/img/general/logo.svg') }}" alt="logo">
 
                 </a>
@@ -210,7 +211,6 @@
               <a href="{{ route('dashboard') }}" class="button -underline text-white">Mon Espace</a>
               <a href="{{ route('logout') }}" class="button px-25 h-50 -white text-dark-1 -rounded ml-30 xl:ml-20">Deconnexion</a>
               @endguest
-
             
             </div>
           </div>
@@ -484,19 +484,19 @@
         <div class="container">
           <div class="row justify-center text-center">
             <div class="col-auto">
-              <h2 class="text-45 md:text-30 text-white">Find the right learning path for you</h2>
+              <h2 class="text-45 md:text-30 text-white">Trouvez le parcours d’apprentissage qui vous convient</h2>
             </div>
 
             <div class="w-100"></div>
 
             <div class="col-lg-4 col-md-8">
-              <p class="text-white mt-15">Match your goals to our programs, explore your options and map out your path to success.</p>
+              <p class="text-white mt-15">Associez vos objectifs à nos programmes, explorez vos options et tracez votre chemin vers le succès.</p>
             </div>
 
             <div class="w-100"></div>
 
             <div class="col-auto">
-              <a href="courses-list-3.html" class="button -md -outline-white text-white mt-45 md:mt-20">Get Started Now</a>
+              <a href="{{ route('register') }}" class="button -md -outline-white text-white mt-45 md:mt-20">Commencez maintenant</a>
             </div>
           </div>
         </div>
@@ -845,10 +845,10 @@
             </div>
 
             <div class="col-xl-4 offset-xl-1 col-lg-6">
-              <h3 class="text-24 lh-1">Become an Instructor</h3>
-              <p class="mt-20">Join millions of people from around the world learning together. Online learning is as easy and natural as chatting.</p>
+              <h3 class="text-24 lh-1">Devenir instructeur</h3>
+              <p class="mt-20">Rejoignez des millions de personnes du monde entier qui apprennent ensemble. L’apprentissage chez <strong>KPC OURO</strong> est aussi simple et naturel que le chat.</p>
               <div class="d-inline-block mt-20">
-                <a href="{{ route('register') }}" class="button -md -outline-purple-1 text-purple-1">Apply Now</a>
+                <a href="{{ route('register') }}" class="button -md -outline-purple-1 text-purple-1">Postulez maintenant</a>
               </div>
             </div>
           </div>
@@ -859,10 +859,10 @@
         <div class="container">
           <div class="row y-gap-30 items-center">
             <div class="col-xl-4 offset-xl-1 order-lg-1 col-lg-6 order-2">
-              <h3 class="text-24 lh-1">Become a Student</h3>
-              <p class="mt-20">Join millions of people from around the world learning together. Online learning is as easy and natural as chatting..</p>
+              <h3 class="text-24 lh-1">Devenir étudiant</h3>
+              <p class="mt-20">Rejoignez des millions de personnes du monde entier qui apprennent ensemble. L’apprentissage chez <strong>KPC OURO</strong> est aussi simple et naturel que le chat.</p>
               <div class="d-inline-block mt-20">
-                <a href="{{ route('register') }}" class="button -md -outline-dark-2 text-dark-2">Apply Now</a>
+                <a href="{{ route('register') }}" class="button -md -outline-dark-2 text-dark-2">Postulez maintenant</a>
               </div>
             </div>
 

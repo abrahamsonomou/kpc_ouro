@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="assets/css/vendors.css">
   <link rel="stylesheet" href="assets/css/main.css">
 
-  <title>Educrat</title>
+  <title>Connexion | {{ $parametre->site_name ?? 'KPC OURO' }}</title>
 </head>
 
 <body class="preloader-visible" data-barba="wrapper">
@@ -38,7 +38,10 @@
 
               <div class="header__logo ">
                 <a data-barba href="{{ route('home') }}">
-                  <img src="assets/img/general/logo.svg" alt="logo">
+                  {{-- <img class="-light-d-none" src="{{ asset('assets/img/general/logo.svg') }}" alt="logo">
+                  <img class="-dark-d-none" src="{{ asset('assets/img/general/logo-dark.svg') }}" alt="logo"> --}}
+                  <img src="{{ asset('storage/' .$parametre->logo ?? 'assets/img/general/logo.svg') }}" alt="logo">
+                
                 </a>
               </div>
 
@@ -59,15 +62,14 @@
             <div class="row justify-center items-center">
               <div class="col-xl-6 col-lg-8">
                 <div class="px-50 py-50 md:px-25 md:py-25 bg-white shadow-1 rounded-16">
-                  <h3 class="text-30 lh-13">Login</h3>
-                  <p class="mt-10">Don't have an account yet? <a href="{{ route('register') }}" class="text-purple-1">Sign up for
-                      free</a></p>
+                  <h3 class="text-30 lh-13">Connectez-vous !!</h3>
+                  <p class="mt-10">J'ai pas encore de compte, je m'inscris? <a href="{{ route('register') }}" class="text-purple-1">ici</a></p>
 
                   <form class="contact-form respondForm__form row y-gap-20 pt-30" action="{{ route('login') }}" method="POST">
                     @csrf
                     <div class="col-12">
                       <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Email </label>
-                      <input type="email" name="email" placeholder="Enter your email">
+                      <input type="email" name="email" placeholder="Entrez votre email">
                     </div>
                     <div class="col-12">
                       <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Password</label>

@@ -19,8 +19,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('date_debut')->nullable();
             $table->string('logo');
-            $table->integer('ordre')->default(0);
-            $table->boolean('active')->default(true);
+            $table->tinyInteger('ordre')->default(0);
+            $table->tinyInteger('active')->default(1);
 
             $table->timestamps();
         });

@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/vendors.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 
-  <title>@yield('title') | KPC OURO</title>
+  <title>@yield('title') | {{ $parametre->site_name ?? 'KPC OURO' }}O</title>
 </head>
 
 <body class="preloader-visible" data-barba="wrapper">
@@ -38,9 +38,11 @@
                 </div>
 
                 <div class="header__logo ml-30 md:ml-20">
-                  <a data-barba href="index.html">
-                    <img class="-light-d-none" src="{{ asset('assets/img/general/logo.svg') }}" alt="logo">
-                    <img class="-dark-d-none" src="{{ asset('assets/img/general/logo-dark.svg') }}" alt="logo">
+                  <a data-barba href="{{ route('home') }}">
+                    {{-- <img class="-light-d-none" src="{{ asset('assets/img/general/logo.svg') }}" alt="logo">
+                    <img class="-dark-d-none" src="{{ asset('assets/img/general/logo-dark.svg') }}" alt="logo"> --}}
+                    <img src="{{ asset('storage/' .$parametre->logo ?? 'assets/img/general/logo.svg') }}" alt="logo">
+                  
                   </a>
                 </div>
               </div>
@@ -125,34 +127,17 @@
 
                 <div class="relative d-flex items-center ml-10">
                   <a href="#" data-el-toggle=".js-profile-toggle">
-                    <img class="size-50" src="{{ asset('assets/img/misc/user-profile.png') }}" alt="image">
+                    <img class="size-50" src="{{ asset('assets/img/general/avatar-1.png') }}" alt="image">
                   </a>
 
-                  <div class="toggle-element js-profile-toggle">
+                  {{-- <div class="toggle-element js-profile-toggle">
                     <div class="toggle-bottom -profile bg-white -dark-bg-dark-1 shadow-4 border-light rounded-8 mt-10">
                       <div class="px-30 py-30">
-
-                        <div class="sidebar -dashboard">
-
-                          <div class="sidebar__item ">
-                            <a href="{{ route('students.settings') }}" class="d-flex items-center text-17 lh-1 fw-500 ">
-                              <i class="text-20 icon-setting mr-15"></i>
-                              Settings
-                            </a>
-                          </div>
-
-                          <div class="sidebar__item ">
-                            <a href="{{ route('logout') }}" class="d-flex items-center text-17 lh-1 fw-500 ">
-                              <i class="text-20 icon-power mr-15"></i>
-                              Logout
-                            </a>
-                          </div>
-
-                        </div>
-
+                        <p>Lorem ipsum dolor sit amet.</p>
+                        <p>Lorem, ipsum dolor.</p>
                       </div>
                     </div>
-                  </div>
+                  </div> --}}
                 </div>
               </div>
             </div>
@@ -171,21 +156,28 @@
               <div class="sidebar__item @yield('isActive1')">
                 <a href="{{ route('students.dashboard') }}" class="d-flex items-center text-17 lh-1 fw-500 ">
                   <i class="text-20 icon-discovery mr-15"></i>
-                  Dashboard
+                  Tableau de bord
                 </a>
               </div>
 
               <div class="sidebar__item @yield('isActive2')">
                 <a href="{{ route('students.my_cours') }}" class="d-flex items-center text-17 lh-1 fw-500 -dark-text-white">
                   <i class="text-20 icon-play-button mr-15"></i>
-                  My Courses
+                  Mes Cours
                 </a>
               </div>
 
               <div class="sidebar__item @yield('isActive3')">
                 <a href="{{ route('students.panier') }}" class="d-flex items-center text-17 lh-1 fw-500 ">
                   <i class="text-20 icon-bookmark mr-15"></i>
-                  Bookmarks
+                  Mon Panier
+                </a>
+              </div>
+
+              <div class="sidebar__item @yield('isActive4')">
+                <a href="" class="d-flex items-center text-17 lh-1 fw-500 ">
+                  <i class="text-20 icon-comment mr-15"></i>
+                  Mes revues
                 </a>
               </div>
 
@@ -196,19 +188,20 @@
                 </a>
               </div> --}}
 
-              {{-- <div class="sidebar__item ">
-                <a href="dshb-listing.html" class="d-flex items-center text-17 lh-1 fw-500 ">
+              <div class="sidebar__item @yield('isActive5')">
+                <a href="{{ route('profile.show') }}" class="d-flex items-center text-17 lh-1 fw-500 ">
                   <i class="text-20 icon-list mr-15"></i>
-                  Create Course
+                  Parametres
                 </a>
-              </div> --}}
+              </div>
 
-              {{-- <div class="sidebar__item ">
-                <a href="dshb-reviews.html" class="d-flex items-center text-17 lh-1 fw-500 ">
+              <div class="sidebar__item ">
+                <a href="{{ route('logout') }}" class="d-flex items-center text-17 lh-1 fw-500 ">
                   <i class="text-20 icon-comment mr-15"></i>
-                  Reviews
+                  Deconnexion
                 </a>
-              </div> --}}
+              </div>
+
 
             </div>
 
@@ -221,7 +214,8 @@
           <footer class="footer -dashboard py-30">
             <div class="row items-center justify-between">
               <div class="col-auto">
-                <div class="text-13 lh-1">© 2025 KPC OURO. All Right Reserved.</div>
+                <div class="text-13 lh-1"> 
+                  © {{ $parametre->copyright_year ?? '2025' }} {{ $parametre->company_name ?? 'KCP OURO' }}. All Rights Reserved.</div>
               </div>
 
               <div class="col-auto">

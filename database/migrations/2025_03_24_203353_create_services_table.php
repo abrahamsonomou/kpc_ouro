@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('titre');
             $table->text('description')->nullable();
             $table->string('image');
-            $table->integer('ordre')->default(0);
-            $table->boolean('active')->default(true);
+            $table->tinyInteger('ordre')->default(0);
+            $table->tinyInteger('active')->default(1);
             $table->timestamps();
         });
     }

@@ -9,11 +9,11 @@
         <div class="row">
           <div class="col-auto">
             <div data-anim="slide-up delay-1">
-              <h1 class="page-header__title">Contact Us</h1>
+              <h1 class="page-header__title">Contactez-nous !</h1>
             </div>
 
             <div data-anim="slide-up delay-2">
-              <p class="page-header__text">We’re on a mission to deliver engaging, curated<br> courses at a reasonable price.</p>
+              {{-- <p class="page-header__text">We’re on a mission to deliver engaging, curated<br> courses at a reasonable price.</p> --}}
             </div>
           </div>
         </div>
@@ -47,13 +47,13 @@
 
         <div class="col-lg-6">
           <div class="px-40 py-40 bg-white border-light shadow-1 rounded-8 contact-form-to-top">
-            <h3 class="text-24 fw-500">Send a Message</h3>
-            <p class="mt-25">Neque convallis a cras semper auctor. Libero id faucibus nisl<br> tincidunt egetnvallis.</p>
+            <h3 class="text-24 fw-500">SVP Laissez-nous votre message.</h3>
+            {{-- <p class="mt-25">Neque convallis a cras semper auctor. Libero id faucibus nisl<br> tincidunt egetnvallis.</p> --}}
 
             <form class="contact-form row y-gap-30 pt-60 lg:pt-40" action="{{ route('contacts.store') }}" method="POST">
               @csrf
               <div class="col-12">
-                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">{{ $parametre->name_label ?? 'Nom' }}</label>
+                <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">{{ $parametre->name_label ?? 'Nom complet' }}</label>
                 <input type="text" name="nom" placeholder="{{ $parametre->name_placeholder ?? 'Nom...' }}">
               </div>
               <div class="col-12">
@@ -66,7 +66,7 @@
               </div>
               <div class="col-12">
                 <button type="submit" name="submit" id="submit" class="button -md -purple-1 text-white">
-                  {{ $parametre->submit_button_text ?? 'Send Message' }}
+                  {{ $parametre->submit_button_text ?? 'Envoyer le message' }}
                 </button>
               </div>
             </form>

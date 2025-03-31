@@ -30,8 +30,7 @@ class SiteController extends Controller
                       ->take(12)          // Limiter les résultats à 12 cours
                       ->get();
         $slides = Slide::where('active', 1)->orderBy('ordre', 'asc')->get();
-        $partenaires = Partenaire::where('active', 1)->orderBy('ordre', 'asc')->get();
-        return view('site.home', compact('cours', 'slides', 'partenaires'));
+        return view('site.home', compact('cours', 'slides'));
     }
     
     

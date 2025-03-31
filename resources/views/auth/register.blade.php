@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="assets/css/vendors.css">
   <link rel="stylesheet" href="assets/css/main.css">
 
-  <title>Educrat</title>
+  <title>Inscription | {{ $parametre->site_name ?? 'KPC OURO' }}</title>
 </head>
 
 <body class="preloader-visible" data-barba="wrapper">
@@ -38,7 +38,10 @@
 
               <div class="header__logo ">
                 <a data-barba href="{{ route('home') }}">
-                  <img src="assets/img/general/logo.svg" alt="logo">
+                  {{-- <img class="-light-d-none" src="{{ asset('assets/img/general/logo.svg') }}" alt="logo">
+                  <img class="-dark-d-none" src="{{ asset('assets/img/general/logo-dark.svg') }}" alt="logo"> --}}
+                  <img src="{{ asset('storage/' .$parametre->logo ?? 'assets/img/general/logo.svg') }}" alt="logo">
+                
                 </a>
               </div>
 
@@ -59,18 +62,18 @@
               <div class="row justify-center items-center">
                 <div class="col-xl-8 col-lg-9">
                   <div class="px-50 py-50 md:px-25 md:py-25 bg-white shadow-1 rounded-16">
-                    <h3 class="text-30 lh-13">Sign Up</h3>
-                    <p class="mt-10">Already have an account? <a href="{{ route('login') }}" class="text-purple-1">Log in</a></p>
+                    <h3 class="text-30 lh-13">Creation de compte</h3>
+                    <p class="mt-10">J'ai dejà un compte,je me connecte <a href="{{ route('login') }}" class="text-purple-1">ICI</a></p>
   
                     <form class="contact-form respondForm__form row y-gap-20 pt-30" action="{{ route('register') }}" method="POST">
                       @csrf
                       <div class="col-lg-6">
-                        <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Email address *</label>
-                        <input type="email" name="email" placeholder="Enter your email">
+                        <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Address email *</label>
+                        <input type="email" name="email" placeholder="Entrer votre email">
                       </div>
                       <div class="col-lg-6">
-                        <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Username *</label>
-                        <input type="text" name="name" placeholder="Enter your username">
+                        <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Nom complet *</label>
+                        <input type="text" name="name" placeholder="Entrer votre nom">
                       </div>
                       <div class="col-lg-6">
                         <label class="text-16 lh-1 fw-500 text-dark-1 mb-10">Password *</label>

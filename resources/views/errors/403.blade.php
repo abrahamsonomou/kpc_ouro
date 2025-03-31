@@ -18,7 +18,7 @@
             </h1>
             <h2 class="text-35 lh-12 mt-5">Oops! It looks like you're lost.</h2>
             <div class="mt-10">The page you're looking for isn't available. Try to search again<br> or use the go to.</div>
-            <button class="button -md -purple-1 text-white mt-20">Go Back To Homepage</button>
+            <a href="{{ route('home') }}" class="button -md -purple-1 text-white mt-20">Go Back To Homepage</a>
           </div>
         </div>
       </div>

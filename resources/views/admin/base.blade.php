@@ -103,7 +103,7 @@
 					</a>
 					<ul class="nav collapse flex-column" id="collapseCourses">
 						<li class="nav-item"><a class="nav-link @yield('isActive5')" href="{{ route('admin.cours.list') }}">All Courses</a></li>
-						<li class="nav-item"><a class="nav-link @yield('isActive6')" href="{{ route('admin.cours.enroulements') }}">Enroulements <span class="badge text-bg-success rounded-circle ms-2">2</span></a></li>
+						<li class="nav-item"><a class="nav-link @yield('isActive6')" href="{{ route('admin.cours.enroulements') }}">Enroulements <span class="badge text-bg-success rounded-circle ms-2">{{ $nouvelEnroulements }}</span></a></li>
 					</ul>
 				</li>
 				

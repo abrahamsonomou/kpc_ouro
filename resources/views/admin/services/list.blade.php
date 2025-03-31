@@ -53,7 +53,7 @@ active
 
         <!-- Card body START -->
         <div class="card-body">
-            <!-- Course table START -->
+            <!-- servicese table START -->
             <div class="table-responsive border-0 rounded-3">
                 <!-- Table START -->
                 <table class="table table-dark-gray align-middle p-4 mb-0 table-hover">
@@ -77,7 +77,13 @@ active
                         <td>{{ $service->titre }}</td>
                         <td><img src="{{ asset('storage/' . $service->image) }}" width="50"></td>
                         <td>{{ $service->ordre }}</td>
-                        <td>{{ $service->active ? 'Oui' : 'Non' }}</td>
+                        <td>
+                            @if ($service->active == 0)
+                            <span class="badge bg-warning bg-opacity-15 text-warning">Inactif</span> 
+                        @elseif($service->active == 1)
+                            <span class="badge bg-warning bg-opacity-15 text-success">Actif</span> 
+                        @endif
+                        </td>
                         <td>
                             <a href="{{ route('admin.services.show', $service->id) }}" class="btn btn-info">Voir</a>
                             <a href="{{ route('admin.services.edit', $service->id) }}" class="btn btn-warning">Modifier</a>
@@ -91,34 +97,20 @@ active
                     @endforeach
 
                     </tbody>
-                    <!-- Table body END -->
                 </table>
-                <!-- Table END -->
             </div>
-            <!-- Course table END -->
         </div>
-        <!-- Card body END -->
-
-        <!-- Card footer START -->
-        <div class="card-footer bg-transparent pt-0">
-            <!-- Pagination START -->
+        {{-- <div class="card-footer bg-transparent pt-0">
             <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
-                <!-- Content -->
-                <p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
-                <!-- Pagination -->
+                <p class="mb-0 text-center text-sm-start">Showing {{ $services->firstItem() }} to {{ $services->lastItem() }} of {{ $services->total() }} entries</p>
                 <nav class="d-flex justify-content-center mb-0" aria-label="navigation">
                     <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-                        <li class="page-item mb-0"><a class="page-link" href="#" tabindex="-1"><i class="fas fa-angle-left"></i></a></li>
-                        <li class="page-item mb-0"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item mb-0 active"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item mb-0"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item mb-0"><a class="page-link" href="#"><i class="fas fa-angle-right"></i></a></li>
+                        <!-- This will generate the previous and next page links automatically -->
+                        {{ $services->links('pagination::bootstrap-4') }}
                     </ul>
                 </nav>
             </div>
-            <!-- Pagination END -->
-        </div>
-        <!-- Card footer END -->
+        </div> --}}
     </div>
     <!-- Card END -->
 </div>

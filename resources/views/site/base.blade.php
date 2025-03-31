@@ -1,19 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  {{-- <!-- Required meta tags --> --}}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  {{-- <!-- Google fonts --> --}}
-  <link rel="preconnect" href="https://fonts.googleapis.com/">
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
-
-
-  <link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
-
-  {{-- <!-- Stylesheets --> --}}
   <link rel="stylesheet" href="{{ asset('assets/css/vendors.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
 
@@ -21,13 +10,9 @@
 </head>
 
 <body class="preloader-visible" data-barba="wrapper">
-  <!-- preloader start -->
   <div class="preloader js-preloader">
     <div class="preloader__bg"></div>
   </div>
-  <!-- preloader end -->
-
-
   <main class="main-content  ">
 
     <header data-anim="fade" data-add-bg="bg-dark-1" class="header -type-1 js-header">
@@ -41,7 +26,7 @@
 
               <div class="header__logo ">
                 <a data-barba href="{{ route('home') }}">
-                  <img src="{{ asset($parametre->logo ?? 'assets/img/general/logo.svg') }}" alt="logo">
+                  <img src="{{ asset('storage/' .$parametre->logo ?? 'assets/img/general/logo.svg') }}" alt="logo">
                 </a>
               </div>
 
@@ -52,26 +37,20 @@
                   Explore
                 </a>
 
+                @if($categories_cours->count() > 0)
+
                 <div class="explore-content py-25 rounded-8 bg-white toggle-element js-explore-toggle">
 
-                  {{-- <div class="explore__item">
-                    <a href="#" class="d-flex items-center justify-between text-dark-1">
-                      Design<div class="icon-chevron-right text-11"></div>
-                    </a>
-                    <div class="explore__subnav rounded-8">
-                      <a class="text-dark-1" href="courses-single-2.html">Interior Design</a>
-                    </div>
-                  </div> --}}
-
-                  @if($categories_cours->count() > 0)
                   @foreach ($categories_cours as $categorie_cours)
                   <div class="explore__item">
                     <a href="" class="text-dark-1">{{ $categorie_cours->nom }}</a>
                   </div>
                   @endforeach
-                  @endif
 
                 </div>
+
+                @endif
+
               </div>
 
             </div>
@@ -83,8 +62,8 @@
               <div class="mobile-bg js-mobile-bg"></div>
 
               <div class="d-none xl:d-flex items-center px-20 py-20 border-bottom-light">
-                <a href="{{ route('login') }}" class="text-dark-1">Log in</a>
-                <a href="{{ route('register') }}" class="text-dark-1 ml-30">Sign Up</a>
+                <a href="{{ route('login') }}" class="text-dark-1">Se connecter</a>
+                <a href="{{ route('register') }}" class="text-dark-1 ml-30">Creer un compte</a>
               </div>
               
               <div class="menu js-navList">

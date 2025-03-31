@@ -5,10 +5,11 @@ use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
-use App\Models\Pays;
 use App\Models\Devise;
 use App\Models\Niveau;
 use App\Models\User;
+use App\Models\Specialite;
+use App\Models\Pays;
 use App\Models\Ville;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Categorie;
@@ -18,7 +19,6 @@ use App\Models\Langue;
 use App\Models\Article;
 use App\Models\Bureau;
 use App\Models\Parametre;
-use App\Models\Specialite;
 use App\Models\Prerequis;
 use App\Models\Slide;
 use App\Models\Service;
@@ -279,7 +279,7 @@ public function settings(Request $request)
 
                 public function services_list()
                 {
-                    $services = Service::all();
+                    $services = Service::paginate(1);
                     return view('admin.services.list', compact('services'));
                 }
             
@@ -1194,7 +1194,7 @@ public function settings(Request $request)
         // $cours = Cours::all();
     
             // Fetch courses with pagination (10 per page)
-        $cours = Cours::paginate(1); 
+        $cours = Cours::paginate(5); 
 
         // Count the total number of courses
         $totalCours = Cours::count();
@@ -1473,6 +1473,33 @@ public function settings(Request $request)
         return view('admin.cours.enroulements', compact('enroulements'));
     }
 
+    public function toggleenroulementstatus($id)
+    {
+        $enroulement = Inscription::findOrFail($id);
+
+        // Activer ou désactiver le enroulement
+        if ($enroulement->active == 0) {
+            $enroulement->active = 1; // Activer
+        } else {
+            $enroulement->active = 0; // Désactiver
+        }
+
+        $enroulement->save();
+
+        return redirect()->route('admin.cours.enroulements')->with('success', 'enroulement has been successfully');
+    }
+	
+	    public function approveenroulement($id, Request $request)
+    {
+        $enroulement = Inscription::findOrFail($id);
+
+
+        $enroulement->etat = 1;
+        $enroulement->save();
+
+        return redirect()->route('admin.cours.enroulements')->with('success', 'enroulement approved successfully');
+    }
+    
     public function articles_list()
     {
         $articles = Article::all();

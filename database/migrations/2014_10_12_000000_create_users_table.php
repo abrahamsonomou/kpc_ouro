@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('role')->nullable()->default('student');
             $table->tinyInteger('is_admin')->default(0);
             $table->tinyInteger('is_active')->default(1);
-            $table->tinyInteger('is_othor')->default(1);
+            $table->tinyInteger('is_othor')->default(0);
             $table->tinyInteger('approuve_cours')->default(0);
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
