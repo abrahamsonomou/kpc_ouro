@@ -209,7 +209,8 @@
 
                 <div class="relative d-flex items-center ml-10">
                   <a href="#" data-el-toggle=".js-profile-toggle">
-                    <img class="size-50" src="{{ asset('assets/img/misc/user-profile.png') }}" alt="image">
+											{{-- <img class="avatar-img rounded-circle shadow size-50" src="{{ asset(Auth::user()->avatar ?? 'assets/images/avatar.png') }}" alt="avatar"> --}}
+                      <img class="size-50" src="{{ asset('assets/images/avatar.png') }}" alt="image">
                   </a>
 
                   <div class="toggle-element js-profile-toggle">

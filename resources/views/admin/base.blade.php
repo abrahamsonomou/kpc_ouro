@@ -171,8 +171,14 @@
 
 				<div class="d-flex align-items-center d-xl-none">
 					<a class="navbar-brand" href="index.html">
-						<img class="light-mode-item navbar-brand-item h-30px" src="{{ asset($parametre->logo ?? 'assets/img/general/logo.svg') }}" alt="">
-						<img class="dark-mode-item navbar-brand-item h-30px" src="{{ asset($parametre->logo ?? 'assets/img/general/logo.svg') }}" alt="">
+						@if(!empty($parametre->logo))
+						<img class="light-mode-item navbar-brand-item h-30px" src="{{ asset($parametre->logo) }}" alt="Logo">
+						<img class="dark-mode-item navbar-brand-item h-30px" src="{{ asset($parametre->logo) }}" alt="Logo">
+						@else
+							<img class="light-mode-item navbar-brand-item h-30px" src="{{ asset('assets/img/general/logo.svg') }}" alt="Logo par défaut">
+							<img class="dark-mode-item navbar-brand-item h-30px" src="{{ asset('assets/img/general/logo.svg') }}" alt="Logo par défaut">
+						@endif
+					
 					</a>
 				</div>
 
@@ -207,7 +213,7 @@
 				<div class="ms-xl-auto">
 					<ul class="navbar-nav flex-row align-items-center">
 
-						<li class="nav-item ms-2 ms-md-3 dropdown">
+						{{-- <li class="nav-item ms-2 ms-md-3 dropdown">
 							<a class="btn btn-light btn-round mb-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
 								<i class="bi bi-bell fa-fw"></i>
 							</a>
@@ -241,22 +247,22 @@
 									</div>
 								</div>
 							</div>
-						</li>
+						</li> --}}
 
 						<li class="nav-item ms-2 ms-md-3 dropdown">
 							<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-								<img class="avatar-img rounded-circle" src="{{ asset('assets/images/avatar/01.jpg') }}" alt="avatar">
+								<img class="avatar-img rounded-circle shadow" src="{{ asset(Auth::user()->avatar ?? 'assets/images/avatar.png') }}" alt="avatar">
 							</a>
 
 							<ul class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
 								<li class="px-3">
 									<div class="d-flex align-items-center">
 										<div class="avatar me-3 mb-3">
-											<img class="avatar-img rounded-circle shadow" src="{{ asset('assets/images/avatar/01.jpg') }}" alt="avatar">
+											<img class="avatar-img rounded-circle shadow" src="{{ asset(Auth::user()->avatar ?? 'assets/images/avatar.png') }}" alt="avatar">
 										</div>
 										<div>
-											<a class="h6 mt-2 mt-sm-0" href="#">Lori Ferguson</a>
-											<p class="small m-0">example@gmail.com</p>
+											<a class="h6 mt-2 mt-sm-0" href="#">{{ Auth::user()->name }}</a>
+											<p class="small m-0">{{ Auth::user()->email }}</p>
 										</div>
 									</div>
 								</li>

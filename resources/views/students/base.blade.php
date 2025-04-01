@@ -127,7 +127,7 @@
 
                 <div class="relative d-flex items-center ml-10">
                   <a href="#" data-el-toggle=".js-profile-toggle">
-                    <img class="size-50" src="{{ asset('assets/img/general/avatar-1.png') }}" alt="image">
+                    <img class="size-50" src="{{ asset('assets/images/avatar.png') }}" alt="image">
                   </a>
 
                   {{-- <div class="toggle-element js-profile-toggle">
